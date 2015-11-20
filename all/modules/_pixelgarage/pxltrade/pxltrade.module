@@ -4,7 +4,10 @@
 * A description of what your module does.
 */
 
-require_once 'includes/webform.inc';
+require_once 'includes/webform.inc';  // specific webform enhancements for trading plattform
+require_once 'includes/webform.node.inc'; // trading webform submission to node conversion implementation
+require_once 'includes/proximity.action.inc'; // implements proximity item click action
+
 
 
 /**
@@ -23,8 +26,16 @@ function pxltrade_theme() {
         'id' => '',
         'items' => array(),
       ),
-      'file' => 'templates/pxltrade_bs_carousel.vars.php',
+      'file' => 'templates/pxltrade-bs-carousel.vars.php',
       'template' => 'templates/pxltrade-bs-carousel',
+    ),
+    'pxltrade_delivery_confirmation' => array(
+      'variables' => array(
+        'node' => null,
+        'sid' => null,
+      ),
+      'file' => 'templates/pxltrade-delivery-confirmation.vars.php',
+      'template' => 'templates/pxltrade-delivery-confirmation',
     ),
   );
 }

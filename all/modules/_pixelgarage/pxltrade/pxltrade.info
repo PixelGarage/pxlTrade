@@ -5,8 +5,9 @@ package = Pixelgarage
 version = "7.x-1.0"
 
 ; Dependencies
-;dependencies[] =
+dependencies[] = proximity
+dependencies[] = webform
+dependencies[] = ctools
 
 ; Include files
-files[] = includes/webform.inc
 

@@ -13,8 +13,6 @@ include_once($pixelgarage_path . '/inc/preprocess.inc');   // all preprocess ove
 include_once($pixelgarage_path . '/inc/process.inc');      // all process overrides
 include_once($pixelgarage_path . '/inc/theme.inc');        // all theme overrides
 
-include_once($pixelgarage_path . '/inc/webform.inc');      // all webform overrides
-
 /* =============================================================================
  *
  *      PxlTest theming

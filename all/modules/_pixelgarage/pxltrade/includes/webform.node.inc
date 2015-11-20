@@ -10,7 +10,7 @@
 /**
  * Implements template_preprocess_webform_confirmation().
  */
-function pixelgarage_preprocess_webform_confirmation(&$vars) {
+function pxltrade_preprocess_webform_confirmation(&$vars) {
   // if we have translated webform nodes, we have to get the submissions
   // of the original node of the translation set (see tnid)
   $webform = $vars['node'];
@@ -21,11 +21,10 @@ function pixelgarage_preprocess_webform_confirmation(&$vars) {
   $submissions = webform_get_submissions(array('nid' => $tnid, 'sid' => $vars['sid']));
   $submission = $submissions[$vars['sid']];
 
-  // define webform type (trading form with related node type or delivery form
+  // check if webform (trading form) has related node type correctly set
   $rel_node_type = (!empty($orig_form->field_content_type) && $orig_form->field_content_type[LANGUAGE_NONE][0]['value']) ?
     $orig_form->field_content_type[LANGUAGE_NONE][0]['value'] : false;
   $is_trading_form = $rel_node_type && node_type_load($rel_node_type);
-  $is_delivery_type = (!empty($orig_form->field_delivery_type) && $orig_form->field_delivery_type[LANGUAGE_NONE][0]['tid']);
 
   // process webform according to its type
   $node = null;
@@ -46,24 +45,8 @@ function pixelgarage_preprocess_webform_confirmation(&$vars) {
     node_object_prepare($node);
 
     // fill corresponding fields
-    _pxl_create_offer_from_submission($submission, $node);
+    _pxltrade_create_offer_from_submission($submission, $node);
 
-  }
-  else if ($is_delivery_type) {
-    //
-    // DELIVERY FORM:
-    // disable the processed offer
-    $offer_nid = null;
-    foreach ($orig_form->webform['components'] as $key => $data) {
-      if ($data['form_key'] == 'offer_nid') {
-        $offer_nid = $submission->data[$key][0];
-        break;
-      }
-    }
-    if($offer_nid) {
-      $node = node_load($offer_nid);
-      $node->status = 0;
-    }
   }
 
   // save node
@@ -82,7 +65,7 @@ function pixelgarage_preprocess_webform_confirmation(&$vars) {
  * @param $node object
  *  The created and prepared node with the corresponding type.
  */
-function _pxl_create_offer_from_submission($submission, &$offer) {
+function _pxltrade_create_offer_from_submission($submission, &$offer) {
   // fill the node with the values from the submission and save it to the database
   $offer->title = $submission->data[15][0]; // title
   $offer->body[$offer->language][0]['value'] = $submission->data[3][0]; // description
