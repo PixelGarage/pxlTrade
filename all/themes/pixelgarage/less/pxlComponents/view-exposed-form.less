@@ -1,0 +1,182 @@
+/*
+ *  Exposed form
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+@pxl-color-border: #4444ff;
+@pxl-color-shadow: #4444ff;
+@pxl-color-submit: #aaa;
+
+
+// Mixins
+// -------------------------
+.checkbox-size(@pxl-check-gutter: 10%) {
+  margin: 0 @pxl-check-gutter/2;
+  padding-bottom: 100% - @pxl-check-gutter; // square
+  height: 0;
+}
+
+.pxl-checkbox(@icon-width: 60%; @icon-y-shift: 0; @img-border-color: @pxl-color-border) {
+  display: inline-block;
+  margin: 5px 0;
+  width: 100% / 13;
+  min-width: 53px;
+  vertical-align: top;
+
+  .form-item {
+    position: relative;
+    .checkbox-size;
+    border: 1px solid @img-border-color;
+
+    input {
+      display: none;
+    }
+
+    label {
+      display: block;
+      width: 100%;
+      height: 100%;
+      font-weight: normal;
+
+      > img {
+        position: absolute;
+        left: 0;
+        top: @icon-y-shift;
+        #pxl-mixins.translateY(-50%);
+        margin: 0 (100% - @icon-width)/2;
+        width: @icon-width;
+        height: auto;
+        border: 1px solid @img-border-color;
+      }
+
+      > div {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        #pxl-mixins.translateX(-50%);
+      }
+    }
+  }
+
+  &.selected .form-item  {
+    border: 1px solid @pxl-color-border;
+    .box-shadow(0 0 3px @pxl-color-shadow);
+  }
+}
+
+.submit-button(@color: #fff; @bg-color: @gray-light) {
+  display: inline-block;
+  margin: 0;
+  padding: 3px 8px;
+  font-family: @pxl-text-font-bold;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: @color;
+  outline: none;
+  #pxl-mixins.border-radius(@border-radius-base);
+  border: 1px solid darken(@bg-color, 5%);
+  background-color: @bg-color;
+
+  @media @tablet {
+    padding: 4px 12px;
+    font-size: 14px;
+  }
+  @media @normal {
+    padding: 6px 15px;
+    font-size: 17px;
+  }
+
+  &:hover {
+    color: @bg-color;
+    background: none;
+  }
+}
+
+
+// Main settings
+// -------------------------
+form {
+  .views-exposed-form {
+    padding: @grid-gutter-width/2 0;
+
+    @media @tablet {
+      padding: 20px 0 @grid-gutter-width/2;
+    }
+    @media @normal {
+      padding: 35px 0 @grid-gutter-width/2;
+    }
+
+    .views-exposed-widgets {
+      margin: 0;
+
+      .views-exposed-widget {
+        float: none;
+        padding: 0;
+
+        &.views-widget-filter-field_sex_tid {
+          > label {
+            display: none;
+          }
+
+          .views-widget {
+            .pxl-checkboxes {
+              overflow-x: auto;
+              padding: 5px 0;
+              width: 100%;
+              white-space: nowrap;
+              text-align: left;
+              font-size: @font-size-small;
+              border: 1px solid @pxl-color-border;
+
+              @media @tablet {
+                padding: 0;
+                white-space: normal;
+                text-align: center;
+                border: none;
+              }
+              @media @normal {
+                font-size: @font-size-small;
+              }
+
+              .pxl-checkbox{
+                .pxl-checkbox(90%, 40%, none);
+              }
+            }
+          }
+        }
+
+        &.views-widget-filter-field_canton_tid {
+          .views-widget {
+            .pxl-checkboxes {
+              .pxl-checkbox{
+                .pxl-checkbox(60%, 40%);
+              }
+            }
+          }
+        }
+
+        &.views-submit-button {
+          display: block;
+          text-align: right;
+          margin: 0;
+          padding: 10px 0 0;
+
+          @media @tablet {
+            padding: 20px 0 10px;
+          }
+          @media @normal {
+            padding: 35px 0 25px;
+          }
+
+          button {
+            .submit-button(#fff, @pxl-color-submit);
+          }
+        }
+
+      }
+    }
+  }
+}

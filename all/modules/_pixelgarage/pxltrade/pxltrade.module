@@ -1,0 +1,31 @@
+<?php
+/**
+* @file
+* A description of what your module does.
+*/
+
+require_once 'includes/webform.inc';
+
+
+/**
+ * Implements hook_theme().
+ */
+function pxltrade_theme() {
+  return array(
+    'pxltrade_bs_carousel' => array(
+      'variables' => array(
+        'interval' => '10000',
+        'pause' => 0,
+        'wrap' => 0,
+        'keyboard' => 0,
+        'indicators' => 1,
+        'navigation' => 1,
+        'id' => '',
+        'items' => array(),
+      ),
+      'file' => 'templates/pxltrade_bs_carousel.vars.php',
+      'template' => 'templates/pxltrade-bs-carousel',
+    ),
+  );
+}
+

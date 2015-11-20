@@ -1,0 +1,54 @@
+/*
+ *  pxltrade bs-carousel component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+@pxl-control-height: 30px;
+
+// Mixins
+// -------------------------
+
+
+
+// General settings
+// -------------------------
+.pxltrade-bs-carousel.carousel {
+  position: relative;
+  padding-top: @pxl-control-height;
+  width: 100%;
+  height: auto;
+
+  > .carousel-inner {
+    margin-top: -@pxl-control-height;
+
+    .item {
+
+      &.active {
+
+      }
+    }
+  }
+
+  > a.carousel-control {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: auto;
+    width: 75px;
+    height: @pxl-control-height;
+    color: @text-color;
+    #pxl-mixins.border-radius(5px);
+    border: 1px solid #aaa;
+    background: none;
+
+    &.left {
+      left: 0;
+    }
+
+    &.right {
+      right: 0;
+    }
+  }
+}
+

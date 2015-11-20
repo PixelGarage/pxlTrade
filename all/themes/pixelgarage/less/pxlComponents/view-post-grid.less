@@ -1,0 +1,88 @@
+/*
+ *  Post grid view component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+@pxl-badge-dim: 30px;
+@pxl-badge-border-color: #aaa;
+@pxl-badge-bg-color: #3377aa;
+@pxl-badge-color: #fff;
+
+
+// Mixins
+// -------------------------
+
+
+
+// General settings
+// -------------------------
+.view-post-grid {
+  margin: 20px -@grid-gutter-width/2 0;
+
+  @media @tablet {
+    margin: 25px -@grid-gutter-width/2 0;
+  }
+  @media @normal {
+    margin: 50px -@grid-gutter-width/2 0;
+  }
+
+  .view-content {
+    .pe-container {
+      .pe-item {
+        position: relative;
+        display: inline-block;
+        margin: 0 -2px;
+        width: 50%;
+        padding: 0;
+        height: auto;
+
+        @media @narrow {
+          width: 33.3333333%;
+        }
+        @media @tablet {
+          width: 25%;
+        }
+        @media @normal {
+          width: 20%;
+        }
+
+        .pe-item-inner {
+          margin: 20px;
+          #pxl-mixins.border-radius(@pxl-badge-dim/2);
+          border: 1px solid @pxl-badge-border-color;
+
+          a.btn {
+            display: block;
+
+            .views-field-field-image {
+              padding: @pxl-badge-dim/2;
+              img {
+
+              }
+            }
+
+            .views-field-nid {
+              position: absolute;
+              top: @pxl-badge-dim/2;
+              right: @pxl-badge-dim/2;
+              width: @pxl-badge-dim;
+              height: @pxl-badge-dim;
+              text-align: center;
+              border: 3px solid @pxl-badge-border-color;
+              #pxl-mixins.border-radius(@pxl-badge-dim/2);
+              background: @pxl-badge-bg-color none;
+
+              .field-content {
+                font-family: @pxl-text-font-bold;
+                font-size: @font-size-base;
+                font-weight: bold;
+                color: @pxl-badge-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

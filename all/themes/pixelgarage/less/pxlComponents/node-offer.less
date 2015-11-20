@@ -1,0 +1,116 @@
+/*
+ *  Offer node component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+
+// Mixins
+// -------------------------
+//
+// Bootstrap accordion
+.bs-accordion() {
+  margin: 0;
+
+  .panel {
+    border: none;
+    background: transparent none;
+    #pxl-mixins.box-shadow(none);
+
+    .panel-heading {
+      padding: 0 0 10px;
+      background-color: transparent;
+
+      .panel-title {
+        a {
+          font-family: @pxl-text-font-bold;
+          font-size: @font-size-large;
+          color: @text-color;
+          text-decoration: none;
+
+          &:hover, &.active {
+            text-decoration: none;
+          }
+
+          span.fa {
+            margin: 0 10px;
+          }
+        }
+      }
+    }
+
+    .panel-collapse {
+      .panel-body {
+        padding: 0 0 20px;
+        border: none;
+
+        .row {
+          .col-left {
+
+          }
+          .col-right {
+
+          }
+        }
+
+      }
+    }
+  }
+}
+
+// General settings
+// -------------------------
+.node.node-offer {
+  .row {
+    // top row
+    .col-sm-12 {
+      .field-name-title {
+        text-align: center;
+
+        h2 {
+          margin: 0;
+        }
+      }
+
+      .field-name-post-date {
+
+      }
+    }
+  }
+
+  .row {
+    // first row
+    .col-left {
+      .field-name-field-images {
+        .field-item:not(:first-child) {
+          display: none;
+        }
+      }
+    }
+
+    .col-right {
+      .field-name-field-category {
+
+      }
+
+      .field-name-field-sex {
+
+      }
+
+      .field-name-field-preferred-delivery {
+
+      }
+
+      .field-name-body {
+
+      }
+
+    }
+  }
+
+  .panel-group {
+    // accept accordion
+    .bs-accordion();
+  }
+}

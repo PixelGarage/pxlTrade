@@ -1,0 +1,292 @@
+<?php
+/**
+ * @file
+ * Provides a views style plugin creating regularly or irregularly distributed items animating on mouse approach.
+ */
+
+/**
+ * Internal proximity ajax load status code -- Proximity item was not found.
+ */
+define('PROXIMITY_ITEM_NOT_FOUND', 1);
+
+
+/**
+ * Holds the base path of an item's url.
+ *
+ * Deep links are the visible url's that load a specific proximity item's content,
+ * either with a full page request or an ajax callback.
+ * Use a 'unique' string to prevent conflicts with automatically generated url's.
+ */
+define('PROXIMITY_ITEM_URL_BASE_PATH', 'proximity-container-item/');
+
+/**
+ * Holds the base path for an item ajax callback.
+ *
+ * Use a 'unique' string to prevent conflicts with automatically generated url's.
+ */
+define('PROXIMITY_ITEM_AJAX_PATH', 'ajax/pe-container-item/');
+
+
+/**
+ * Holds global parameters of page callback
+ */
+$page_callback_param = false;
+$page_callback_container = false;
+
+
+/* -----------------------------------------------------------------
+ *  Proximity page / ajax callbacks
+ * ----------------------------------------------------------------- */
+/**
+ * Implementation of hook_menu().
+ */
+function proximity_menu() {
+  // handles item full page request
+  $items[PROXIMITY_ITEM_URL_BASE_PATH . '%/%'] = array(
+    'page callback' => 'proximity_page_callback',
+    'page arguments' => array(1,2),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+  // handles AJAX requests
+  $items[PROXIMITY_ITEM_AJAX_PATH . '%/%'] = array(
+    'page callback' => 'proximity_ajax_callback',
+    'page arguments' => array(2,3),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'delivery callback' => 'proximity_ajax_delivery_callback',
+  );
+  return $items;
+}
+
+/**
+ * Page callback function for page request.
+ */
+function proximity_page_callback($container_index, $param) {
+  global $page_callback_param, $page_callback_container;
+
+  // set page callback parameters globally
+  $page_callback_param = $param;
+  $page_callback_container = $container_index;
+
+  // return empty main content (item is rendered in proximity view)
+  return '';
+}
+
+/**
+ * Page callback function for AJAX request.
+ */
+function proximity_ajax_callback($container_index, $param) {
+  // render the item and get the newly created Drupal settings to be returned
+  $js_settings_before = array('data' => drupal_add_js()['settings']['data']); // remove all keys in settings except data (to be added again in diff array)
+  $rendered_item = _proximity_item_render($container_index, $param);
+  $js_settings_after = drupal_add_js()['settings'];
+  $js_settings = array(
+    'settings' => _recursiveArrayDiff($js_settings_before, $js_settings_after),
+    'dummy.js' => 0,  // no rendering without js files
+  );
+  $rendered_js = drupal_get_js('header', $js_settings, true);
+
+  // Output rendered item or error message and the new Drupal settings (inline)
+  // Remark: required js files are loaded during first full page load (see preprocess theme function)
+  drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
+  print $rendered_item;
+  print $rendered_js;
+  drupal_exit();
+}
+
+/**
+ * Renders the specific item.
+ *
+ * @param $container_index
+ * @param $param
+ *
+ * @return null|string
+ *  Rendered item.
+ */
+function _proximity_item_render($container_index, $param) {
+  $render_item = PROXIMITY_ITEM_NOT_FOUND;
+  drupal_alter('proximity_ajax_render_item', $container_index, $param, $render_item);
+
+  // Error status are integers; page content is a string or render array.
+  $output = '';
+  if (is_int($render_item)) {
+    switch ($render_item) {
+      case PROXIMITY_ITEM_NOT_FOUND:
+        $output = t('Proximity item content not found');
+        break;
+
+      default:
+        $output = t('Unknown error');
+        break;
+    }
+  } elseif (isset($render_item)) {
+    // render the requested content
+    $output = render($render_item);
+  }
+
+  return $output;
+}
+
+/**
+ * Helper function: Returns the difference array of two given arrays recursively.
+ */
+function _recursiveArrayDiff($array1, $array2) {
+  $diffArr = array();
+  $arr1 = (count($array1) > count($array2)) ? $array1 : $array2;
+  $arr2 = (count($array1) > count($array2)) ? $array2 : $array1;
+
+  foreach ($arr1 as $key => $val) {
+    if (array_key_exists($key, $arr2)) {
+      if (is_array($val)) {
+        $recDiff = _recursiveArrayDiff($val, $arr2[$key]);
+        if (count($recDiff) > 0) {
+          $diffArr[$key] = $recDiff;
+        }
+      }
+      else {
+        if ($val != $arr2[$key]) {
+          $diffArr[$key] = $val;
+        }
+      }
+    }
+    else {
+      $diffArr[$key] = $val;
+    }
+  }
+  return $diffArr;
+}
+
+
+
+/* -----------------------------------------------------------------
+ *  Proximity view functions
+ * ----------------------------------------------------------------- */
+
+/**
+ * Implements hook_views_api().
+ */
+function proximity_views_api() {
+  return array('api' => 3);
+}
+
+/**
+ * Pre-process function for theme hook views_view_proximity (implemented as views_view_proximity.tpl.php).
+ * This function prepares all necessary variables to create the markup for the proximity layout.
+ *
+ * @param $vars array   Variables used in the view theming.
+ */
+function template_preprocess_views_view_proximity(&$vars) {
+
+  static $pe_container_index = 0;
+
+  // Run preprocess function for unformatted style
+  template_preprocess_views_view_unformatted($vars);
+
+  // get saved view options
+  $view = $vars['view'];
+  $options = $vars['options'];
+
+  // parameters for modal dialog
+  $ajax_enabled = $options['proximity_ajax_enabled'];
+  $use_modal_dlg = $options['proximity_ajax_container'] <> 'page_cont';
+  $vars['use_modal_dlg'] = $use_modal_dlg;
+  $vars['close_text'] = t('Schliessen');
+
+  //
+  // initialize default ajax load-parameter array (indexes of items)
+  // REMARK: the item load-parameter is appended to the ajax url to identify the content to be loaded
+  $ajax_load_params = array();
+  foreach ($view->result as $id => $item) {
+    $ajax_load_params[$id] = $id;
+  }
+
+  // allow others to alter the load-params
+  drupal_alter('proximity_ajax_load_params', $pe_container_index, $view->result, $ajax_load_params);
+  $vars['ajax_load_params'] = $ajax_load_params;
+
+  //
+  // Render the requested proximity item (full page request) or the first item in the current container to guarantee
+  // that all needed js files are loaded. This assumes, that all items are of the same kind in terms of rendering.
+  // Subsequent ajax calls have then all js files already loaded (js settings are loaded inline in ajax call)
+  global $page_callback_param, $page_callback_container;
+  $load_param = $page_callback_param ? $page_callback_param : array_keys($ajax_load_params)[0];
+  $rendered_item = _proximity_item_render($pe_container_index, $load_param);
+
+  // set rendered_item for output if the current container equals the one of the deep link and reset global parameter
+  $vars['rendered_item'] = ($page_callback_param && $pe_container_index == $page_callback_container) ? $rendered_item : false;
+  $page_callback_param = false;
+  $page_callback_container = false;
+
+  //
+  // add toggle item attributes depending on modal and ajax settings
+  $vars['toggle_attributes'] = array();
+  if ($ajax_enabled && $use_modal_dlg) {
+    $vars['toggle_attributes']['data-toggle'] = 'modal';
+    $vars['toggle_attributes']['data-target'] = '#pe-modal-dialog-' . $pe_container_index;
+  }
+
+  //
+  // add additional proximity options for use in javascript
+  global $base_url;
+  $ajax_base_url = $base_url . '/' . PROXIMITY_ITEM_AJAX_PATH . $pe_container_index . '/';
+  $item_base_url = '/' . PROXIMITY_ITEM_URL_BASE_PATH . $pe_container_index . '/';
+
+  $img_path = $base_url . '/' . drupal_get_path('module', 'proximity') . '/ajax-loader.gif';
+  $ajax_loading_html = '<div id="proximity-ajax-loader"><img src="' . $img_path . '" alt="loading..."/></div>';
+
+  // Setup proximity settings for specific container
+  $pe_container_id = 'pe-container-' . $pe_container_index;
+  $js_settings = array(
+    'proximity_url_base_path' => PROXIMITY_ITEM_URL_BASE_PATH,
+    'proximity' => array(
+      $pe_container_id => array(
+        // item positioning parameters
+        'position_randomly' => $options['proximity_position_randomly'],
+        'random_grid_cell_size' => $options['proximity_random_grid_cell_size'],
+
+        // proximity parameters
+        'item_selector' => '.pe-item ' . $options['proximity_item_selector'],
+        'desc_selector' => !empty($options['proximity_desc_selector']) ? $options['proximity_desc_selector'] : '',
+        'start_scale' => $options['proximity_start_scale'],
+        'end_scale' => $options['proximity_end_scale'],
+        'start_opacity' => $options['proximity_start_opacity'],
+        'end_opacity' => $options['proximity_end_opacity'],
+        'extent' => $options['proximity_extent'],
+        'trans_duration' => $options['proximity_trans_duration'],
+
+        // container parameters
+        'ajax_container' => $options['proximity_ajax_container'],
+        'show_modal' => (!empty($vars['rendered_item']) && $use_modal_dlg),
+
+        // ajax parameters
+        'ajax_base_url' => $ajax_base_url,
+        'item_base_url' => $base_url . $item_base_url,
+        'ajax_loading_html' => $ajax_loading_html,
+
+        // mobile behavior
+        'mobile_behavior' => $options['proximity_mobile_behavior']
+      ),
+    ),
+  );
+  $vars['item_base_url'] = $item_base_url;
+  $vars['pe_container_id'] = $pe_container_id;
+  $vars['container_index'] = $pe_container_index++;
+
+  // Apply the needed js files and js settings
+  $path = drupal_get_path('module', 'proximity');
+  drupal_add_js($js_settings, 'setting');
+  drupal_add_js($path . '/js/isMobile.min.js');
+  if ($options['proximity_effect_enabled']) {
+    drupal_add_js($path . '/js/proximity.jquery-event.js');
+    drupal_add_js($path . '/js/proximity.js');
+  }
+  if ($ajax_enabled) {
+    drupal_add_js($path . '/js/modernizr-history.min.js');
+    drupal_add_js($path . '/js/proximity.ajax.js');
+  }
+  if ($use_modal_dlg) {
+    drupal_add_js($path . '/js/proximity.container.js');
+  }
+  //drupal_add_css($path . '/css/proximity.css');
+}

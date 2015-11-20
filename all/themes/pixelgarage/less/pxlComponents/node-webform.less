@@ -1,0 +1,223 @@
+/*
+ *  Node / block webform component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+@webform-max-width: 100%;
+@webform-inline-input-width: 58.333333%;
+
+@webform-color-label: @text-color;
+@webform-color-text: @text-color;
+@webform-color-border: transparent;
+@webform-color-border-active: @brand-primary;
+@webform-bg-color-input: #eee;
+@webform-color-shadow: @gray-lighter;
+@webform-color-submit: @text-color;
+@webform-bg-color-submit: @gray-lighter;
+
+
+
+// Mixins
+// -------------------------
+.form-label() {
+  padding: 0;
+  width: auto;
+  font-family: @pxl-text-font-bold;
+  #pxl-mixins.font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+  font-weight: normal;
+  line-height: 1.5em;
+  text-align: left;
+  color: @webform-color-label;
+
+  span.form-required {
+    color: @webform-color-text;
+  }
+}
+
+.resp-submit-button(@color: #fff; @bg-color: @gray-light) {
+  display: inline-block;
+  margin: 0;
+  padding: 0.5em 1em;
+  font-family: @pxl-text-font-bold;
+  #pxl-mixins.font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+  line-height: 1;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: @color;
+  outline: none;
+  #pxl-mixins.border-radius(0);
+  border: none;
+  background-color: @bg-color;
+
+  &:hover, &:focus {
+    color: @bg-color;
+    background: @color;
+  }
+}
+
+
+
+// General settings
+// -------------------------
+.node-webform {
+  div.col-sm-12 {
+    width: 100%;
+
+    .field-name-title {
+      display: none;
+    }
+
+    form.webform-client-form {
+      .webform-component {
+        margin: 0 auto 0.8em;
+        padding: 0;
+        max-width: @webform-max-width;
+        background-color: #fff;
+
+        label {
+          .form-label;
+        }
+
+        div.description {
+          display: block;
+          margin: 10px 0 0;
+          font-family: @pxl-text-font;
+          font-size: @resp-font-size-min;
+        }
+
+        input, textarea {
+          padding: 0 10px;
+          height: 100%;
+          font-family: @pxl-text-font-light;
+          #pxl-mixins.font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+          line-height: 1.5em;
+          text-align: left;
+          color: @webform-color-text;
+          box-shadow: none;
+          #pxl-mixins.border-radius(0);
+          border: 1px solid @webform-color-border;
+          background-color: @webform-bg-color-input;
+        }
+        input:focus,
+        textarea:focus {
+          border: 1px solid @webform-color-border-active;
+          .box-shadow(0 0 3px @webform-color-shadow);
+        }
+
+        .form-textarea-wrapper {
+          div.grippie {
+            display: none;
+          }
+        }
+
+        select {
+          font-family: @pxl-text-font-light;
+          #pxl-mixins.font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+          line-height: 1em;
+          text-align: left;
+          color: @webform-color-text;
+          #pxl-mixins.border-radius(0);
+          border: 1px solid @webform-color-border;
+          background-color: @webform-bg-color-input;
+          outline: none;
+
+          &:focus, &:active {
+            outline: none;
+          }
+        }
+
+        .form-managed-file {
+          display:inline-block;
+          position: absolute;
+          right: 0;
+          overflow-x: auto;
+          width: @webform-inline-input-width;
+          white-space: nowrap;
+          border: 1px solid @webform-color-border;
+          #pxl-mixins.border-radius(0);
+
+          input {
+            position: relative;
+            float: none;
+            padding: 0.3em;
+            width: 80%;
+            text-align: left;
+            border: none;
+            background-color: @webform-bg-color-input;
+          }
+
+          button.btn {
+            .resp-submit-button(@webform-color-submit, @webform-bg-color-submit);
+            margin: 0 1%;
+            vertical-align: baseline;
+
+          }
+
+          @media @narrow {
+            input {
+              width: 60%;
+              font-size: 2.1vw;
+            }
+            button.btn {
+              padding: 0.3em 1em;
+            }
+          }
+          @media @tablet {
+            input {
+              width: 68%;
+              font-size: @font-size-base;
+            }
+          }
+        }
+
+        &.webform-component-markup {
+          margin-bottom: 25px;
+          padding-top: 15px;
+
+          h2 {
+            font-family: @pxl-text-font-bold;
+            font-weight: normal;
+            #pxl-mixins.font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+            line-height: 1em;
+            text-align: left;
+          }
+          p {
+            font-family: @pxl-text-font-light;
+            #pxl-mixins.font-size-responsive(12px, 15px);
+            line-height: 22px;
+            text-align: left;
+            color: @webform-color-text;
+          }
+        }
+
+        //
+        // inline components
+        &.webform-container-inline {
+          position: relative;
+
+          label, input {
+            display: inline-block;
+          }
+
+          input.form-text, select {
+            position: absolute;
+            right: 0;
+            width: @webform-inline-input-width;
+          }
+        }
+
+      }
+
+      div.form-actions {
+        padding-top: 25px;
+
+        button.webform-submit {
+          float: right;
+          .resp-submit-button(@webform-color-submit, @webform-bg-color-submit);
+        }
+      }
+    }
+  }
+
+}

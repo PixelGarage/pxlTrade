@@ -1,0 +1,65 @@
+/* --------------------------------------------------
+ * Pixelgarage fonts
+ * --------------------------------------------------*/
+//
+// webfont licences
+
+//
+// Google fonts
+
+//
+// Awesome icon font
+@import '../fonts/font-awesome/less/font-awesome';
+@fa-font-path: '@{pxl-font-path}/font-awesome/fonts'; // override fa font path (lazy loading)
+
+//
+// responsive font sizes
+@resp-font-size:          2.8vw;
+@resp-font-size-min:      13px;
+@resp-font-size-max:      17px;
+@resp-font-size-large:    5vw;
+@resp-font-size-large-min:20px;
+@resp-font-size-large-max:30px;
+
+
+//
+// Define customer specific fonts
+@pxl-font-path: '../fonts';
+@pxl-bs-path: '../bootstrap';
+
+// icon font
+@pxl-icon-font: 'fontawesome';
+
+// title font
+@pxl-title-font: 'ProximaNovaLight', sans-serif;
+
+// text fonts
+@pxl-text-font: 'ProximaNovaLight', sans-serif;
+@pxl-text-font-light: @pxl-text-font;
+@pxl-text-font-medium: @pxl-text-font;
+@pxl-text-font-bold: 'ProximaNovaLight', sans-serif;
+@pxl-text-font-italics: 'ProximaNovaLight', sans-serif;
+@pxl-text-font-light-italics: 'ProximaNovaLight', sans-serif;
+@pxl-text-font-bold-italics: 'ProximaNovaLight', sans-serif;
+
+// overrides
+@font-family-base: @pxl-text-font;
+
+// form font
+@pxl-form-font: @pxl-text-font;
+
+//
+// font faces
+//
+// title font
+
+// text fonts
+@font-face {
+  font-family: 'ProximaNovaLight';
+  src: url('@{pxl-font-path}/ProximaNovaLight/ProximaNovaLight.eot');
+  src: url('@{pxl-font-path}/ProximaNovaLight/ProximaNovaLight.eot') format('embedded-opentype'),
+  url('@{pxl-font-path}/ProximaNovaLight/ProximaNovaLight.woff2') format('woff2'),
+  url('@{pxl-font-path}/ProximaNovaLight/ProximaNovaLight.woff') format('woff'),
+  url('@{pxl-font-path}/ProximaNovaLight/ProximaNovaLight.ttf') format('truetype'),
+  url('@{pxl-font-path}/ProximaNovaLight/ProximaNovaLight.svg#ProximaNovaLight') format('svg');
+}
