@@ -106,7 +106,7 @@ function proximity_ajax_callback($container_index, $param) {
  */
 function _proximity_item_render($container_index, $param) {
   $render_item = PROXIMITY_ITEM_NOT_FOUND;
-  drupal_alter('proximity_ajax_render_item', $container_index, $param, $render_item);
+  drupal_alter('proximity_render_item', $container_index, $param, $render_item);
 
   // Error status are integers; page content is a string or render array.
   $output = '';
@@ -189,7 +189,7 @@ function template_preprocess_views_view_proximity(&$vars) {
 
   // parameters for modal dialog
   $ajax_enabled = $options['proximity_ajax_enabled'];
-  $use_modal_dlg = $options['proximity_ajax_container'] <> 'page_cont';
+  $use_modal_dlg = $options['proximity_action_container'] <> 'page_cont';
   $vars['use_modal_dlg'] = $use_modal_dlg;
   $vars['close_text'] = t('Schliessen');
 
@@ -202,7 +202,7 @@ function template_preprocess_views_view_proximity(&$vars) {
   }
 
   // allow others to alter the load-params
-  drupal_alter('proximity_ajax_load_params', $pe_container_index, $view->result, $ajax_load_params);
+  drupal_alter('proximity_load_params', $pe_container_index, $view->result, $ajax_load_params);
   $vars['ajax_load_params'] = $ajax_load_params;
 
   //
@@ -256,7 +256,7 @@ function template_preprocess_views_view_proximity(&$vars) {
         'trans_duration' => $options['proximity_trans_duration'],
 
         // container parameters
-        'ajax_container' => $options['proximity_ajax_container'],
+        'ajax_container' => $options['proximity_action_container'],
         'show_modal' => (!empty($vars['rendered_item']) && $use_modal_dlg),
 
         // ajax parameters

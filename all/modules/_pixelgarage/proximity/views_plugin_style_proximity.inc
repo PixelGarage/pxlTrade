@@ -17,7 +17,7 @@ class views_plugin_style_proximity extends views_plugin_style {
       'proximity_position_randomly' => 0,
       'proximity_random_grid_cell_size' => 40,
       'proximity_ajax_enabled' => 1,
-      'proximity_ajax_container' => 'modal_fix',
+      'proximity_action_container' => 'modal_fix',
       'proximity_mobile_behavior' => 'touch_two',
       'proximity_effect_enabled' => 1,
       'proximity_item_selector' => '',
@@ -52,11 +52,20 @@ class views_plugin_style_proximity extends views_plugin_style {
 
     // display help text first
     $form['proximity_help'] = array(
-      '#markup' => t('<strong>Proximity style</strong></br>' .
-        'Use the proximity style to layout proximity items randomly (or css-positioned) in a container. Each view row contains a Proximity items that ' .
-        'reacts with a defined animation effect (scaling, opacity etc.), when the mouse pointer approches them. Additionally for each item an item description ' .
-        'can be displayed, when the mouse hovers the item. A mouse click on an item fetches its content via AJAX or page load (see Proximity API for more information) ' .
-        'and in case of AJAX displays it in a modal dialog or a full page container. '
+      '#markup' => t('<br><br><strong>Proximity items view style</strong><br>' .
+        'This view style allows to define any kind of Proximity items (view rows) with a lot of amazing features: <br>' .
+        '<ul>' .
+        '<li><strong>Item placement: </strong>The items can be placed randomly (with or without overlap) or via CSS inside the proximity container</li>' .
+        '<li><strong>Proximity effect: </strong>The items or parts of it can be animated when the mouse pointer approaches them (proximity).</li>' .
+        '<li>Proximity effects can be overridden in code (event handler). Implemented effects are opacity and scaling.</li>' .
+        '<li>An item description can be displayed, when the pointer is hovering the item.</li>' .
+        '<li><strong>Item action: </strong>Defined alter hooks (see API) allow a fully customizable item click action.</li>' .
+        '<li>The click action response is displayable in a configurable container (modal dialog, page container).</li>' .
+        '<li>The modal dialog is implemented with the bootstrap framework, but of course can be themed differently (e.g. jQuery). See the views-view-proximity theme template.</li>' .
+        '<li>The item click action can be performed with AJAX or as full page load. The AJAX calls create deep links, so that all user actions create a history.</li>' .
+        '<li>The AJAX mode fully supports ajaxified elements in the action response like a form, a button or a link.</li>' .
+        '<li>Proximity and AJAX can be disabled seperately.</li>' .
+        '</ul>'
       ),
       '#weight' => 5,
     );
@@ -64,21 +73,21 @@ class views_plugin_style_proximity extends views_plugin_style {
     // Add proximity layout options to views style form in dedicated field sets
     $form['positioning'] = array(
       '#type' => 'fieldset',
-      '#title' => t('Proximity item positioning'),
+      '#title' => t('Item placement'),
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
       '#weight' => 10,
     );
-    $form['ajax'] = array(
+    $form['action'] = array(
       '#type' => 'fieldset',
-      '#title' => t('Ajax settings'),
+      '#title' => t('Item action'),
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
       '#weight' => 20,
     );
     $form['proximity'] = array(
       '#type' => 'fieldset',
-      '#title' => t('Proximity settings'),
+      '#title' => t('Proximity effect'),
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
       '#weight' => 30,
@@ -88,7 +97,7 @@ class views_plugin_style_proximity extends views_plugin_style {
     $form['proximity_position_randomly'] = array(
       '#type' => 'checkbox',
       '#title' => t('Position items randomly'),
-      '#description' => t('Define, if the proximity items are distributed randomly in the container. Deselecting this property means, that the items have to be positioned with css.'),
+      '#description' => t('Defines, if the proximity items are distributed randomly in the container. Deselecting this property means, that the items have to be positioned with css.'),
       '#default_value' => $default_values['proximity_position_randomly'],
       '#weight' => 1,
       '#fieldset' => 'positioning',
@@ -96,34 +105,34 @@ class views_plugin_style_proximity extends views_plugin_style {
     $form['proximity_random_grid_cell_size'] = array(
       '#type' => 'textfield',
       '#title' => t('Size of grid cell'),
-      '#description' => t('Define the square grid used to randomly distribute the proximity items (default = 40px). One item per cell.'),
+      '#description' => t('Define the square grid used to randomly distribute the proximity items (default = 40px). One item per cell, the grid size defines, if the item can overlap or not.'),
       '#default_value' => $default_values['proximity_random_grid_cell_size'],
       '#size' => 5,
       '#weight' => 2,
       '#fieldset' => 'positioning',
     );
 
-    // define ajax items
+    // define item action
     $form['proximity_ajax_enabled'] = array(
       '#type' => 'checkbox',
       '#title' => t('Enable Ajax'),
-      '#description' => t('Enables to load the item content via ajax.'),
+      '#description' => t('Enables the item action to be performed via ajax.'),
       '#default_value' => $default_values['proximity_ajax_enabled'],
       '#weight' => 1,
-      '#fieldset' => 'ajax',
+      '#fieldset' => 'action',
     );
-    $form['proximity_ajax_container'] = array(
+    $form['proximity_action_container'] = array(
       '#type' => 'select',
-      '#title' => t('Select Ajax container'),
+      '#title' => t('Select action response container'),
       '#options' => array(
         'modal_fix' => t('Modal dialog fixed position'),
         'modal_rel' => t('Modal dialog relative to item'),
         'page_cont' => t('Page container'),
       ),
-      '#description' => t('Select one of the given ajax containers to display the item content. Options are: modal dialog relative to item position, fixed positioned modal dialog (CSS) and a flexible page container.'),
-      '#default_value' => $default_values['proximity_ajax_container'],
+      '#description' => t('Select one of the given action response containers to display the item content. Options are: modal dialog relative to item position, fixed positioned modal dialog (CSS) and a flexible page container.'),
+      '#default_value' => $default_values['proximity_action_container'],
       '#weight' => 2,
-      '#fieldset' => 'ajax',
+      '#fieldset' => 'action',
     );
     $form['proximity_mobile_behavior'] = array(
       '#type' => 'select',
@@ -135,7 +144,7 @@ class views_plugin_style_proximity extends views_plugin_style {
       '#description' => t('Select one of the given mobile behaviors: "One touch" opens dialog on first touch, "Two touch" on the second touch.'),
       '#default_value' => $default_values['proximity_mobile_behavior'],
       '#weight' => 3,
-      '#fieldset' => 'ajax',
+      '#fieldset' => 'action',
     );
 
 

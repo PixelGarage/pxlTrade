@@ -33,7 +33,7 @@ $rendering_node_id = null;
  * @param $ajax_load_params     array   Array of ajax load parameters to be altered, one for each proximity item (row)
  *                                      retrieved by the view. Default is the views row index.
  */
-function pixelgarage_proximity_ajax_load_params_alter($container_index, $view_result, &$ajax_load_params) {
+function pixelgarage_proximity_load_params_alter($container_index, $view_result, &$ajax_load_params) {
   //
   // Return the term id as the load parameter for each item.
   foreach ($view_result as $id => $item) {
@@ -51,7 +51,7 @@ function pixelgarage_proximity_ajax_load_params_alter($container_index, $view_re
  * @param $render_item          mixed   The rendered content to be returned to the client. The $render_item should be
  *                                      replaced either by a string (rendered html content), a render array or an integer (error code).
  */
-function pixelgarage_proximity_ajax_render_item_alter($container_index, $param, &$render_item) {
+function pixelgarage_proximity_render_item_alter($container_index, $param, &$render_item) {
   //
   // The $param contains a term id.
   // Returns a bootstrap slider containing all offer nodes with the given taxonomy term set.

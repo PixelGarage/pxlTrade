@@ -6,4 +6,4 @@ package = Pixelgarage
 files[] = views_plugin_style_proximity.inc
 
 dependencies[] = views
-version = "7.x-1.3"
+version = "7.x-2.0"
