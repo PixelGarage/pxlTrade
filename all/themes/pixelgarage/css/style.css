@@ -9137,6 +9137,7 @@ form#user-login {
   display: block;
   margin: 0 auto;
   width: 80%;
+  color: #fff;
   background-color: springgreen;
 }
 .node.node-offer > .row.row-second .col-sm-12 .btn.accept-offer span.fa {
@@ -9523,16 +9524,17 @@ form .views-exposed-form {
   }
 }
 form .views-exposed-form .views-exposed-widgets {
+  position: relative;
   margin: 0;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget {
   float: none;
   padding: 0;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid > label {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth > label {
   display: none;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid .views-widget .pxl-checkboxes {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .pxl-checkboxes {
   overflow-x: auto;
   padding: 5px 0;
   width: 100%;
@@ -9542,7 +9544,7 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widg
   border: 1px solid #4444ff;
 }
 @media screen and (min-width: 768px) {
-  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid .views-widget .pxl-checkboxes {
+  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .pxl-checkboxes {
     padding: 0;
     white-space: normal;
     text-align: center;
@@ -9550,34 +9552,34 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widg
   }
 }
 @media screen and (min-width: 1024px) {
-  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid .views-widget .pxl-checkboxes {
+  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .pxl-checkboxes {
     font-size: 14px;
   }
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid .views-widget .pxl-checkboxes .pxl-checkbox {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .pxl-checkboxes .pxl-checkbox {
   display: inline-block;
   margin: 5px 0;
   width: 7.69230769%;
   min-width: 53px;
   vertical-align: top;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid .views-widget .pxl-checkboxes .pxl-checkbox .form-item {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .pxl-checkboxes .pxl-checkbox .form-item {
   position: relative;
   margin: 0 5%;
   padding-bottom: 90%;
   height: 0;
   border: 1px solid none;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid .views-widget .pxl-checkboxes .pxl-checkbox .form-item input {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .pxl-checkboxes .pxl-checkbox .form-item input {
   display: none;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid .views-widget .pxl-checkboxes .pxl-checkbox .form-item label {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .pxl-checkboxes .pxl-checkbox .form-item label {
   display: block;
   width: 100%;
   height: 100%;
   font-weight: normal;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid .views-widget .pxl-checkboxes .pxl-checkbox .form-item label > img {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .pxl-checkboxes .pxl-checkbox .form-item label > img {
   position: absolute;
   left: 0;
   top: 40%;
@@ -9590,7 +9592,7 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widg
   height: auto;
   border: 1px solid none;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid .views-widget .pxl-checkboxes .pxl-checkbox .form-item label > div {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .pxl-checkboxes .pxl-checkbox .form-item label > div {
   position: absolute;
   left: 50%;
   bottom: 0;
@@ -9599,60 +9601,25 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widg
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_sex_tid .views-widget .pxl-checkboxes .pxl-checkbox.selected .form-item {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .pxl-checkboxes .pxl-checkbox.selected .form-item {
   border: 1px solid #4444ff;
   -webkit-box-shadow: 0 0 3px #4444ff;
   box-shadow: 0 0 3px #4444ff;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_canton_tid .views-widget .pxl-checkboxes .pxl-checkbox {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth .views-widget .help-block {
+  display: none;
+}
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-secondary {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-secondary .views-widget .panel .panel-heading {
   display: inline-block;
   margin: 5px 0;
   width: 7.69230769%;
   min-width: 53px;
   vertical-align: top;
-}
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_canton_tid .views-widget .pxl-checkboxes .pxl-checkbox .form-item {
-  position: relative;
-  margin: 0 5%;
-  padding-bottom: 90%;
-  height: 0;
-  border: 1px solid #4444ff;
-}
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_canton_tid .views-widget .pxl-checkboxes .pxl-checkbox .form-item input {
-  display: none;
-}
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_canton_tid .views-widget .pxl-checkboxes .pxl-checkbox .form-item label {
-  display: block;
-  width: 100%;
-  height: 100%;
-  font-weight: normal;
-}
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_canton_tid .views-widget .pxl-checkboxes .pxl-checkbox .form-item label > img {
-  position: absolute;
-  left: 0;
-  top: 40%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  margin: 0 20%;
-  width: 60%;
-  height: auto;
-  border: 1px solid #4444ff;
-}
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_canton_tid .views-widget .pxl-checkboxes .pxl-checkbox .form-item label > div {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-widget-filter-field_canton_tid .views-widget .pxl-checkboxes .pxl-checkbox.selected .form-item {
-  border: 1px solid #4444ff;
-  -webkit-box-shadow: 0 0 3px #4444ff;
-  box-shadow: 0 0 3px #4444ff;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button {
   display: block;

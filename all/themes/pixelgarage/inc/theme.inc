@@ -46,18 +46,14 @@ function pixelgarage_select_as_checkboxes($vars) {
   }
 
   $output = '<div class="pxl-checkboxes">';
-  foreach ($element['#options'] as $key => $short) {
-    if ('All' === $key) {
-      // TODO: 'All' text is customizable in Views.
-      // No need for an 'All' option -- either unchecking or checking all the
-      // checkboxes is equivalent.
-      continue;
-    }
+  foreach ($element['#options'] as $index => $term) {
+    // option structure: array(list-index => array(tid => name))
+    $label = reset($term->option);
+    $tid = key($term->option);
+    $isSelected = array_search($tid, $selected_options) !== FALSE;
 
-    $isSelected = array_search($key, $selected_options) !== FALSE;
-
-    $output .= '<div class="pxl-checkbox ' . $short . ($isSelected ? ' selected">' : '">');
-    $output .= _pxl_checkbox($element, $key, $short, $isSelected);
+    $output .= '<div class="pxl-checkbox' . ($isSelected ? ' selected">' : '">');
+    $output .= _pixelgarage_checkbox($element, $tid, $label, $isSelected);
     $output .= '</div>';
 
   }
@@ -70,7 +66,7 @@ function pixelgarage_select_as_checkboxes($vars) {
   return '<div' . drupal_attributes($attributes) . ">$description$output</div>";
 }
 
-function _pxl_checkbox($element, $tid, $label, $selected) {
+function _pixelgarage_checkbox($element, $tid, $label, $selected) {
   $tid = check_plain($tid);
   $label = filter_xss_admin($label);
   $id = drupal_html_id($element['#id'] . '-' . $tid);

@@ -24,6 +24,30 @@
   };
 
   /**
+   * Implements the checkbox state for all checkboxes.
+   */
+  Drupal.behaviors.checkFilters = {
+    attach: function () {
+      var $checkboxes = $('#edit-term-node-tid-depth-wrapper .pxl-checkbox'),
+          strQuery = window.location.search;
+
+      // select/diselect checkboxes
+      $checkboxes.once('checked', function() {
+        $(this).on('click', function() {
+          var $checkbox = $(this),
+              $input = $checkbox.find('input');
+
+          if ($input.prop('checked')) {
+            $checkbox.addClass('selected');
+          } else {
+            $checkbox.removeClass('selected');
+          }
+        });
+      });
+    }
+  };
+
+  /**
    * Allows full size clickable items.
    Drupal.behaviors.fullSizeClickableItems = {
     attach: function () {

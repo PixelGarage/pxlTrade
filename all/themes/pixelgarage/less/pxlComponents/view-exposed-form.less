@@ -110,13 +110,15 @@ form {
     }
 
     .views-exposed-widgets {
+      position: relative;
       margin: 0;
 
       .views-exposed-widget {
         float: none;
         padding: 0;
 
-        &.views-widget-filter-field_sex_tid {
+        &.views-widget-filter-term_node_tid_depth {
+          // term filter
           > label {
             display: none;
           }
@@ -145,14 +147,45 @@ form {
                 .pxl-checkbox(90%, 40%, none);
               }
             }
+
+            .help-block {
+              display: none;
+            }
           }
         }
 
-        &.views-widget-filter-field_canton_tid {
+        &.views-widget-filter-secondary {
+          // location filter
+          position: absolute;
+          top: 0;
+          left: 0;
+
           .views-widget {
-            .pxl-checkboxes {
-              .pxl-checkbox{
-                .pxl-checkbox(60%, 40%);
+            .panel {
+              .panel-heading {
+                display: inline-block;
+                margin: 5px 0;
+                width: 100% / 13;
+                min-width: 53px;
+                vertical-align: top;
+
+                a.panel-title {
+
+                }
+              }
+
+              .panel-collapse {
+                .bef-secondary-options {
+                  .form-item {
+                    .control-label {
+
+                    }
+
+                    input.form-text {
+
+                    }
+                  }
+                }
               }
             }
           }
@@ -174,6 +207,10 @@ form {
           button {
             .submit-button(#fff, @pxl-color-submit);
           }
+        }
+
+        &.views-reset-button {
+
         }
 
       }

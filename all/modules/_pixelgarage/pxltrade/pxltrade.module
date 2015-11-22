@@ -10,7 +10,6 @@ require_once 'includes/webform.mail.inc'; // webform mail adaptations
 require_once 'includes/proximity.action.inc'; // implements proximity item click action
 
 
-
 /**
  * Implements hook_theme().
  */
