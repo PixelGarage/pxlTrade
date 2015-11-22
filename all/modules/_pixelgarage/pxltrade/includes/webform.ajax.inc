@@ -36,15 +36,6 @@ function _webform_ajax_callback_completed($form, $form_state) {
 
   if ($form['#node']->webform['webform_ajax']) {
     //
-    // AJAX: Display webform confirmation always at the webform place (overrule confirmation settings).
-    $output = array(
-      '#type' => 'markup',
-      '#markup' => theme('pxltrade_delivery_confirmation', array('node' => $form['#node'], 'sid' => $sid)),
-      '#prefix' => '<div id="' . $wrapper_id . '">',
-      '#suffix' => '</div>',
-    );
-
-    //
     // Unset confirmation message previously set by Webform module, as we displayed it themed.
     // Get messages without clearing queue.
     $status_messages = drupal_get_messages('status', FALSE);
@@ -61,6 +52,16 @@ function _webform_ajax_callback_completed($form, $form_state) {
         }
       }
     }
+
+    //
+    // AJAX: Display webform confirmation always at the webform place (overrule confirmation settings).
+    $error_messages = drupal_get_messages('error', FALSE);
+    $output = array(
+      '#type' => 'markup',
+      '#markup' => theme('pxltrade_delivery_confirmation', array('node' => $form['#node'], 'sid' => $sid, 'success' => empty($error_messages))),
+      '#prefix' => '<div id="' . $wrapper_id . '">',
+      '#suffix' => '</div>',
+    );
   }
   elseif (isset($form_state['redirect'])) {
     // If a form redirect is set, then use it to send a redirect instruction via AJAX.

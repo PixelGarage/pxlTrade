@@ -5,8 +5,14 @@
  */
 
 function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
-  // if we have translated webform nodes, we have to get the submissions
-  // of the original node of the translation set (see tnid)
+  //
+  // check if submission was successful, and return with error messages when not.
+  if (!$vars['success']) return;
+
+  //
+  // SUCCESSFUL DELIVERY FORM COMPLETION:
+  //
+  // Get the original node of the translation set (see tnid)
   $webform = $vars['node'];
   $tnid = $webform->tnid ? $webform->tnid : $webform->nid;
   $orig_form = node_load($tnid);
@@ -19,7 +25,6 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
   $vars['confirmation_message'] = $webform->webform['confirmation'];
 
   //
-  // DELIVERY FORM COMPLETION:
   // disable the processed offer
   $offer_nid = _webform_submission_value('offer_nid', $orig_form, $submission);
   if($offer_nid) {

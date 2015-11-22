@@ -1,13 +1,17 @@
 <?php
 /**
- * Adapts mails for both recipients, the trader and the customer.
+ * Adapts mails for both recipients, the supplier and the customer.
+ *
+ * The delivery-form submission send mails to the supplier
+ * and the customer of a trade, which are completed here with
+ * token replacements.
  *
  * Date: 21.11.15
  * Time: 17:00
  */
 
 /* --------------------------------------------------
- * Webform email handling
+ * Webform email adaptation
  * --------------------------------------------------*/
 /**
  * Dummy email address.
@@ -57,12 +61,16 @@ function pxltrade_mail_alter(&$message) {
 
   // get offer
   $offer_nid = _webform_submission_value('offer_nid', $orig_form, $submission);
-  $offer = node_load($offer_nid);
-  $to_search = array(
-    '%offer_title%' => $offer->title,
-    '%first_name%' => $offer->field_address[LANGUAGE_NONE][0]['first_name'],
-    '%name%' => $offer->field_address[LANGUAGE_NONE][0]['last_name'],
-  );
+  if(!$offer = node_load($offer_nid)) {
+    // don't send email
+    $message['send'] = false;
+
+    // set error message
+    $error_msg = t('The offer data could not be found. Please contact an administrator.');
+    drupal_set_message($error_msg, 'error');
+    watchdog('pxlTrade', $error_msg, WATCHDOG_ERROR);
+    return;
+  }
 
   //
   // No email address is given (only for customers allowed)
@@ -78,7 +86,16 @@ function pxltrade_mail_alter(&$message) {
 
     return;
   }
-  else if ($template == 'customer') {
+
+  //
+  // Resolve tokens and adapt mails accordingly
+  $to_search = array(
+    '%offer_title%' => $offer->title,
+    '%first_name%' => $offer->field_address[LANGUAGE_NONE][0]['first_name'],
+    '%name%' => $offer->field_address[LANGUAGE_NONE][0]['last_name'],
+  );
+
+  if ($template == 'customer') {
     //
     // fill supplier tokens for the customer email
     $to_search += array(

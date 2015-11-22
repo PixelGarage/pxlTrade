@@ -34,6 +34,7 @@ function pxltrade_theme() {
       'variables' => array(
         'node' => null,
         'sid' => null,
+        'success' => true,
       ),
       'file' => 'templates/pxltrade-delivery-confirmation.vars.php',
       'template' => 'templates/pxltrade-delivery-confirmation',

@@ -3093,8 +3093,8 @@ fieldset[disabled] .btn-primary.active {
 }
 .btn-success {
   color: #ffffff;
-  background-color: #5cb85c;
-  border-color: #4cae4c;
+  background-color: springgreen;
+  border-color: #00e672;
 }
 .btn-success:hover,
 .btn-success:focus,
@@ -3103,8 +3103,8 @@ fieldset[disabled] .btn-primary.active {
 .btn-success.active,
 .open > .dropdown-toggle.btn-success {
   color: #ffffff;
-  background-color: #449d44;
-  border-color: #398439;
+  background-color: #00cc66;
+  border-color: #00a854;
 }
 .btn-success:active,
 .btn-success.active,
@@ -3129,11 +3129,11 @@ fieldset[disabled] .btn-success:active,
 .btn-success.disabled.active,
 .btn-success[disabled].active,
 fieldset[disabled] .btn-success.active {
-  background-color: #5cb85c;
-  border-color: #4cae4c;
+  background-color: springgreen;
+  border-color: #00e672;
 }
 .btn-success .badge {
-  color: #5cb85c;
+  color: springgreen;
   background-color: #ffffff;
 }
 .btn-info {
@@ -4747,11 +4747,11 @@ a.label:focus {
   background-color: #286090;
 }
 .label-success {
-  background-color: #5cb85c;
+  background-color: springgreen;
 }
 .label-success[href]:hover,
 .label-success[href]:focus {
-  background-color: #449d44;
+  background-color: #00cc66;
 }
 .label-info {
   background-color: #5bc0de;
@@ -5013,7 +5013,7 @@ a.thumbnail.active {
   animation: progress-bar-stripes 2s linear infinite;
 }
 .progress-bar-success {
-  background-color: #5cb85c;
+  background-color: springgreen;
 }
 .progress-striped .progress-bar-success {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -9416,6 +9416,24 @@ form#user-login {
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit:focus {
   color: #eeeeee;
   background: #333333;
+}
+.webform-confirmation {
+  text-align: center;
+}
+.webform-confirmation .fa {
+  margin: 0;
+  padding: 0;
+  width: 80px;
+  font-size: 60px;
+  line-height: 80px;
+  color: #fff;
+  -moz-border-radius: 40px;
+  -webkit-border-radius: 40px;
+  border-radius: 40px;
+  background: springgreen none;
+}
+.webform-confirmation .confirmation-message p {
+  margin-top: 20px;
 }
 /*
  *  Post grid view component

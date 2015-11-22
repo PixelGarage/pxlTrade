@@ -16,6 +16,8 @@
 @webform-color-submit: @text-color;
 @webform-bg-color-submit: @gray-lighter;
 
+@pxl-success-badge-dim: 80px;
+
 
 
 // Mixins
@@ -58,7 +60,7 @@
 
 
 
-// General settings
+// Node settings
 // -------------------------
 .node-webform {
   div.col-sm-12 {
@@ -220,4 +222,27 @@
     }
   }
 
+}
+
+// Confirmation settings
+// -------------------------
+.webform-confirmation {
+  text-align: center;
+
+  .fa {
+    margin: 0;
+    padding: 0;
+    width: @pxl-success-badge-dim;
+    font-size: (@pxl-success-badge-dim - 20px);
+    line-height: @pxl-success-badge-dim;
+    color: #fff;
+    #pxl-mixins.border-radius(@pxl-success-badge-dim/2);
+    background: @brand-success none;
+  }
+
+  .confirmation-message {
+    p {
+      margin-top: 20px;
+    }
+  }
 }

@@ -20,10 +20,14 @@
  */
 ?>
 <div class="webform-confirmation">
-  <span class="fa fa-check"></span>
-  <?php if ($confirmation_message): ?>
-    <?php print $confirmation_message ?>
-  <?php else: ?>
-    <p><?php print t('Thank you, your submission has been received.'); ?></p>
+  <?php if($success): ?>
+    <span class="fa fa-check"></span>
   <?php endif; ?>
+  <div class="confirmation-message">
+    <?php if ($confirmation_message): ?>
+      <?php print $confirmation_message ?>
+    <?php else: ?>
+      <p><?php print t('Thank you, your submission has been received.'); ?></p>
+    <?php endif; ?>
+  </div>
 </div>
