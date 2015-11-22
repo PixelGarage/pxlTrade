@@ -15,19 +15,13 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
   $submission = $submissions[$vars['sid']];
 
   // set the confirmation message configured in the form
-  // TODO: check in case of trnslations
+  // TODO: check in case of multi-language environment
   $vars['confirmation_message'] = $webform->webform['confirmation'];
 
   //
   // DELIVERY FORM COMPLETION:
   // disable the processed offer
-  $offer_nid = null;
-  foreach ($orig_form->webform['components'] as $key => $data) {
-    if ($data['form_key'] == 'offer_nid') {
-      $offer_nid = $submission->data[$key][0];
-      break;
-    }
-  }
+  $offer_nid = _webform_submission_value('offer_nid', $orig_form, $submission);
   if($offer_nid) {
     $node = node_load($offer_nid);
     $node->status = 0;

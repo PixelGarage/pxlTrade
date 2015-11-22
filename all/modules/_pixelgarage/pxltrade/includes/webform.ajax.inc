@@ -34,25 +34,9 @@ function _webform_ajax_callback_completed($form, $form_state) {
   $wrapper_id = $form['#node']->webform['webform_ajax_wrapper_id'];
   $sid = $form_state['values']['details']['sid'];
 
-  if (isset($form_state['redirect'])) {
-    // If a form redirect is set, then use it to send a redirect instruction via AJAX.
-    ctools_include('ajax');
-    ctools_add_js('ajax-responder');
-    $redirect = is_array($form_state['redirect']) ? $form_state['redirect'] : array($form_state['redirect'], array());
-
-    // Send two AJAX commands:
-    // The first disables the form's submit button, to avoid extra click while waiting for redirect.
-    // The second is a redirect command, giving the browser the URL where to go next.
-    $output = array(
-      '#type' => 'ajax',
-      '#commands' => array(
-        ajax_command_invoke('#' . $wrapper_id . ' input.form-submit', 'attr', array('disabled', 'disabled')),
-        ctools_ajax_command_redirect($redirect[0], 0, $redirect[1]),
-      ),
-    );
-  }
-  elseif ($form['#node']->webform['webform_ajax']) {
-    // Display webform confirmation at the webform place.
+  if ($form['#node']->webform['webform_ajax']) {
+    //
+    // AJAX: Display webform confirmation always at the webform place (overrule confirmation settings).
     $output = array(
       '#type' => 'markup',
       '#markup' => theme('pxltrade_delivery_confirmation', array('node' => $form['#node'], 'sid' => $sid)),
@@ -77,6 +61,23 @@ function _webform_ajax_callback_completed($form, $form_state) {
         }
       }
     }
+  }
+  elseif (isset($form_state['redirect'])) {
+    // If a form redirect is set, then use it to send a redirect instruction via AJAX.
+    ctools_include('ajax');
+    ctools_add_js('ajax-responder');
+    $redirect = is_array($form_state['redirect']) ? $form_state['redirect'] : array($form_state['redirect'], array());
+
+    // Send two AJAX commands:
+    // The first disables the form's submit button, to avoid extra click while waiting for redirect.
+    // The second is a redirect command, giving the browser the URL where to go next.
+    $output = array(
+      '#type' => 'ajax',
+      '#commands' => array(
+        ajax_command_invoke('#' . $wrapper_id . ' input.form-submit', 'attr', array('disabled', 'disabled')),
+        ctools_ajax_command_redirect($redirect[0], 0, $redirect[1]),
+      ),
+    );
   }
 
   return $output;

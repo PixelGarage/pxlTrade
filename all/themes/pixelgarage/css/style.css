@@ -9114,45 +9114,43 @@ form#user-login {
 /*
  *  Offer node component
  * --------------------------------------------------*/
-.node.node-offer .row .col-sm-12 .field-name-title {
+.node.node-offer > .row {
+  margin-top: 20px;
+}
+.node.node-offer > .row.row-top {
+  margin-top: 0;
+}
+.node.node-offer > .row.row-top .col-sm-12 .field-name-title {
   text-align: center;
 }
-.node.node-offer .row .col-sm-12 .field-name-title h2 {
+.node.node-offer > .row.row-top .col-sm-12 .field-name-title h2 {
   margin: 0;
 }
-.node.node-offer .row .col-left .field-name-field-images .field-item:not(:first-child) {
+.node.node-offer > .row.row-top .col-sm-12 .field-name-post-date {
+  text-align: center;
+  font-size: 12px;
+}
+.node.node-offer > .row.row-first .col-left .field-name-field-images .field-item:not(:first-child) {
   display: none;
 }
-.node.node-offer .panel-group {
-  margin: 0;
+.node.node-offer > .row.row-second .col-sm-12 .btn.accept-offer {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  background-color: springgreen;
 }
-.node.node-offer .panel-group .panel {
-  border: none;
-  background: transparent none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
+.node.node-offer > .row.row-second .col-sm-12 .btn.accept-offer span.fa {
+  padding-right: 20px;
 }
-.node.node-offer .panel-group .panel .panel-heading {
-  padding: 0 0 10px;
-  background-color: transparent;
+.node.node-offer > .row.row-second .col-sm-12 .collapse > .row {
+  margin: 20px 0 0;
 }
-.node.node-offer .panel-group .panel .panel-heading .panel-title a {
-  font-family: 'ProximaNovaLight', sans-serif;
-  font-size: 20px;
-  color: #333333;
-  text-decoration: none;
+.node.node-offer > .row.row-second .col-sm-12 .collapse > .row .col-sm-6 {
+  padding: 0;
 }
-.node.node-offer .panel-group .panel .panel-heading .panel-title a:hover,
-.node.node-offer .panel-group .panel .panel-heading .panel-title a.active {
-  text-decoration: none;
-}
-.node.node-offer .panel-group .panel .panel-heading .panel-title a span.fa {
-  margin: 0 10px;
-}
-.node.node-offer .panel-group .panel .panel-collapse .panel-body {
-  padding: 0 0 20px;
-  border: none;
+.node.node-offer > .row.row-second .col-sm-12 .collapse > .row .col-sm-6 .field-label {
+  width: 30%;
+  min-width: 100px;
 }
 /*
  *  Node / block webform component

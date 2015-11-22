@@ -5,6 +5,26 @@
  * Date: 10.11.15
  * Time: 12:09
  */
+
+/* --------------------------------------------------
+ * Webform helper functions
+ * --------------------------------------------------*/
+/**
+ * Gets a specific component value from a webform submission.
+ *
+ * @param $form_key
+ * @param $node
+ * @param $submission
+ */
+function _webform_submission_value($form_key, $node, $submission) {
+  foreach ($node->webform['components'] as $key => $data) {
+    if ($data['form_key'] == $form_key) {
+      return $submission->data[$key][0];
+    }
+  }
+}
+
+
 /* --------------------------------------------------
  * Define pre-built select option lists for webforms
  * --------------------------------------------------*/

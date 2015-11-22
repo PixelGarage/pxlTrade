@@ -102,17 +102,26 @@ function pxltrade_preprocess_views_view_proximity(&$vars) {
  */
 function pxltrade_form_alter(&$form, &$form_state, $form_id) {
   //
-  // only alter delivery form
+  // alter delivery forms only when embedded in offer node (rendering_node_id is set)
   if (isset($form['#node']) && !empty($form['#node']->field_delivery_type) && $form['#node']->field_delivery_type[LANGUAGE_NONE][0]['tid']) {
     //set the offer nid in the hidden field of a delivery form
     global $rendering_node_id;
 
+    // Adapt delivery form ONLY when it is embedded in an offer node (rendering_node_id is set)
+    if (!$rendering_node_id) return;
+
+    //
+    // fill hidden fields with offer data
     if (isset($form['submitted']['offer_nid'])) {
       $form['submitted']['offer_nid']['#value'] = $rendering_node_id;
     }
+    if (isset($form['submitted']['offer_email'])) {
+      $offer = node_load($rendering_node_id);
+      $form['submitted']['offer_email']['#value'] = $offer->field_email[LANGUAGE_NONE][0]['email'];
+    }
 
     //
-    // ajaxify the delivery form
+    // AJAXify delivery form (confirmation message replaces form)
     ctools_form_include($form_state, 'webform.ajax', 'pxltrade');
     $unique_wrapper_id = drupal_html_id('webform-ajax-wrapper-' . $rendering_node_id);
 

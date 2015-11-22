@@ -20,6 +20,7 @@
  */
 ?>
 <div class="webform-confirmation">
+  <span class="fa fa-check"></span>
   <?php if ($confirmation_message): ?>
     <?php print $confirmation_message ?>
   <?php else: ?>

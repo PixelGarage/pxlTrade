@@ -4,113 +4,140 @@
 
 // Variables
 // -------------------------
-
+@pxl-margin-top: 20px;
 
 // Mixins
 // -------------------------
-//
-// Bootstrap accordion
-.bs-accordion() {
-  margin: 0;
 
-  .panel {
-    border: none;
-    background: transparent none;
-    #pxl-mixins.box-shadow(none);
-
-    .panel-heading {
-      padding: 0 0 10px;
-      background-color: transparent;
-
-      .panel-title {
-        a {
-          font-family: @pxl-text-font-bold;
-          font-size: @font-size-large;
-          color: @text-color;
-          text-decoration: none;
-
-          &:hover, &.active {
-            text-decoration: none;
-          }
-
-          span.fa {
-            margin: 0 10px;
-          }
-        }
-      }
-    }
-
-    .panel-collapse {
-      .panel-body {
-        padding: 0 0 20px;
-        border: none;
-
-        .row {
-          .col-left {
-
-          }
-          .col-right {
-
-          }
-        }
-
-      }
-    }
-  }
-}
 
 // General settings
 // -------------------------
 .node.node-offer {
-  .row {
-    // top row
-    .col-sm-12 {
-      .field-name-title {
-        text-align: center;
+  >.row {
+    margin-top: @pxl-margin-top;
 
-        h2 {
-          margin: 0;
+    &.row-top {
+      // top row
+      margin-top: 0;
+
+      .col-sm-12 {
+        .field-name-title {
+          text-align: center;
+
+          h2 {
+            margin: 0;
+          }
         }
-      }
 
-      .field-name-post-date {
-
-      }
-    }
-  }
-
-  .row {
-    // first row
-    .col-left {
-      .field-name-field-images {
-        .field-item:not(:first-child) {
-          display: none;
+        .field-name-post-date {
+          text-align: center;
+          font-size: @font-size-smaller;
         }
       }
     }
 
-    .col-right {
-      .field-name-field-category {
-
+    &.row-first {
+      // first row
+      .col-left {
+        .field-name-field-images {
+          .field-item:not(:first-child) {
+            display: none;
+          }
+        }
       }
 
-      .field-name-field-sex {
+      .col-right {
+        .field-name-field-category {
+
+        }
+
+        .field-name-field-sex {
+
+        }
+
+        .field-name-field-preferred-delivery {
+
+        }
+
+        .field-name-body {
+
+        }
 
       }
-
-      .field-name-field-preferred-delivery {
-
-      }
-
-      .field-name-body {
-
-      }
-
     }
-  }
 
-  .panel-group {
-    // accept accordion
-    .bs-accordion();
+    &.row-second {
+      // second row
+      .col-sm-12 {
+        .btn.accept-offer {
+          display: block;
+          margin: 0 auto;
+          width: 80%;
+          background-color: springgreen;
+
+          span {
+            &.fa {
+              padding-right: 20px;
+            }
+
+            &.btn-label {
+            }
+          }
+        }
+
+        .collapse {
+          >.row {
+            margin: @pxl-margin-top 0 0;
+
+            .col-sm-6 {
+              padding: 0;
+
+              .field-label {
+                width: 30%;
+                min-width: 100px;
+              }
+
+              .field-name-field-address {
+                .name-block {
+                  .first-name {
+                  }
+
+                  .last-name {
+                  }
+                }
+
+                .street-block {
+                  .thoroughfare {
+                  }
+                }
+
+                .locality-block {
+                  .country {
+                  }
+                }
+              }
+
+              .field-name-field-email {
+                .field-item {
+                  a {
+                  }
+                }
+              }
+
+              .field-name-field-phone {
+                .field-item {
+                }
+              }
+
+              .field-name-field-delivery-form {
+                .field-item {
+                  // webform styled in node-webform.less
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
