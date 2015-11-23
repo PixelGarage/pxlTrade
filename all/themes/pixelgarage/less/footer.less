@@ -1,4 +1,76 @@
-/* --------------------------------------------------
- * Pixelgarage Footer
+/*
+ *  Footer section
  * --------------------------------------------------*/
 
+// Variables
+// -------------------------
+@pxl-footer-item-size: 60px;
+
+
+// Mixins
+// -------------------------
+
+
+
+// Main settings
+// -------------------------
+footer.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 0 @grid-gutter-width/2;
+  border: none;
+  background: rgba(255,255,255, 0.9);
+
+  .footer-exposed-form {
+    display: none;
+  }
+
+  .footer-content {
+    padding: 10px 0;
+
+    .region-footer {
+      .block-menu {
+        position: relative;
+
+        ul.menu {
+          text-align: center;
+
+          li {
+            display: inline-block;
+            vertical-align: top;
+            width: @pxl-footer-item-size;
+            height: @pxl-footer-item-size;
+
+            &.menu-filter,
+            &.menu-location {
+              #pxl-mixins.border-radius(50%);
+              background: @pxl-color-icon-dark url(../images/phone.jpg) no-repeat top center/contain;
+
+              >.nolink {
+                display: none;
+              }
+            }
+            &.menu-location  {
+              background: @pxl-color-icon-dark url(../images/phone.jpg) no-repeat top center/contain;
+            }
+
+            &.last {
+              // copyright
+              position: absolute;
+              right: @grid-gutter-width/2;
+              bottom: 10px;
+              width: auto;
+              height: auto;
+              font-size: @font-size-smaller;
+              color: @text-color;
+            }
+
+          }
+        }
+      }
+    }
+  }
+}

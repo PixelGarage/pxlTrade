@@ -104,7 +104,7 @@ function _pixelgarage_checkbox($element, $tid, $label, $selected) {
     . 'value="' . $tid . '" '
     . ($selected ? 'checked="checked" ' : '')
     . drupal_attributes($element['#attributes']) . ' />';
-  $properties['#children'] = "$checkbox <label class='option' for='$id'>$img<div>$label</div></label>";
+  $properties['#children'] = "$checkbox <label class='control-label' for='$id'>$img<div class='checkbox-title'>$label</div></label>";
   $output = theme('form_element', array('element' => $properties));
   return $output;
 }

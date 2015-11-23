@@ -76,6 +76,14 @@
 <header id="navbar" role="banner" class="<?php print $navbar_classes; ?>">
   <div class="container">
     <div class="navbar-header">
+      <?php if (!empty($page['meta_navigation'])): ?>
+        <div class="navbar-meta">
+          <nav role="navigation">
+            <?php print render($page['meta_navigation']); ?>
+          </nav>
+        </div>
+      <?php endif; ?>
+
       <?php if ($logo): ?>
         <a class="logo navbar-btn pull-left" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
@@ -93,7 +101,7 @@
       </button>
     </div>
 
-    <?php if (!empty($primary_nav) || !empty($secondary_nav) || !empty($page['navigation'])): ?>
+    <?php if (!empty($primary_nav) || !empty($secondary_nav)): ?>
       <div class="navbar-collapse collapse">
         <nav role="navigation">
           <?php if (!empty($primary_nav)): ?>
@@ -101,9 +109,6 @@
           <?php endif; ?>
           <?php if (!empty($secondary_nav)): ?>
             <?php print render($secondary_nav); ?>
-          <?php endif; ?>
-          <?php if (!empty($page['navigation'])): ?>
-            <?php print render($page['navigation']); ?>
           <?php endif; ?>
         </nav>
       </div>
@@ -152,13 +157,13 @@
         <?php if (!empty($tabs)): ?>
           <?php print render($tabs); ?>
         <?php endif; ?>
-        <!-- Help region -->
-        <?php if (!empty($page['help'])): ?>
-          <?php print render($page['help']); ?>
-        <?php endif; ?>
         <!-- Action links -->
         <?php if (!empty($action_links)): ?>
           <ul class="action-links"><?php print render($action_links); ?></ul>
+        <?php endif; ?>
+        <!-- Help region -->
+        <?php if (!empty($page['help'])): ?>
+          <?php print render($page['help']); ?>
         <?php endif; ?>
         <!-- Main content -->
         <?php print render($page['content']); ?>
@@ -174,5 +179,14 @@
   </div>
 </div>
 <footer class="footer container">
-  <?php print render($page['footer']); ?>
+  <div class="footer-exposed-form">
+    <div class="container">
+      <?php if (!empty($page['navigation'])): ?>
+        <?php print render($page['navigation']); ?>
+      <?php endif; ?>
+    </div>
+  </div>
+  <div class="footer-content">
+    <?php print render($page['footer']); ?>
+  </div>
 </footer>

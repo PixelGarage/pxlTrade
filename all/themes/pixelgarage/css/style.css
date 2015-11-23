@@ -1063,7 +1063,7 @@ body {
   font-family: 'ProximaNovaLight', sans-serif;
   font-size: 16px;
   line-height: 1.42857143;
-  color: #333333;
+  color: #222222;
   background-color: #ffffff;
 }
 input,
@@ -2860,7 +2860,7 @@ select[multiple].form-group-lg .form-control {
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
-  color: #737373;
+  color: #626262;
 }
 @media (min-width: 768px) {
   .form-inline .form-group {
@@ -4882,7 +4882,7 @@ a.thumbnail.active {
 }
 .thumbnail .caption {
   padding: 9px;
-  color: #333333;
+  color: #222222;
 }
 .alert {
   padding: 15px;
@@ -8930,7 +8930,7 @@ form#user-login {
   margin: 0 -0.25em 0 0;
   padding: 0 10px;
   line-height: 1;
-  border-right: 1px solid #333333;
+  border-right: 1px solid #222222;
 }
 #block-locale-language ul.language-switcher-locale-url > li.first {
   margin-left: 0;
@@ -8972,7 +8972,7 @@ form#user-login {
   bottom: auto;
   width: 75px;
   height: 30px;
-  color: #333333;
+  color: #222222;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -8986,6 +8986,9 @@ form#user-login {
   right: 0;
 }
 /*
+ *  Modal dialog component
+ * --------------------------------------------------*/
+/*
  *  Node page component
  * --------------------------------------------------*/
 .node-page div.col-sm-12 {
@@ -8996,7 +8999,7 @@ form#user-login {
   font-size: 20px;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: #333333;
+  color: #222222;
 }
 @media screen and (min-width: 480px) {
   .node-page div.col-sm-12 .field-name-title h2 {
@@ -9099,7 +9102,7 @@ form#user-login {
 }
 .node-page div.col-sm-12 .field-name-body hr {
   border: 0;
-  border-bottom: 2px solid #333333;
+  border-bottom: 2px solid #222222;
   background: none;
 }
 .node-page div.col-sm-12 .field-name-body img,
@@ -9176,7 +9179,7 @@ form#user-login {
   font-weight: normal;
   line-height: 1.5em;
   text-align: left;
-  color: #333333;
+  color: #222222;
 }
 @media screen and (min-width: 480px) {
   .node-webform div.col-sm-12 form.webform-client-form .webform-component label {
@@ -9189,7 +9192,7 @@ form#user-login {
   }
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component label span.form-required {
-  color: #333333;
+  color: #222222;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component div.description {
   display: block;
@@ -9205,7 +9208,7 @@ form#user-login {
   font-size: 13px;
   line-height: 1.5em;
   text-align: left;
-  color: #333333;
+  color: #222222;
   box-shadow: none;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
@@ -9239,7 +9242,7 @@ form#user-login {
   font-size: 13px;
   line-height: 1em;
   text-align: left;
-  color: #333333;
+  color: #222222;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
@@ -9291,7 +9294,7 @@ form#user-login {
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #333333;
+  color: #222222;
   outline: none;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
@@ -9314,7 +9317,7 @@ form#user-login {
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn:hover,
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn:focus {
   color: #eeeeee;
-  background: #333333;
+  background: #222222;
 }
 @media screen and (min-width: 480px) {
   .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file input {
@@ -9357,7 +9360,7 @@ form#user-login {
   font-size: 12px;
   line-height: 22px;
   text-align: left;
-  color: #333333;
+  color: #222222;
 }
 @media screen and (min-width: 480px) {
   .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup p {
@@ -9395,7 +9398,7 @@ form#user-login {
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #333333;
+  color: #222222;
   outline: none;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
@@ -9416,7 +9419,7 @@ form#user-login {
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit:hover,
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit:focus {
   color: #eeeeee;
-  background: #333333;
+  background: #222222;
 }
 .webform-confirmation {
   text-align: center;
@@ -9797,6 +9800,57 @@ body .main-container .fading.fading-bottom {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffffff', GradientType=0);
 }
-/* --------------------------------------------------
- * Pixelgarage Footer
+/*
+ *  Footer section
  * --------------------------------------------------*/
+footer.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 0 15px;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+}
+footer.footer .footer-exposed-form {
+  display: none;
+}
+footer.footer .footer-content {
+  padding: 10px 0;
+}
+footer.footer .footer-content .region-footer .block-menu {
+  position: relative;
+}
+footer.footer .footer-content .region-footer .block-menu ul.menu {
+  text-align: center;
+}
+footer.footer .footer-content .region-footer .block-menu ul.menu li {
+  display: inline-block;
+  vertical-align: top;
+  width: 60px;
+  height: 60px;
+}
+footer.footer .footer-content .region-footer .block-menu ul.menu li.menu-filter,
+footer.footer .footer-content .region-footer .block-menu ul.menu li.menu-location {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: #222222 url(../images/phone.jpg) no-repeat top center / contain;
+}
+footer.footer .footer-content .region-footer .block-menu ul.menu li.menu-filter > .nolink,
+footer.footer .footer-content .region-footer .block-menu ul.menu li.menu-location > .nolink {
+  display: none;
+}
+footer.footer .footer-content .region-footer .block-menu ul.menu li.menu-location {
+  background: #222222 url(../images/phone.jpg) no-repeat top center / contain;
+}
+footer.footer .footer-content .region-footer .block-menu ul.menu li.last {
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
+  width: auto;
+  height: auto;
+  font-size: 12px;
+  color: #222222;
+}
