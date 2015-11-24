@@ -12,6 +12,14 @@
 $rendering_node_id = null;
 
 /**
+ * Redirects all nodes to simulate a proximity item to be displayed in the item container.
+ */
+function redirect_all_nodes($nid) {
+  $pe_container_index = 0;
+  drupal_goto('proximity-container-item/' . $pe_container_index . '/node-' . $nid);
+}
+
+/**
  * Alters the proximity item load parameter array.
  *
  * The load parameter array defines a specific url parameter for each proximity item.
@@ -43,6 +51,16 @@ function pxltrade_proximity_load_params_alter($container_index, $view_result, &$
  *                                      replaced either by a string (rendered html content), a render array or an integer (error code).
  */
 function pxltrade_proximity_render_item_alter($container_index, $param, &$render_item) {
+  //
+  // The $param contains a node id (redirect of all nodes)
+  if (strpos($param, 'node-') === 0) {
+    $nid = substr($param, 5);
+    if ($node = node_load($nid)) {
+      $render_item = node_view($node);
+    }
+    return;
+  }
+
   //
   // The $param contains a term id.
   // Returns a bootstrap slider containing all offer nodes with the given taxonomy term set.

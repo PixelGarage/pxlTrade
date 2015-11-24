@@ -11,6 +11,21 @@ require_once 'includes/proximity.action.inc'; // implements proximity item click
 
 
 /**
+ * Implements hook_init().
+ *
+ * Redirects all node pages to the defined proximity container.
+ */
+function pxltrade_init() {
+  if (drupal_is_front_page()) return;
+
+  $pattern = '/^node\/\d+$/';
+  if (preg_match($pattern, $_GET['q'])) {
+    $param = str_replace('/', '-', $_GET['q']);
+    drupal_goto('proximity-container-item/0/' . $param);
+  }
+}
+
+/**
  * Implements hook_theme().
  */
 function pxltrade_theme() {
