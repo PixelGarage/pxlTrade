@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'proximanovaregitalicwebfont';
+    src: url('fonts/proximanovaregitalicwebfont.eot');
+    src: url('fonts/proximanovaregitalicwebfont.eot') format('embedded-opentype'),
+         url('fonts/proximanovaregitalicwebfont.woff2') format('woff2'),
+         url('fonts/proximanovaregitalicwebfont.woff') format('woff'),
+         url('fonts/proximanovaregitalicwebfont.ttf') format('truetype'),
+         url('fonts/proximanovaregitalicwebfont.svg#proximanovaregitalicwebfont') format('svg');
+}

@@ -48,6 +48,52 @@
   };
 
   /**
+   * Implements the active state of the filter menus and opens or closes the filter section
+   * according to the menu state.
+   */
+  Drupal.behaviors.activateFilterMenus = {
+    attach: function() {
+      var $exposedForm = $('footer .footer-exposed-form'),
+          $footer = $('.footer-content'),
+          $menus = $footer.find('li.menu');
+
+      $menus.once('activated', function() {
+        $(this).on('click', function() {
+          var $menu = $(this),
+              $menuIsActive = $menu.hasClass('active'),
+              $termFilters = $exposedForm.find('#edit-term-node-tid-depth-wrapper'),
+              $locationFilters = $exposedForm.find('#edit-field-address-locality-wrapper');
+
+          // reset active menu
+          $menus.removeClass('active');
+
+          // menu specific
+          if ($menu.hasClass('menu-filter')) {
+            $locationFilters.hide();
+            $termFilters.show();
+
+          } else if ($menu.hasClass('menu-location')) {
+            $termFilters.hide();
+            $locationFilters.show();
+
+          }
+
+          // show / hide filter section
+          if(!$menuIsActive) {
+            $menu.addClass('active');
+            // show filter panel
+            $exposedForm.slideDown(400);
+
+          } else {
+            // hide filter panel
+            $exposedForm.slideUp(400);
+          }
+        });
+      });
+    }
+  };
+
+  /**
    * Allows full size clickable items.
    Drupal.behaviors.fullSizeClickableItems = {
     attach: function () {

@@ -100,13 +100,14 @@
 // -------------------------
 form {
   .views-exposed-form {
-    padding: @grid-gutter-width/2 0;
+    padding: 20px 0;
+    height: 200px;
 
     @media @tablet {
-      padding: 20px 0 @grid-gutter-width/2;
+      padding: 30px 0;
     }
     @media @normal {
-      padding: 35px 0 @grid-gutter-width/2;
+      padding: 50px 0;
     }
 
     .views-exposed-widgets {
@@ -117,82 +118,45 @@ form {
         float: none;
         padding: 0;
 
-        &.views-widget-filter-term_node_tid_depth {
-          // term filter
-          > label {
-            display: none;
-          }
-
-          .views-widget {
-            .pxl-checkboxes {
-              overflow-x: auto;
-              padding: 5px 0;
-              width: 100%;
-              white-space: nowrap;
-              text-align: left;
-              font-size: @font-size-small;
-              border: 1px solid @pxl-color-border;
-
-              @media @tablet {
-                padding: 0;
-                white-space: normal;
-                text-align: center;
-                border: none;
-              }
-              @media @normal {
-                font-size: @font-size-small;
-              }
-
-              .pxl-checkbox{
-                .pxl-checkbox(90%, 40%, none);
-              }
-            }
-
-            .help-block {
-              display: none;
-            }
-          }
+        // term filter
+        > label {
+          display: block;
+          margin: 10px auto;
+          width: 100%;
+          font-family: @pxl-text-font-bold;
+          font-size: @font-size-large;
+          color: @pxl-color-red;
+          text-align: center;
         }
 
-        &.views-widget-filter-secondary {
-          // location filter
-          position: absolute;
-          top: 0;
-          left: 0;
+        .views-widget {
+          .form-text {
+            // location filter
+            margin: 0 auto;
+            width: 100%;
+            max-width: 500px;
+            #pxl-mixins.border-radius(5px);
+            border: 2px solid @pxl-color-red;
+          }
 
-          .views-widget {
-            .panel {
-              .panel-heading {
-                display: inline-block;
-                margin: 5px 0;
-                width: 100% / 13;
-                min-width: 53px;
-                vertical-align: top;
+          .pxl-checkboxes {
+            // term filters
+            padding: 5px 0;
+            text-align: center;
+            font-size: @font-size-small;
 
-                a.panel-title {
-
-                }
-              }
-
-              .panel-collapse {
-                .bef-secondary-options {
-                  .form-item {
-                    .control-label {
-
-                    }
-
-                    input.form-text {
-
-                    }
-                  }
-                }
-              }
+            .pxl-checkbox{
+              .pxl-checkbox(90%, 40%, none);
             }
+          }
+
+          .help-block {
+            display: none;
           }
         }
 
         &.views-submit-button {
-          display: block;
+          display: none;
           text-align: right;
           margin: 0;
           padding: 10px 0 0;
