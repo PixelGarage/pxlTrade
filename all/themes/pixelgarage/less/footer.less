@@ -26,6 +26,10 @@ footer.footer {
 
   .footer-exposed-form {
     display: none;
+
+    .container {
+      background: none;
+    }
   }
 
   .footer-content {
@@ -55,6 +59,10 @@ footer.footer {
             }
             &.menu-location  {
               background: @pxl-color-icon-dark url(../images/phone.svg) no-repeat top center/contain;
+            }
+
+            &.active, &.selected {
+              background-color: @pxl-color-red;
             }
 
             &.last {

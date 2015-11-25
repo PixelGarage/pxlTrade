@@ -26,6 +26,18 @@ function pxltrade_init() {
 }
 
 /**
+ * Implements hook_theme_registry_alter().
+ */
+function pxltrade_theme_registry_alter(&$theme_registry) {
+  $path = drupal_get_path('module', 'pxltrade');
+  if (isset($theme_registry['select_as_checkboxes'])) {
+    $theme_registry['select_as_checkboxes']['includes'][] = $path . '/includes/bef.checkbox.inc';
+    $theme_registry['select_as_checkboxes']['function'] = 'theme_filter_as_checkboxes';
+  }
+}
+
+
+/**
  * Implements hook_theme().
  */
 function pxltrade_theme() {

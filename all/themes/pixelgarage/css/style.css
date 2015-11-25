@@ -1417,7 +1417,7 @@ dt {
 dd {
   margin-left: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -2530,10 +2530,10 @@ output {
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control:focus {
-  border-color: #66afe9;
+  border-color: #ff3366;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 51, 102, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 51, 102, 0.6);
 }
 .form-control::-moz-placeholder {
   color: #999999;
@@ -3505,7 +3505,7 @@ tbody.collapse.in {
   bottom: 100%;
   margin-bottom: 2px;
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar-right .dropdown-menu {
     left: auto;
     right: 0;
@@ -4037,12 +4037,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-bottom: 22px;
   border: 1px solid transparent;
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar {
     border-radius: 4px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar-header {
     float: left;
   }
@@ -4058,7 +4058,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-collapse.in {
   overflow-y: auto;
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar-collapse {
     width: auto;
     border-top: 0;
@@ -4098,7 +4098,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-right: -15px;
   margin-left: -15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .container > .navbar-header,
   .container-fluid > .navbar-header,
   .container > .navbar-collapse,
@@ -4111,7 +4111,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   z-index: 1000;
   border-width: 0 0 1px;
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar-static-top {
     border-radius: 0;
   }
@@ -4123,7 +4123,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   left: 0;
   z-index: 1030;
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar-fixed-top,
   .navbar-fixed-bottom {
     border-radius: 0;
@@ -4152,7 +4152,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-brand > img {
   display: block;
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
     margin-left: -15px;
@@ -4182,7 +4182,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar-toggle {
     display: none;
   }
@@ -4195,7 +4195,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-bottom: 10px;
   line-height: 22px;
 }
-@media (max-width: 767px) {
+@media (max-width: -1) {
   .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -4217,7 +4217,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     background-image: none;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar-nav {
     float: left;
     margin: 0;
@@ -4291,7 +4291,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     top: 0;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: -1) {
   .navbar-form .form-group {
     margin-bottom: 5px;
   }
@@ -4299,7 +4299,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     margin-bottom: 0;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar-form {
     width: auto;
     border: 0;
@@ -4339,14 +4339,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-top: 14px;
   margin-bottom: 14px;
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar-text {
     float: left;
     margin-left: 15px;
     margin-right: 15px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 0) {
   .navbar-left {
     float: left !important;
     float: left;
@@ -4415,7 +4415,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #e7e7e7;
   color: #555555;
 }
-@media (max-width: 767px) {
+@media (max-width: -1) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #777777;
   }
@@ -4511,7 +4511,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   background-color: #080808;
   color: #ffffff;
 }
-@media (max-width: 767px) {
+@media (max-width: -1) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
@@ -9535,17 +9535,6 @@ form#user-login {
  * --------------------------------------------------*/
 form .views-exposed-form {
   padding: 20px 0;
-  height: 200px;
-}
-@media screen and (min-width: 768px) {
-  form .views-exposed-form {
-    padding: 30px 0;
-  }
-}
-@media screen and (min-width: 1024px) {
-  form .views-exposed-form {
-    padding: 50px 0;
-  }
 }
 form .views-exposed-form .views-exposed-widgets {
   position: relative;
@@ -9564,8 +9553,8 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget > label {
   color: #ff3366;
   text-align: center;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-text {
-  margin: 0 auto;
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .form-text {
+  margin: 0 auto 20px;
   width: 100%;
   max-width: 500px;
   -moz-border-radius: 5px;
@@ -9573,35 +9562,36 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
   border-radius: 5px;
   border: 2px solid #ff3366;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .pxl-checkboxes {
-  padding: 5px 0;
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes {
   text-align: center;
   font-size: 14px;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .pxl-checkboxes .pxl-checkbox {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox {
   display: inline-block;
-  margin: 5px 0;
-  width: 7.69230769%;
-  min-width: 53px;
+  margin: 5px 10px;
+  width: 60px;
   vertical-align: top;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .pxl-checkboxes .pxl-checkbox .form-item {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item {
   position: relative;
   margin: 0 5%;
-  padding-bottom: 90%;
+  padding: 0 0 90%;
   height: 0;
-  border: 1px solid none;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #222222;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .pxl-checkboxes .pxl-checkbox .form-item input {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item input {
   display: none;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .pxl-checkboxes .pxl-checkbox .form-item label {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item .control-label {
   display: block;
   width: 100%;
   height: 100%;
   font-weight: normal;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .pxl-checkboxes .pxl-checkbox .form-item label > img {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item .control-label > img {
   position: absolute;
   left: 0;
   top: 40%;
@@ -9614,21 +9604,22 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
   height: auto;
   border: 1px solid none;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .pxl-checkboxes .pxl-checkbox .form-item label > div {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item .control-label > .checkbox-title {
+  display: none;
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: -70%;
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .pxl-checkboxes .pxl-checkbox.selected .form-item {
-  border: 1px solid #4444ff;
-  -webkit-box-shadow: 0 0 3px #4444ff;
-  box-shadow: 0 0 3px #4444ff;
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox.selected .form-item {
+  background-color: #ff3366;
+  -webkit-box-shadow: 0 0 3px #ff3366;
+  box-shadow: 0 0 3px #ff3366;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .help-block {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .help-block {
   display: none;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button {
@@ -9823,6 +9814,9 @@ footer.footer {
 footer.footer .footer-exposed-form {
   display: none;
 }
+footer.footer .footer-exposed-form .container {
+  background: none;
+}
 footer.footer .footer-content {
   padding: 10px 0;
 }
@@ -9851,6 +9845,10 @@ footer.footer .footer-content .region-footer .block-menu ul.menu li.menu-locatio
 }
 footer.footer .footer-content .region-footer .block-menu ul.menu li.menu-location {
   background: #222222 url(../images/phone.svg) no-repeat top center / contain;
+}
+footer.footer .footer-content .region-footer .block-menu ul.menu li.active,
+footer.footer .footer-content .region-footer .block-menu ul.menu li.selected {
+  background-color: #ff3366;
 }
 footer.footer .footer-content .region-footer .block-menu ul.menu li.last {
   position: absolute;

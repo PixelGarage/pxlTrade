@@ -65,7 +65,7 @@
               $locationFilters = $exposedForm.find('#edit-field-address-locality-wrapper');
 
           // reset active menu
-          $menus.removeClass('active');
+          $menus.removeClass('active').removeClass('selected');
 
           // menu specific
           if ($menu.hasClass('menu-filter')) {
@@ -85,6 +85,10 @@
             $exposedForm.slideDown(400);
 
           } else {
+            // activate filter menu, if at least one checkbox is selected
+            if ($termFilters.find('.pxl-checkbox').hasClass('selected')) {
+              $footer.find('li.menu-filter').addClass('selected');
+            }
             // hide filter panel
             $exposedForm.slideUp(400);
           }

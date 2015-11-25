@@ -4,8 +4,6 @@
 
 // Variables
 // -------------------------
-@pxl-color-border: #4444ff;
-@pxl-color-shadow: #4444ff;
 @pxl-color-submit: #aaa;
 
 
@@ -13,27 +11,27 @@
 // -------------------------
 .checkbox-size(@pxl-check-gutter: 10%) {
   margin: 0 @pxl-check-gutter/2;
-  padding-bottom: 100% - @pxl-check-gutter; // square
+  padding: 0 0 100% - @pxl-check-gutter; // square
   height: 0;
 }
 
-.pxl-checkbox(@icon-width: 60%; @icon-y-shift: 0; @img-border-color: @pxl-color-border) {
+.pxl-checkbox(@icon-width: 60%; @icon-y-shift: 0; @img-border-color: @pxl-color-red) {
   display: inline-block;
-  margin: 5px 0;
-  width: 100% / 13;
-  min-width: 53px;
+  margin: 5px 10px;
+  width: 60px;
   vertical-align: top;
 
   .form-item {
     position: relative;
     .checkbox-size;
-    border: 1px solid @img-border-color;
+    #pxl-mixins.border-radius(50%);
+    background-color: @pxl-color-icon-dark;
 
     input {
       display: none;
     }
 
-    label {
+    .control-label {
       display: block;
       width: 100%;
       height: 100%;
@@ -50,18 +48,19 @@
         border: 1px solid @img-border-color;
       }
 
-      > div {
+      > .checkbox-title {
+        display: none;
         position: absolute;
         left: 50%;
-        bottom: 0;
+        bottom: -70%;
         #pxl-mixins.translateX(-50%);
       }
     }
   }
 
   &.selected .form-item  {
-    border: 1px solid @pxl-color-border;
-    .box-shadow(0 0 3px @pxl-color-shadow);
+    background-color: @pxl-color-red;
+    .box-shadow(0 0 3px @pxl-color-red);
   }
 }
 
@@ -101,14 +100,6 @@
 form {
   .views-exposed-form {
     padding: 20px 0;
-    height: 200px;
-
-    @media @tablet {
-      padding: 30px 0;
-    }
-    @media @normal {
-      padding: 50px 0;
-    }
 
     .views-exposed-widgets {
       position: relative;
@@ -130,28 +121,29 @@ form {
         }
 
         .views-widget {
-          .form-text {
-            // location filter
-            margin: 0 auto;
-            width: 100%;
-            max-width: 500px;
-            #pxl-mixins.border-radius(5px);
-            border: 2px solid @pxl-color-red;
-          }
-
-          .pxl-checkboxes {
-            // term filters
-            padding: 5px 0;
-            text-align: center;
-            font-size: @font-size-small;
-
-            .pxl-checkbox{
-              .pxl-checkbox(90%, 40%, none);
+          .form-item {
+            .form-text {
+              // location filter
+              margin: 0 auto 20px;
+              width: 100%;
+              max-width: 500px;
+              #pxl-mixins.border-radius(5px);
+              border: 2px solid @pxl-color-red;
             }
-          }
 
-          .help-block {
-            display: none;
+            .pxl-checkboxes {
+              // term filters
+              text-align: center;
+              font-size: @font-size-small;
+
+              .pxl-checkbox{
+                .pxl-checkbox(90%, 40%, none);
+              }
+            }
+
+            .help-block {
+              display: none;
+            }
           }
         }
 
