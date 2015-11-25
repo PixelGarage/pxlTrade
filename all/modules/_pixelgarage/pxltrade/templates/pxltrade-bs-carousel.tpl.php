@@ -20,10 +20,10 @@
   <?php if ($navigation): ?>
     <!-- Carousel navigation -->
     <a class="carousel-control left" href="#pxltrade-bs-carousel-<?php print $id ?>" data-slide="prev">
-      <span class="icon-prev"></span>
+      <span class="fa fa-angle-left"></span>
     </a>
     <a class="carousel-control right" href="#pxltrade-bs-carousel-<?php print $id ?>" data-slide="next">
-      <span class="icon-next"></span>
+      <span class="fa fa-angle-right"></span>
     </a>
   <?php endif ?>
 </div>

@@ -237,7 +237,13 @@
     line-height: @pxl-success-badge-dim;
     color: #fff;
     #pxl-mixins.border-radius(@pxl-success-badge-dim/2);
-    background: @brand-success none;
+
+    &.fa-check {
+      background: @brand-success none;
+    }
+    &.fa-times {
+      background: @brand-warning none;
+    }
   }
 
   .confirmation-message {

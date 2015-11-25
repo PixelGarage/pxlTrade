@@ -6105,9 +6105,9 @@ button.close {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 15%;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
+  width: 30px;
+  opacity: 1;
+  filter: alpha(opacity=100);
   font-size: 20px;
   color: #ffffff;
   text-align: center;
@@ -8978,36 +8978,113 @@ form#user-login {
  * --------------------------------------------------*/
 .pxltrade-bs-carousel.carousel {
   position: relative;
-  padding-top: 30px;
+  padding: 0;
   width: 100%;
   height: auto;
 }
 .pxltrade-bs-carousel.carousel > .carousel-inner {
-  margin-top: -30px;
+  margin-top: 0;
 }
 .pxltrade-bs-carousel.carousel > a.carousel-control {
   display: block;
   position: absolute;
-  top: 0;
+  top: 200px;
   bottom: auto;
-  width: 75px;
-  height: 30px;
-  color: #222222;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #aaa;
-  background: none;
+  padding: 0;
+  width: 30px;
+  font-size: 50px;
+  text-shadow: none;
+  color: #ff3366;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 2px solid #ff3366;
+  background: #ffffff;
 }
 .pxltrade-bs-carousel.carousel > a.carousel-control.left {
-  left: 0;
+  left: -15px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-left-width: 0;
+  -webkit-box-shadow: 2px 0 2px rgba(100, 100, 100, 0.4);
+  box-shadow: 2px 0 2px rgba(100, 100, 100, 0.4);
+}
+.pxltrade-bs-carousel.carousel > a.carousel-control.left .fa {
+  margin-left: -10px;
 }
 .pxltrade-bs-carousel.carousel > a.carousel-control.right {
-  right: 0;
+  right: -15px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-right-width: 0;
+  -webkit-box-shadow: -2px 0 2px rgba(100, 100, 100, 0.4);
+  box-shadow: -2px 0 2px rgba(100, 100, 100, 0.4);
+}
+.pxltrade-bs-carousel.carousel > a.carousel-control.right .fa {
+  margin-right: -10px;
 }
 /*
  *  Modal dialog component
  * --------------------------------------------------*/
+.modal .modal-backdrop {
+  background-color: #ffffff;
+}
+.modal .modal-backdrop.in {
+  opacity: 0.8;
+}
+.modal .modal-dialog {
+  margin: 30px auto;
+}
+.modal .modal-dialog .modal-content {
+  position: relative;
+  padding: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.modal .modal-dialog .modal-content .modal-header {
+  padding: 0;
+  border: none;
+}
+.modal .modal-dialog .modal-content .modal-header button.close {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  opacity: 1.0;
+  z-index: 1;
+}
+.modal .modal-dialog .modal-content .modal-header button.close span {
+  padding: 0;
+  font-family: 'ProximaNovaRegular', sans-serif;
+  font-size: 60px;
+  font-weight: normal;
+  color: #ff3366;
+}
+.modal .modal-dialog .modal-content .modal-body {
+  padding: 0 15px;
+}
+.modal .modal-dialog .modal-content .modal-footer {
+  border: none;
+}
+.modal .modal-dialog .modal-content .modal-footer .btn {
+  color: #ff3366;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 2px solid #ff3366;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
+  box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
+}
+.modal .modal-dialog .modal-content .modal-footer .btn:hover {
+  color: #ffffff;
+  background-color: #ff3366;
+}
 /*
  *  Node page component
  * --------------------------------------------------*/
@@ -9454,7 +9531,12 @@ form#user-login {
   -moz-border-radius: 40px;
   -webkit-border-radius: 40px;
   border-radius: 40px;
+}
+.webform-confirmation .fa.fa-check {
   background: springgreen none;
+}
+.webform-confirmation .fa.fa-times {
+  background: #f0ad4e none;
 }
 .webform-confirmation .confirmation-message p {
   margin-top: 20px;
@@ -9500,7 +9582,7 @@ form#user-login {
 }
 .view-post-grid .view-content .pe-container .pe-item .pe-item-inner {
   position: relative;
-  margin: 10px;
+  margin: 5px;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
   border-radius: 7px;
@@ -9571,6 +9653,14 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
   -webkit-border-radius: 5px;
   border-radius: 5px;
   border: 2px solid #ff3366;
+  -webkit-box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
+  -moz-box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
+  box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
+}
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .form-text:focus {
+  -webkit-box-shadow: 0 0 2px #ff3366;
+  -moz-box-shadow: 0 0 2px #ff3366;
+  box-shadow: 0 0 2px #ff3366;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes {
   text-align: center;
@@ -9626,8 +9716,8 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox.selected .form-item {
   background-color: #ff3366;
-  -webkit-box-shadow: 0 0 3px #ff3366;
-  box-shadow: 0 0 3px #ff3366;
+  -webkit-box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
+  box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .help-block {
   display: none;

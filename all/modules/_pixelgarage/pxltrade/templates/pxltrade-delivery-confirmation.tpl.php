@@ -20,8 +20,11 @@
  */
 ?>
 <div class="webform-confirmation">
-  <?php if($success): ?>
+  <?php if($success == 'success'): ?>
     <span class="fa fa-check"></span>
+  <?php endif; ?>
+  <?php if($success == 'just-taken'): ?>
+      <span class="fa fa-times"></span>
   <?php endif; ?>
   <div class="confirmation-message">
     <?php if ($confirmation_message): ?>
