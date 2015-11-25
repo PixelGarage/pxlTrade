@@ -5,9 +5,12 @@
 // Variables
 // -------------------------
 @pxl-badge-dim: 30px;
-@pxl-badge-border-color: #aaa;
-@pxl-badge-bg-color: #3377aa;
-@pxl-badge-color: #fff;
+@pxl-badge-border-color: transparent;
+@pxl-badge-bg-color: @pxl-color-red;
+
+@pxl-item-grid-gutter: 10px;
+@pxl-item-border-radius: 7px;
+@pxl-item-bg: #ccc;
 
 
 // Mixins
@@ -48,41 +51,49 @@
         }
 
         .pe-item-inner {
-          margin: 20px;
-          #pxl-mixins.border-radius(@pxl-badge-dim/2);
-          border: 1px solid @pxl-badge-border-color;
+          position: relative;
+          margin: @pxl-item-grid-gutter;
+          #pxl-mixins.border-radius(@pxl-item-border-radius);
+          background: @pxl-item-bg none;
 
           a.btn {
             display: block;
+            padding: @pxl-badge-dim/2;
 
             .views-field-field-image {
-              padding: @pxl-badge-dim/2;
-              img {
+              padding: 0;
 
+              img {
+                width: 100%;
+                height: auto;
+                min-width: 100%;
               }
             }
 
             .views-field-nid {
               position: absolute;
-              top: @pxl-badge-dim/2;
-              right: @pxl-badge-dim/2;
-              width: @pxl-badge-dim;
+              top: -@pxl-badge-dim/4;
+              right: -@pxl-badge-dim/4;
+              width: auto;
               height: @pxl-badge-dim;
               text-align: center;
-              border: 3px solid @pxl-badge-border-color;
               #pxl-mixins.border-radius(@pxl-badge-dim/2);
               background: @pxl-badge-bg-color none;
 
               .field-content {
-                font-family: @pxl-text-font-bold;
+                display: block;
+                padding: 0 10px;
+                width: auto;
+                min-width: @pxl-badge-dim;
+                font-family: @pxl-text-font;
                 font-size: @font-size-base;
-                font-weight: bold;
-                color: @pxl-badge-color;
+                color: @text-color-light;
+                line-height: @pxl-badge-dim;
               }
             }
           }
-        }
-      }
-    }
-  }
+        }  // pe-item-inner
+      }  // pe-item
+    }  // pe-container
+  }  // content
 }

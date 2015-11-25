@@ -21,15 +21,15 @@
  * the view is modified.
  */
 
-// replace images with svg-files in post grid
-$term = $row->_field_data['tid']['entity'];
-$name = $term->name;
-$alt = !empty($term->field_image) ? $term->field_image[LANGUAGE_NONE][0]['alt'] : '';
-$path = drupal_get_path('theme', 'pixelgarage') . '/images/' . strtolower($name) . '.svg';
-if (!file_exists($path)) {
-  $path = drupal_get_path('theme', 'pixelgarage') . '/images/other.svg';
-}
-$url= file_create_url($path);
-//$output = '<img typeof="foaf:Image" class="img-responsive" src="' . $url . '" alt="' . $alt . '" />';
+  // replace images with svg-files in postings grid
+  $term = $row->_field_data['tid']['entity'];
+  $name = $term->name;
+  $alt = !empty($term->field_image) ? $term->field_image[LANGUAGE_NONE][0]['alt'] : '';
+  $path = drupal_get_path('theme', 'pixelgarage') . '/images/' . strtolower($name) . '.svg';
+  if (!file_exists($path)) {
+    $path = drupal_get_path('theme', 'pixelgarage') . '/images/other.svg';
+  }
+  $url= file_create_url($path);
+  $output = '<img typeof="foaf:Image" class="img-responsive" src="' . $url . '" alt="' . $alt . '" />';
 ?>
 <?php print $output; ?>

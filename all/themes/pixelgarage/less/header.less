@@ -4,7 +4,13 @@
 
 // Variables
 // -------------------------
+@header-padding-tb: 20px;
 
+@header-font-size-small: 32px;
+@header-font-size: 42px;
+
+@header-height-small: 2*@header-padding-tb + @header-font-size-small;
+@header-height: 2*@header-padding-tb + @header-font-size;
 
 // Mixins
 // -------------------------
@@ -14,10 +20,18 @@
 // Main settings
 // -------------------------
 body.navbar-is-fixed-top {
-  padding-top: 110px !important;
+  padding-top: @header-height-small !important;
 
   &.admin-menu {
-    padding-top: 110px !important;
+    padding-top: @header-height-small !important;
+  }
+
+  @media @narrow {
+    padding-top: @header-height !important;
+
+    &.admin-menu {
+      padding-top: @header-height !important;
+    }
   }
 
 }
@@ -28,24 +42,35 @@ header#navbar {
   background: transparent none;
 
   .container {
-    padding: @grid-gutter-width @grid-gutter-width / 2 10px;
+    overflow: hidden;
+    padding: @header-padding-tb @grid-gutter-width / 2;
 
     .navbar-header {
       // header (branding)
+      width: 100%;
+      text-align: center;
+
       a.logo {
+        display: none;
+
         img {
-          display: none;
-          max-height: 50px;
-          width: auto;
         }
       }
 
       a.navbar-brand {
+        display: inline-block;
+        float: none;
+        margin: 0;
         padding: 0;
-        font-family: @pxl-text-font-medium;
-        font-size: @font-size-h1;
-        color: @gray-darker;
+        height: auto;
+        font-family: @pxl-text-font-bold;
+        font-size: @header-font-size-small;
+        color: @pxl-color-red;
         line-height: 1;
+
+        @media @narrow {
+          font-size: @header-font-size;
+        }
       }
 
       .navbar-toggle {
@@ -59,26 +84,79 @@ header#navbar {
       // main menu
       nav {
         ul.navbar-nav {
+          position: relative;
           margin: 0;
+          padding: 0;
+          width: 100%;
 
           li {
-            height: 40px;
+            position: absolute;
+            top: 0;
+            float: none;
 
-            a {
-              padding: 7px 15px;
-              font-family: @pxl-text-font;
-              font-size: @font-size-base;
-              line-height: 1;
+            &.menu-about {
+              // rotate list item
+              left: 0;
+              .transform-origin(top left);
+              #pxl-mixins.transform(translate(-10px, 5px) rotate(-90deg));
 
-              &:hover,
-              &.active {
+              @media @narrow {
+                #pxl-mixins.transform(translateX(-10px) rotate(-90deg));
+              }
+
+              a {
+                margin: 0;
+                padding: 7px 0;
+                font-family: @pxl-text-font;
+                font-size: @font-size-base;
+                line-height: 1;
+                color: @text-color;
+
+                &:hover,
+                &.active {
+                  color: @pxl-color-red;
+                }
+              }
+            }
+
+            &.menu-give {
+              top: -(@header-padding-tb + @header-font-size-small + 2px);
+              right: -@grid-gutter-width/2;
+              .transform-origin(bottom right);
+              #pxl-mixins.transform(rotate(45deg));
+
+              a {
+                display: block;
+                margin: 0;
+                padding: (@header-padding-tb + @header-font-size-small) 0 4px;
+                width: sqrt(2)*@header-height-small;
+                font-family: @pxl-text-font;
+                font-size: @font-size-base;
+                text-align: center;
+                line-height: 1;
+                color: @text-color-light;
+                background-color: @pxl-color-red;
+
+                &:hover,
+                &.active {
+                  color: @pxl-color-red;
+                  background-color: @text-color-light;
+                }
+              }
+
+              @media @narrow {
+                top: -(@header-padding-tb + @header-font-size + 2px);
+
+                a {
+                  padding: (@header-padding-tb + @header-font-size) 0 4px;
+                  width: sqrt(2)*@header-height;
+                }
               }
             }
           }
         }
       }
-
-    }
-  }
+    }  // collapse
+  }  // container
 }
 

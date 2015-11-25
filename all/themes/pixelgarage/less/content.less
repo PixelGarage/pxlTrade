@@ -35,21 +35,25 @@ html {
 body {
   position: relative;
   height: 100%;
-  min-height: 320px;
+  min-height: 300px;
 
   .main-container {
     .container {
       //
       // Page header
       #page-header {
+        p.lead {
+
+        }
+
         .region-header {
           // block title
           h2.block-title {
             margin: 20px 0 10px;
             font-family: @pxl-text-font;
             font-size: @font-size-larger;
+            color: @text-color;
           }
-
         }
       }
 
@@ -62,6 +66,7 @@ body {
             margin: 20px 0 10px;
             font-family: @pxl-text-font-bold;
             font-size: @font-size-h1;
+            color: @text-color;
           }
 
           .messages {
@@ -92,17 +97,21 @@ body {
               }
             }
           }
-        } // section
 
-        //
-        // main content region
-        .region-content {
-          #block-system-main {
-            padding: 0 10px;
+          .region-help {
+
           }
-        }
-      }
-    }
+
+          //
+          // main content region
+          .region-content {
+            #block-system-main {
+              padding: 0;
+            }
+          }
+        } // section
+      } // row
+    } // container
 
     //
     // fading area on top and bottom of main container

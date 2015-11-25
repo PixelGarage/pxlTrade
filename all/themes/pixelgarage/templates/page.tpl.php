@@ -77,11 +77,9 @@
   <div class="container">
     <div class="navbar-header">
       <?php if (!empty($page['meta_navigation'])): ?>
-        <div class="navbar-meta">
-          <nav role="navigation">
-            <?php print render($page['meta_navigation']); ?>
-          </nav>
-        </div>
+        <nav class="navbar-meta" role="navigation">
+          <?php print render($page['meta_navigation']); ?>
+        </nav>
       <?php endif; ?>
 
       <?php if ($logo): ?>
