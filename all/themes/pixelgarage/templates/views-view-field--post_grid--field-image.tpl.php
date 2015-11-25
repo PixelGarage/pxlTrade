@@ -30,6 +30,6 @@
     $path = drupal_get_path('theme', 'pixelgarage') . '/images/other.svg';
   }
   $url= file_create_url($path);
-  $output = '<img typeof="foaf:Image" class="img-responsive" src="' . $url . '" alt="' . $alt . '" />';
+  $output = '<img typeof="foaf:Image" class="img-responsive" src="' . $url . '" alt="' . $alt .'" title="' . $name . '" />';
 ?>
 <?php print $output; ?>

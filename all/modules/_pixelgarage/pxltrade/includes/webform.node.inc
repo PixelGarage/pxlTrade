@@ -69,13 +69,14 @@ function _pxltrade_create_offer_from_submission($submission, &$offer) {
   // fill the node with the values from the submission and save it to the database
   $offer->title = $submission->data[15][0]; // title
   $offer->body[$offer->language][0]['value'] = $submission->data[3][0]; // description
-  foreach ($submission->data[2] as $index => $fid) {
-    $offer->field_images[$offer->language][$index]['fid'] = $fid; // images
-  }
   foreach ($submission->data[4] as $index => $category) {
     $offer->field_category[$offer->language][$index]['tid'] = $category; // categories
   }
-  $offer->field_sex[$offer->language][0]['tid'] =  $submission->data[5][0]; // Party
+  $offer->field_sex[$offer->language][0]['tid'] =  $submission->data[5][0]; // Sex
+  foreach ($submission->data[2] as $index => $fid) {
+    $offer->field_images[$offer->language][$index]['fid'] = $fid; // images
+  }
+  $offer->field_number_offer[$offer->language][0]['value'] = $submission->data[17][0]; // number of offers
 
   // address
   $offer->field_address[$offer->language][0]['country'] = 'ch';
@@ -87,6 +88,20 @@ function _pxltrade_create_offer_from_submission($submission, &$offer) {
 
   $offer->field_phone[$offer->language][0]['value'] = $submission->data[11][0]; // phone
   $offer->field_email[$offer->language][0]['email'] = $submission->data[12][0]; // email
-  $offer->field_preferred_delivery[$offer->language][0]['tid'] = $submission->data[14][0]; // delivery
+  $offer->field_delivery_form[$offer->language][0]['target_id'] = _pxltrade_convert_delivery_term_to_form($submission->data[14][0]); // delivery type/form
+}
 
+function _pxltrade_convert_delivery_term_to_form($tid) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'webform')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_delivery_type', 'tid', $tid)
+    ->range(0, 1);
+  $result = $query->execute();
+
+  if ($result && !empty($result['node'])) {
+    return key($result['node']);
+  }
+  return null;
 }

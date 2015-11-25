@@ -29,7 +29,9 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
   $offer_nid = _webform_submission_value('offer_nid', $orig_form, $submission);
   if($offer_nid) {
     $node = node_load($offer_nid);
-    $node->status = 0;
+    $remaining_offers = --$node->field_number_offer[LANGUAGE_NONE][0]['value'];
+    $node->field_number_offer[LANGUAGE_NONE][0]['value'] = $remaining_offers;
+    $node->status = ($remaining_offers > 0);
     $node = node_submit($node);
     node_save($node);
   }
