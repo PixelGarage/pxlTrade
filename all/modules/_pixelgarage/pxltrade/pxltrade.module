@@ -31,7 +31,7 @@ function pxltrade_init() {
 function pxltrade_theme_registry_alter(&$theme_registry) {
   $path = drupal_get_path('module', 'pxltrade');
   if (isset($theme_registry['select_as_checkboxes'])) {
-    $theme_registry['select_as_checkboxes']['includes'][] = $path . '/includes/bef.checkbox.inc';
+    $theme_registry['select_as_checkboxes']['includes'][] = $path . '/includes/bef.checkbox.theme';
     $theme_registry['select_as_checkboxes']['function'] = 'theme_filter_as_checkboxes';
   }
 }
