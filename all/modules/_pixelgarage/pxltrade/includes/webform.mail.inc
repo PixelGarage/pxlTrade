@@ -51,16 +51,29 @@ function pxltrade_mail_alter(&$message) {
   // alter only webform mails
   if ($message['module'] != 'webform') return;
 
-  // get webform data
+  //
+  // check if webform type has to alter mail message
   $node = $message['params']['node'];
+  if (!empty($node->field_content_type) && $node->field_content_type[LANGUAGE_NONE][0]['value'] == 'offer') {
+    // it is an offer webform. There's no offer available so nothing to alter
+    return;
+  }
+  else if (empty($node->field_delivery_type)) {
+    // not a delivery form, do nothing here
+    return;
+  }
+
+  //
+  // DELIVERY WEBFORM
+  // Alter the mail message accordingly
+  //
   $tnid = $node->tnid ? $node->tnid : $node->nid;
   $orig_form = node_load($tnid);
   $submission = $message['params']['submission'];
   $eid = $message['params']['email']['eid'];
   $template = variable_get('webform_mail_template_' . $node->nid . '_' . $eid, 'default');
-
-  // get offer and check it
   $offer_nid = _webform_submission_value('offer_nid', $orig_form, $submission);
+
   if(!($offer = node_load($offer_nid)) || !$offer->status) {
     //
     // don't send email, offer not available anymore (has just now been taken)
@@ -72,21 +85,6 @@ function pxltrade_mail_alter(&$message) {
       drupal_set_message($error_msg, 'error');
       watchdog('pxlTrade', $error_msg, WATCHDOG_ERROR);
     }
-    return;
-  }
-
-  //
-  // No email address is given (only for customers allowed)
-  // --> send a whats-app message instead and disable this email message
-  global $dummy_address;
-  if ($message['to'] == $dummy_address) {
-    // don't send email
-    $message['send'] = false;
-
-    //
-    // send whats-app message to customer with details of the offer provider
-
-
     return;
   }
 
@@ -105,7 +103,7 @@ function pxltrade_mail_alter(&$message) {
       '%street_nr%' => $offer->field_address[LANGUAGE_NONE][0]['thoroughfare'],
       '%plz%' => $offer->field_address[LANGUAGE_NONE][0]['postal_code'],
       '%location%' => $offer->field_address[LANGUAGE_NONE][0]['locality'],
-      '%phone%' => $offer->field_phone[LANGUAGE_NONE][0]['value'],
+      '%phone%' => !empty($offer->field_phone) ? $offer->field_phone[LANGUAGE_NONE][0]['value'] : '',
       '%email%' => $offer->field_email[LANGUAGE_NONE][0]['email'],
     );
 
@@ -118,8 +116,8 @@ function pxltrade_mail_alter(&$message) {
       $to_search += array(
         '%full_name%' => $submission->data[1][0],
         '%phone%' => $submission->data[6][0],
-        '%email%' => $submission->data[5][0],
-        '%add_info%' => $submission->data[9][0],
+        '%email%' => isset($submission->data[5]) ? $submission->data[5][0] : '',
+        '%add_info%' => isset($submission->data[9]) ? $submission->data[9][0] : '',
         '%street_nr%' => $submission->data[2][0],
         '%plz%' => $submission->data[3][0],
         '%location%' => $submission->data[4][0],
@@ -129,7 +127,7 @@ function pxltrade_mail_alter(&$message) {
       $to_search += array(
         '%full_name%' => $submission->data[4][0],
         '%phone%' => $submission->data[1][0],
-        '%email%' => $submission->data[2][0],
+        '%email%' => isset($submission->data[2]) ? $submission->data[2][0] : '',
       );
     }
 
@@ -139,6 +137,23 @@ function pxltrade_mail_alter(&$message) {
   // replace tokens with values in mail and complete mail with attachment and address
   $message['subject'] = str_replace(array_keys($to_search), array_values($to_search), $message['subject']);
   $message['body'][0] = str_replace(array_keys($to_search), array_values($to_search), $message['body'][0]);
+
+
+  //
+  // WHATSAPP DELIVERY:
+  // No email address is given (only for customers allowed)
+  // --> send a whats-app message instead and disable this email message
+  global $dummy_address;
+  if ($message['to'] == $dummy_address) {
+    // don't send email
+    $message['send'] = false;
+
+    //
+    // send whats-app message to customer with details of the offer provider
+
+
+    return;
+  }
 
 }
 

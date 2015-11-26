@@ -12,12 +12,10 @@
 $rendering_node_id = null;
 
 /**
- * Redirects all nodes to simulate a proximity item to be displayed in the item container.
+ * Flag indicating if form should be AJAXified.
  */
-function redirect_all_nodes($nid) {
-  $pe_container_index = 0;
-  drupal_goto('proximity-container-item/' . $pe_container_index . '/node-' . $nid);
-}
+$ajax_form = null;
+
 
 /**
  * Alters the proximity item load parameter array.
@@ -52,10 +50,16 @@ function pxltrade_proximity_load_params_alter($container_index, $view_result, &$
  */
 function pxltrade_proximity_render_item_alter($container_index, $param, &$render_item) {
   //
+  // Set ajax mode for all forms displayed in proximity content container
+  global $rendering_node_id, $ajax_form;
+  $ajax_form = true;
+
+  //
   // The $param contains a node id (redirect of all nodes)
   if (strpos($param, 'node-') === 0) {
     $nid = substr($param, 5);
     if ($node = node_load($nid)) {
+      $rendering_node_id = $node->nid;
       $render_item = node_view($node);
     }
     return;
@@ -66,8 +70,6 @@ function pxltrade_proximity_render_item_alter($container_index, $param, &$render
   // Returns a bootstrap slider containing all offer nodes with the given taxonomy term set.
   //
   // get all offer nodes with term set
-  global $rendering_node_id;
-
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'offer')
@@ -109,7 +111,7 @@ function pxltrade_preprocess_views_view_proximity(&$vars) {
 }
 
 /**
- * Alters a delivery form.
+ * Alters a trading or delivery form.
  *
  * 1) Adds the offer nid to the hidden field of a delivery form as back reference to the offer.
  * 2) Ajaxify the delivery form submission (allows to display the confirmation at forms place.
@@ -120,16 +122,21 @@ function pxltrade_preprocess_views_view_proximity(&$vars) {
  */
 function pxltrade_form_alter(&$form, &$form_state, $form_id) {
   //
-  // alter delivery forms only when embedded in offer node (rendering_node_id is set)
-  if (isset($form['#node']) && !empty($form['#node']->field_delivery_type) && $form['#node']->field_delivery_type[LANGUAGE_NONE][0]['tid']) {
-    //set the offer nid in the hidden field of a delivery form
-    global $rendering_node_id;
+  // Alter only delivery and trading forms
+  if (!isset($form['#node'])) return;
 
-    // Adapt delivery form ONLY when it is embedded in an offer node (rendering_node_id is set)
-    if (!$rendering_node_id) return;
+  $node = $form['#node'];
+  $is_delivery_form = !empty($node->field_delivery_type) && $node->field_delivery_type[LANGUAGE_NONE][0]['tid'];
+  $is_trading_form = !empty($node->field_content_type) && $node->field_content_type[LANGUAGE_NONE][0]['value'];
+  if (!$is_delivery_form && !$is_trading_form) return;
 
+  //
+  // Adapt delivery form ONLY when it is embedded in an offer node (rendering_node_id is set)
+  global $rendering_node_id, $ajax_form;
+
+  if ($is_delivery_form && $rendering_node_id) {
     //
-    // fill hidden fields with offer data
+    // Set the offer details in the hidden fields of a delivery form
     if (isset($form['submitted']['offer_nid'])) {
       $form['submitted']['offer_nid']['#value'] = $rendering_node_id;
     }
@@ -137,33 +144,39 @@ function pxltrade_form_alter(&$form, &$form_state, $form_id) {
       $offer = node_load($rendering_node_id);
       $form['submitted']['offer_email']['#value'] = $offer->field_email[LANGUAGE_NONE][0]['email'];
     }
-
-    //
-    // AJAXify delivery form (confirmation message replaces form)
-    ctools_form_include($form_state, 'webform.ajax', 'pxltrade');
-    $unique_wrapper_id = drupal_html_id('webform-ajax-wrapper-' . $rendering_node_id);
-
-    // Now we can add a wrapper to our entire form, that will be used as our ajax wrapper:
-    $form['#prefix'] = '<div id="' . $unique_wrapper_id . '">';
-    $form['#suffix'] = '</div>';
-
-    // And finally we will ajaxify our submit button (with unique id)
-    $form['actions']['submit']['#ajax'] = array(
-      'wrapper' => $unique_wrapper_id,
-      'callback' => 'webform_ajax_callback',
-      'event' => 'click',
-      'progress' => array(
-        'message' => '',
-        'type' => 'throbber',
-      ),
-    );
-    $form['actions']['submit']['#id'] = drupal_html_id('edit-webform-ajax-submit-' . $rendering_node_id);
-
-    // prevent redirection of webform confirmation and set webform ajax mode
-    $form['#node']->webform['webform_ajax_wrapper_id'] = $unique_wrapper_id;
-    $form['#node']->webform['webform_ajax'] = true;
-
   }
+
+  if (!$ajax_form) return;
+
+  //
+  // AJAXify delivery and trading forms once (confirmation message replaces form)
+  ctools_form_include($form_state, 'webform.ajax', 'pxltrade');
+  $id = $rendering_node_id ? $rendering_node_id : $form['#node']->nid;
+  $unique_wrapper_id = drupal_html_id('webform-ajax-wrapper-' . $id);
+
+  // Now we can add a wrapper to our entire form, that will be used as our ajax wrapper:
+  $form['#prefix'] = '<div id="' . $unique_wrapper_id . '">';
+  $form['#suffix'] = '</div>';
+
+  // And finally we will ajaxify our submit button (with unique id)
+  $form['actions']['submit']['#ajax'] = array(
+    'wrapper' => $unique_wrapper_id,
+    'callback' => 'webform_ajax_callback',
+    'event' => 'click',
+    'progress' => array(
+      'message' => '',
+      'type' => 'throbber',
+    ),
+  );
+  $form['#attached']['js'] = array(
+    drupal_get_path('module', 'pxltrade') . '/js/pxltrade.ajax.js',
+  );
+  $form['actions']['submit']['#id'] = drupal_html_id('edit-webform-ajax-submit-' . $id);
+
+  // prevent redirection of webform confirmation and set webform ajax mode
+  $form['#node']->webform['webform_ajax_wrapper_id'] = $unique_wrapper_id;
+  $form['#node']->webform['webform_ajax'] = true;
+
 }
 
 

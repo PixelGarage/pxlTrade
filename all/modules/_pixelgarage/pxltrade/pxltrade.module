@@ -5,7 +5,6 @@
 */
 
 require_once 'includes/webform.inc';  // specific webform enhancements for trading plattform
-require_once 'includes/webform.offer.inc'; // trading webform submission to node conversion implementation
 require_once 'includes/webform.mail.inc'; // webform mail adaptations
 require_once 'includes/proximity.action.inc'; // implements proximity item click action
 
@@ -18,6 +17,7 @@ require_once 'includes/proximity.action.inc'; // implements proximity item click
 function pxltrade_init() {
   if (drupal_is_front_page()) return;
 
+  // search for node/%nid routes
   $pattern = '/^node\/\d+$/';
   if (preg_match($pattern, $_GET['q'])) {
     $param = str_replace('/', '-', $_GET['q']);
@@ -67,4 +67,26 @@ function pxltrade_theme() {
     ),
   );
 }
+
+/* --------------------------------------------------
+ * Preprocess offer address field (hide sensitive data)
+ * --------------------------------------------------*/
+/**
+ * Preprocess address field.
+ *
+ * The address field contains sensitive information about the supplier.
+ * Hide all sensitive information when an offer is displayed.
+ */
+function pxltrade_preprocess_field(&$vars) {
+  $element = $vars['element'];
+
+  if($element['#entity_type'] == 'node' && $element['#bundle'] == 'offer' && $element['#field_name'] == 'field_address') {
+    // hide sensitive address information (only name showed)
+    foreach ($vars['items'] as $delta => &$item) {
+      hide($item['street_block']);
+      hide($item['locality_block']);
+    }
+  }
+}
+
 

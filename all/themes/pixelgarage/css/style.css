@@ -9084,6 +9084,7 @@ form#user-login {
 }
 .modal .modal-dialog .modal-content .modal-body {
   padding: 0;
+  height: auto !important;
 }
 .modal .modal-dialog .modal-content .modal-footer {
   border: none;
