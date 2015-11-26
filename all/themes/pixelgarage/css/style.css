@@ -9136,7 +9136,7 @@ form#user-login {
 .node-page div.col-sm-12 .field-name-body h5,
 .node-page div.col-sm-12 .field-name-body h6 {
   font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
 }
 @media screen and (min-width: 480px) {
   .node-page div.col-sm-12 .field-name-body h1,
@@ -9180,7 +9180,7 @@ form#user-login {
 .node-page div.col-sm-12 .field-name-body p,
 .node-page div.col-sm-12 .field-name-body tbody td {
   font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   -ms-word-break: break-all;
   word-break: break-word;
   -webkit-hyphens: auto;
@@ -9204,7 +9204,7 @@ form#user-login {
 .node-page div.col-sm-12 .field-name-body pre,
 .node-page div.col-sm-12 .field-name-body address {
   font-family: 'ProximaNovaLight', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
 }
 @media screen and (min-width: 480px) {
   .node-page div.col-sm-12 .field-name-body pre,
@@ -9268,7 +9268,7 @@ form#user-login {
 }
 .node.node-offer > .row.row-top .col-sm-12 .field-name-post-date {
   text-align: center;
-  font-size: 11px;
+  font-size: 12px;
 }
 @media screen and (min-width: 480px) {
   .node.node-offer > .row.row-top .col-sm-12 .field-name-post-date {
@@ -9320,7 +9320,7 @@ form#user-login {
 .node.node-offer > .row.row-first .col-right .field-name-body h5,
 .node.node-offer > .row.row-first .col-right .field-name-body h6 {
   font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
 }
 @media screen and (min-width: 480px) {
   .node.node-offer > .row.row-first .col-right .field-name-body h1,
@@ -9364,7 +9364,7 @@ form#user-login {
 .node.node-offer > .row.row-first .col-right .field-name-body p,
 .node.node-offer > .row.row-first .col-right .field-name-body tbody td {
   font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   -ms-word-break: break-all;
   word-break: break-word;
   -webkit-hyphens: auto;
@@ -9388,7 +9388,7 @@ form#user-login {
 .node.node-offer > .row.row-first .col-right .field-name-body pre,
 .node.node-offer > .row.row-first .col-right .field-name-body address {
   font-family: 'ProximaNovaLight', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
 }
 @media screen and (min-width: 480px) {
   .node.node-offer > .row.row-first .col-right .field-name-body pre,
@@ -9462,11 +9462,76 @@ form#user-login {
 .node-webform div.col-sm-12 {
   width: 100%;
 }
-.node-webform div.col-sm-12 .field-name-title {
-  display: none;
+.node-webform div.col-sm-12 form.webform-client-form fieldset.panel .panel-heading {
+  background: none;
+  border-bottom: none;
+}
+.node-webform div.col-sm-12 form.webform-client-form fieldset.panel .panel-heading .panel-title {
+  display: block;
+  font-family: 'ProximaNovaBold', sans-serif;
+  color: #ff3366;
+  text-align: center;
+  font-size: 12.5px;
+}
+@media screen and (min-width: 480px) {
+  .node-webform div.col-sm-12 form.webform-client-form fieldset.panel .panel-heading .panel-title {
+    font-size: 2.60416667vw;
+  }
+}
+@media screen and (min-width: 768px) {
+  .node-webform div.col-sm-12 form.webform-client-form fieldset.panel .panel-heading .panel-title {
+    font-size: 20px;
+  }
+}
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] {
+  /* multi-file upload container */
+  overflow: auto;
+  margin: 0 auto 30px;
+  max-width: 100%;
+  background-color: #fff;
+}
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody button {
+  display: inline-block;
+  margin: 0;
+  padding: 0.5em 1em;
+  font-family: 'ProximaNovaBold', sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #222222;
+  outline: none;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: none;
+  background-color: #eeeeee;
+}
+@media screen and (min-width: 480px) {
+  .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody button {
+    font-size: 2.21354167vw;
+  }
+}
+@media screen and (min-width: 768px) {
+  .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody button {
+    font-size: 17px;
+  }
+}
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody button:hover,
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody button:focus {
+  color: #eeeeee;
+  background: #222222;
+}
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .webform-component-multiple-file {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .webform-component-multiple-file .form-managed-file .input-group-btn {
+  display: inline-block;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component {
-  margin: 0 auto 0.8em;
+  margin: 0 auto 10px;
   padding: 0;
   max-width: 100%;
   background-color: #fff;
@@ -9475,7 +9540,7 @@ form#user-login {
   padding: 0;
   width: auto;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: normal;
   line-height: 1.5em;
   text-align: left;
@@ -9496,24 +9561,25 @@ form#user-login {
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component div.description {
   display: block;
-  margin: 10px 0 0;
+  margin: 0;
+  padding-bottom: 10px;
   font-family: 'ProximaNovaRegular', sans-serif;
   font-size: 13px;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component input,
 .node-webform div.col-sm-12 form.webform-client-form .webform-component textarea {
   padding: 0 10px;
-  height: 100%;
+  height: auto;
   font-family: 'ProximaNovaLight';
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5em;
   text-align: left;
   color: #222222;
   box-shadow: none;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
-  border: 1px solid transparent;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #eeeeee;
   background-color: #eeeeee;
 }
 @media screen and (min-width: 480px) {
@@ -9538,15 +9604,16 @@ form#user-login {
   display: none;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component select {
+  height: auto;
   font-family: 'ProximaNovaLight';
-  font-size: 11px;
-  line-height: 1em;
+  font-size: 12px;
+  line-height: 1.2em;
   text-align: left;
   color: #222222;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
-  border: 1px solid transparent;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #eeeeee;
   background-color: #eeeeee;
   outline: none;
 }
@@ -9565,44 +9632,41 @@ form#user-login {
   outline: none;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file {
-  display: inline-block;
-  position: absolute;
-  right: 0;
+  display: block;
   overflow-x: auto;
-  width: 58.333333%;
   white-space: nowrap;
-  border: 1px solid transparent;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
+  border: 1px solid #eeeeee;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file input {
   position: relative;
   float: none;
   padding: 0.3em;
-  width: 80%;
+  width: 70%;
   text-align: left;
   border: none;
-  background-color: #eeeeee;
+  background: none;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn {
+  margin: 0 3%;
+  vertical-align: baseline;
   display: inline-block;
   margin: 0;
   padding: 0.5em 1em;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #222222;
   outline: none;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
   border: none;
   background-color: #eeeeee;
-  margin: 0 1%;
-  vertical-align: baseline;
 }
 @media screen and (min-width: 480px) {
   .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn {
@@ -9619,21 +9683,6 @@ form#user-login {
   color: #eeeeee;
   background: #222222;
 }
-@media screen and (min-width: 480px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file input {
-    width: 60%;
-    font-size: 2.1vw;
-  }
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn {
-    padding: 0.3em 1em;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file input {
-    width: 68%;
-    font-size: 16px;
-  }
-}
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup {
   margin-bottom: 25px;
   padding-top: 15px;
@@ -9641,7 +9690,7 @@ form#user-login {
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup h2 {
   font-family: 'ProximaNovaBold', sans-serif;
   font-weight: normal;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1em;
   text-align: left;
 }
@@ -9657,7 +9706,7 @@ form#user-login {
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup p {
   font-family: 'ProximaNovaLight';
-  font-size: 11px;
+  font-size: 12px;
   line-height: 22px;
   text-align: left;
   color: #222222;
@@ -9686,7 +9735,7 @@ form#user-login {
   width: 58.333333%;
 }
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions {
-  padding-top: 25px;
+  padding-top: 0;
 }
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit {
   float: right;
@@ -9694,15 +9743,15 @@ form#user-login {
   margin: 0;
   padding: 0.5em 1em;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #222222;
   outline: none;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
   border: none;
   background-color: #eeeeee;
 }
