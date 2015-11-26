@@ -63,6 +63,10 @@
 // Node settings
 // -------------------------
 .node-webform {
+  .modal-body >& {
+    margin: 30px 10px 10px;
+  }
+
   div.col-sm-12 {
     width: 100%;
 
@@ -117,6 +121,10 @@
           .form-managed-file {
             .input-group-btn {
               display: inline-block;
+              position: absolute;
+              top: 2px;
+              right: 2px;
+              width: auto;
             }
           }
         }
@@ -185,6 +193,7 @@
 
         .form-managed-file {
           display: block;
+          position: relative;
           overflow-x: auto;
           white-space: nowrap;
           border: 1px solid @webform-color-border;
@@ -194,7 +203,7 @@
             position: relative;
             float: none;
             padding: 0.3em;
-            width: 70%;
+            width: 60%;
             text-align: left;
             border: none;
             background: none;
@@ -202,8 +211,7 @@
 
           button.btn {
             display: inline-block;
-            margin: 0 3%;
-            vertical-align: baseline;
+            margin: 0;
             .resp-submit-button(@webform-color-submit, @webform-bg-color-submit);
           }
         }

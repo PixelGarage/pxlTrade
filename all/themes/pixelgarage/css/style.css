@@ -9027,7 +9027,7 @@ form#user-login {
  *  Modal dialog component
  * --------------------------------------------------*/
 .modal .modal-backdrop {
-  background-color: #ffffff;
+  background-color: #eee;
 }
 .modal .modal-backdrop.in {
   opacity: 0.8;
@@ -9459,6 +9459,9 @@ form#user-login {
 /*
  *  Node / block webform component
  * --------------------------------------------------*/
+.modal-body > .node-webform {
+  margin: 30px 10px 10px;
+}
 .node-webform div.col-sm-12 {
   width: 100%;
 }
@@ -9529,6 +9532,10 @@ form#user-login {
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .webform-component-multiple-file .form-managed-file .input-group-btn {
   display: inline-block;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: auto;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component {
   margin: 0 auto 10px;
@@ -9633,6 +9640,7 @@ form#user-login {
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file {
   display: block;
+  position: relative;
   overflow-x: auto;
   white-space: nowrap;
   border: 1px solid #eeeeee;
@@ -9644,14 +9652,12 @@ form#user-login {
   position: relative;
   float: none;
   padding: 0.3em;
-  width: 70%;
+  width: 60%;
   text-align: left;
   border: none;
   background: none;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn {
-  margin: 0 3%;
-  vertical-align: baseline;
   display: inline-block;
   margin: 0;
   padding: 0.5em 1em;
