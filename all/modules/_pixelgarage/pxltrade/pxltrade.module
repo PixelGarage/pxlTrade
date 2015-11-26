@@ -5,7 +5,7 @@
 */
 
 require_once 'includes/webform.inc';  // specific webform enhancements for trading plattform
-require_once 'includes/webform.node.inc'; // trading webform submission to node conversion implementation
+require_once 'includes/webform.offer.inc'; // trading webform submission to node conversion implementation
 require_once 'includes/webform.mail.inc'; // webform mail adaptations
 require_once 'includes/proximity.action.inc'; // implements proximity item click action
 
@@ -67,5 +67,4 @@ function pxltrade_theme() {
     ),
   );
 }
-
 

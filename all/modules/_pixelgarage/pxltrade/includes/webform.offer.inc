@@ -105,3 +105,27 @@ function _pxltrade_convert_delivery_term_to_form($tid) {
   }
   return null;
 }
+
+
+/* --------------------------------------------------
+ * Preprocess offer address
+ * --------------------------------------------------*/
+/**
+ * Preprocess address field.
+ *
+ * The address field contains sensitive information about the supplier.
+ * Hide all sensitive information when an offer is displayed.
+ */
+function pxltrade_preprocess_field(&$vars) {
+  $element = $vars['element'];
+
+  if($element['#entity_type'] == 'node' && $element['#bundle'] == 'offer' && $element['#field_name'] == 'field_address') {
+    // hide sensitive address information (only name showed)
+    foreach ($vars['items'] as $delta => &$item) {
+      hide($item['street_block']);
+      hide($item['locality_block']);
+    }
+  }
+}
+
+
