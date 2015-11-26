@@ -5,6 +5,7 @@
 // Variables
 // -------------------------
 @pxl-footer-item-size: 60px;
+@pxl-footer-item-padding: 5px;
 
 
 // Mixins
@@ -22,25 +23,36 @@ footer.footer {
   margin: 0 auto;
   padding: 0 @grid-gutter-width/2;
   border: none;
-  background: rgba(255,255,255, 0.9);
+  background: rgba(255,255,255, 0.0);
 
   .footer-exposed-form {
+    margin-bottom: -(@pxl-footer-item-size + 2*@pxl-footer-item-padding);
     display: none;
 
     .container {
-      background: none;
+      padding-bottom: (@pxl-footer-item-size + 2*@pxl-footer-item-padding);
+      background: rgba(255,255,255, 0.9);
     }
   }
 
   .footer-content {
-    padding: 10px 0;
+    padding: 0;
 
     .region-footer {
       .block-menu {
         position: relative;
 
         ul.menu {
+          display: block;
+          margin: 0 auto;
+          padding: @pxl-footer-item-padding;
+          width: 2*@pxl-footer-item-size + 20px;
           text-align: center;
+          #pxl-mixins.border-radius(@pxl-footer-item-size/2 + 5px);
+          .border-bottom-radius(0);
+          border-bottom-width: 0;
+          #pxl-mixins.box-shadow(0 0 5px rgba(100,100,100,0.8));
+          background: @pxl-color-bg;
 
           li {
             display: inline-block;

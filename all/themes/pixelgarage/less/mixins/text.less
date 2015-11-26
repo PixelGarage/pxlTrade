@@ -29,12 +29,13 @@
     -o-hyphens: @mode;
     hyphens: @mode;
   }
+
   // responsive font size with minimum and maximum size
-  .font-size-responsive(@min-size; @max-size) {
-    font-size: @min-size;
+  .font-size-responsive(@max-size) {
+    font-size: max(11px, @max-size*5/8);   // min = 480 / 768 * max
 
     @media @narrow {
-      font-size: unit(@max-size/6, vw);
+      font-size: unit(@max-size/7.68, vw);
     }
     @media @tablet {
       font-size: @max-size;
@@ -44,21 +45,21 @@
   .wysiwyg-body() {
     h1, h2, h3, h4, h5, h6 {
       font-family: @pxl-text-font;
-      .font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+      .font-size-responsive(@resp-font-size-max);
     }
     h1, h2, h3 {
-      .font-size-responsive(14px, 20px);
+      .font-size-responsive(20px);
     }
 
     p, tbody td {
       font-family: @pxl-text-font;
-      .font-size-responsive(11px, 15px);
+      .font-size-responsive(@font-size-base);
       .hyphenate;
     }
 
     pre, address {
       font-family: @pxl-text-font-light-italics;
-      .font-size-responsive(11px, 15px);
+      .font-size-responsive(15px);
     }
 
     hr {

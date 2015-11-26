@@ -8,8 +8,7 @@
 @pxl-badge-border-color: transparent;
 @pxl-badge-bg-color: @pxl-color-red;
 
-@pxl-item-grid-gutter: 10px;
-@pxl-item-border-radius: 7px;
+@pxl-item-grid-gutter: 5px;
 @pxl-item-bg: #ccc;
 
 
@@ -21,13 +20,14 @@
 // General settings
 // -------------------------
 .view-post-grid {
-  margin: 20px -@grid-gutter-width/2 0;
+  margin: 20px 0 0;
+  width: 100%;
 
   @media @tablet {
-    margin: 25px -@grid-gutter-width/2 0;
+    margin: 25px 0 0;
   }
   @media @normal {
-    margin: 50px -@grid-gutter-width/2 0;
+    margin: 50px 0 0;
   }
 
   .view-content {
@@ -37,7 +37,7 @@
         display: inline-block;
         margin: 0 -2px;
         width: 50%;
-        padding: 0;
+        padding: @pxl-item-grid-gutter;
         height: auto;
 
         @media @narrow {
@@ -52,8 +52,8 @@
 
         .pe-item-inner {
           position: relative;
-          margin: @pxl-item-grid-gutter;
-          #pxl-mixins.border-radius(@pxl-item-border-radius);
+          margin: 0;
+          #pxl-mixins.border-radius(@border-radius-large);
           background: @pxl-item-bg none;
 
           a.btn {

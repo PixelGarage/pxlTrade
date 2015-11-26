@@ -5,7 +5,7 @@
  */
 
 $collapse_id = "collapse-bottom-row-" . $node->nid;
-$button_text = t('Accept');
+$button_text = t('Need');
 ?>
 
 <<?php print $layout_wrapper; print $layout_attributes; ?> class="<?php print $classes; ?>">

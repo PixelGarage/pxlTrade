@@ -4,7 +4,10 @@
 
 // Variables
 // -------------------------
-@pxl-margin-top: 20px;
+@pxl-row-margin-top: 20px;
+
+@row-first-height-small: 200px;
+@row-first-height: 300px;
 
 // Mixins
 // -------------------------
@@ -14,7 +17,7 @@
 // -------------------------
 .node.node-offer {
   >.row {
-    margin-top: @pxl-margin-top;
+    margin-top: @pxl-row-margin-top;
 
     &.row-top {
       // top row
@@ -22,16 +25,25 @@
 
       .col-sm-12 {
         .field-name-title {
-          text-align: center;
+          margin: 0 auto;
+          width: 80%;
 
           h2 {
+            display: block;
             margin: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: @pxl-text-font-bold;
+            color: @pxl-color-red;
+            text-align: center;
+            text-overflow: ellipsis;
+            #pxl-mixins.font-size-responsive(25px);
           }
         }
 
         .field-name-post-date {
           text-align: center;
-          font-size: @font-size-smaller;
+          #pxl-mixins.font-size-responsive(14px);
         }
       }
     }
@@ -41,12 +53,39 @@
       .col-left {
         .field-name-field-images {
           .field-item:not(:first-child) {
+            // show only first image
             display: none;
+          }
+
+          a.colorbox {
+            img {
+              margin: 0 auto;
+              width: auto;
+              max-width: 90%;
+              max-height: @row-first-height-small;
+              #pxl-mixins.border-radius(7px);
+              border: 1px solid @pxl-color-icon-light;
+
+              @media @narrow {
+                max-height: @row-first-height;
+              }
+            }
           }
         }
       }
 
       .col-right {
+        padding-top: 20px;
+
+        @media @tablet {
+          padding-top: 0;
+        }
+
+        .field-label {
+          width: 30%;
+          min-width: 140px;
+        }
+
         .field-name-field-category {
 
         }
@@ -60,7 +99,8 @@
         }
 
         .field-name-body {
-
+          margin-top: 10px;
+          #pxl-mixins.wysiwyg-body;
         }
 
       }
@@ -73,8 +113,18 @@
           display: block;
           margin: 0 auto;
           width: 80%;
-          color: #fff;
-          background-color: @brand-success;
+          max-width: 250px;
+          font-family: @pxl-text-font-bold;
+          color: @pxl-color-red;
+          #pxl-mixins.border-radius(@border-radius-large);
+          border: 2px solid @pxl-color-red;
+          background-color: @pxl-color-bg;
+          .box-shadow(@pxl-box-shadow);
+
+          &:hover {
+            color: @pxl-color-bg;
+            background-color: @pxl-color-red;
+          }
 
           span {
             &.fa {
@@ -88,9 +138,9 @@
 
         .collapse {
           >.row {
-            margin: @pxl-margin-top 0 0;
+            margin: @pxl-row-margin-top 0 0;
 
-            .col-sm-6 {
+            .col-left {
               padding: 0;
 
               .field-label {
@@ -128,6 +178,14 @@
               .field-name-field-phone {
                 .field-item {
                 }
+              }
+            }
+
+            .col-right {
+              padding-top: 20px;
+
+              @media @tablet {
+                padding-top: 0;
               }
 
               .field-name-field-delivery-form {

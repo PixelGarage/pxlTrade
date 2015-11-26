@@ -26,7 +26,7 @@
   padding: 0;
   width: auto;
   font-family: @pxl-text-font-bold;
-  #pxl-mixins.font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+  #pxl-mixins.font-size-responsive(@resp-font-size-max);
   font-weight: normal;
   line-height: 1.5em;
   text-align: left;
@@ -42,7 +42,7 @@
   margin: 0;
   padding: 0.5em 1em;
   font-family: @pxl-text-font-bold;
-  #pxl-mixins.font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+  #pxl-mixins.font-size-responsive(@resp-font-size-max);
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -92,7 +92,7 @@
           padding: 0 10px;
           height: 100%;
           font-family: @pxl-text-font-light;
-          #pxl-mixins.font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+          #pxl-mixins.font-size-responsive(@resp-font-size-max);
           line-height: 1.5em;
           text-align: left;
           color: @webform-color-text;
@@ -115,7 +115,7 @@
 
         select {
           font-family: @pxl-text-font-light;
-          #pxl-mixins.font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+          #pxl-mixins.font-size-responsive(@resp-font-size-max);
           line-height: 1em;
           text-align: left;
           color: @webform-color-text;
@@ -180,13 +180,13 @@
           h2 {
             font-family: @pxl-text-font-bold;
             font-weight: normal;
-            #pxl-mixins.font-size-responsive(@resp-font-size-min, @resp-font-size-max);
+            #pxl-mixins.font-size-responsive(@resp-font-size-max);
             line-height: 1em;
             text-align: left;
           }
           p {
             font-family: @pxl-text-font-light;
-            #pxl-mixins.font-size-responsive(12px, 15px);
+            #pxl-mixins.font-size-responsive(15px);
             line-height: 22px;
             text-align: left;
             color: @webform-color-text;

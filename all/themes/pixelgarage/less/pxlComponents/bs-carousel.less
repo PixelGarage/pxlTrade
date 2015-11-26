@@ -4,7 +4,7 @@
 
 // Variables
 // -------------------------
-@pxl-control-height: 30px;
+@carousel-control-top: 200px;
 
 // Mixins
 // -------------------------
@@ -15,12 +15,12 @@
 // -------------------------
 .pxltrade-bs-carousel.carousel {
   position: relative;
-  padding-top: @pxl-control-height;
-  width: 100%;
+  margin: 0 @carousel-control-width/2;
+  padding: 20px 0;
   height: auto;
 
   > .carousel-inner {
-    margin-top: -@pxl-control-height;
+    margin-top: 0;
 
     .item {
 
@@ -33,21 +33,37 @@
   > a.carousel-control {
     display: block;
     position: absolute;
-    top: 0;
+    top: @carousel-control-top;
     bottom: auto;
-    width: 75px;
-    height: @pxl-control-height;
-    color: @text-color;
-    #pxl-mixins.border-radius(5px);
-    border: 1px solid #aaa;
-    background: none;
+    padding: 0;
+    width: @carousel-control-width;
+    font-size: 50px;
+    text-shadow: none;
+    color: @pxl-color-red;
+    #pxl-mixins.border-radius(20px);
+    border: 2px solid @pxl-color-red;
+    background: @pxl-color-bg;
 
     &.left {
-      left: 0;
+      left: -(@carousel-control-width/2);
+      .border-left-radius(0);
+      border-left-width: 0;
+      .box-shadow(@pxl-box-shadow-left);
+
+      .fa {
+        margin-left: -10px;
+      }
     }
 
     &.right {
-      right: 0;
+      right: -(@carousel-control-width/2);
+      .border-right-radius(0);
+      border-right-width: 0;
+      .box-shadow(@pxl-box-shadow-right);
+
+      .fa {
+        margin-right: -10px;
+      }
     }
   }
 }

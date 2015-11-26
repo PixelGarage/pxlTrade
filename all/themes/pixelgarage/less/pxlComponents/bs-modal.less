@@ -15,26 +15,85 @@
 // -------------------------
 .modal {
   .modal-backdrop {
-
+    background-color: @pxl-color-bg;
+    &.in {
+      opacity: 0.8;
+    }
   }
 
   .modal-dialog {
-    .modal-content {
-      .modal-header {
-        button.close {
-          h2.modal-title {
+    margin: 30px auto;
+    width: @modal-sm;
 
+    @media @narrow {
+      width: @modal-xs;
+    }
+    @media @tablet {
+      width: @modal-md;
+    }
+    @media @normal {
+      width: @modal-lg;
+    }
+
+    .modal-content {
+      position: relative;
+      padding: 0;
+
+      #pxl-mixins.border-radius(0);
+      border: none;
+      #pxl-mixins.box-shadow(none);
+
+      .modal-header {
+        padding: 0;
+        min-height: 0;
+        border: none;
+
+        h2.modal-title {
+
+        }
+
+        button.close {
+          display: block;
+          position: absolute;
+          top: 0;
+          right: 10px;
+          opacity: 1.0;
+          z-index: 1; // has to be above body
+
+          span {
+            padding: 0;
+            font-family: @pxl-text-font;
+            font-size: 60px;
+            font-weight: normal;
+            color: @pxl-color-red;
           }
         }
       }
 
       .modal-body {
         // content styled separately
+        padding: 0;
       }
 
       .modal-footer {
+        border: none;
+        text-align: center;
+
         .btn {
           // close button
+          display: inline-block;
+          font-family: @pxl-text-font-bold;
+          color: @pxl-color-red;
+          #pxl-mixins.border-radius(@border-radius-large);
+          border: 2px solid @pxl-color-red;
+          background-color: @pxl-color-bg;
+          .box-shadow(@pxl-box-shadow);
+
+          &:hover {
+            color: @pxl-color-bg;
+            background-color: @pxl-color-red;
+          }
+
         }
       }
     }
