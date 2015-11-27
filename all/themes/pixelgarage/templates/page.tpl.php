@@ -178,11 +178,9 @@
 </div>
 <footer class="footer container">
   <div class="footer-exposed-form">
-    <div class="container">
-      <?php if (!empty($page['navigation'])): ?>
-        <?php print render($page['navigation']); ?>
-      <?php endif; ?>
-    </div>
+    <?php if (!empty($page['navigation'])): ?>
+      <?php print render($page['navigation']); ?>
+    <?php endif; ?>
   </div>
   <div class="footer-content">
     <?php print render($page['footer']); ?>

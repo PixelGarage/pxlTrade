@@ -9087,6 +9087,7 @@ form#user-login {
   height: auto !important;
 }
 .modal .modal-dialog .modal-content .modal-footer {
+  display: none;
   border: none;
   text-align: center;
 }
@@ -9266,16 +9267,19 @@ form#user-login {
     font-size: 25px;
   }
 }
+.node.node-offer > .row.row-top .col-sm-12 .field-name-field-subtitle,
 .node.node-offer > .row.row-top .col-sm-12 .field-name-post-date {
   text-align: center;
   font-size: 12px;
 }
 @media screen and (min-width: 480px) {
+  .node.node-offer > .row.row-top .col-sm-12 .field-name-field-subtitle,
   .node.node-offer > .row.row-top .col-sm-12 .field-name-post-date {
     font-size: 1.82291667vw;
   }
 }
 @media screen and (min-width: 768px) {
+  .node.node-offer > .row.row-top .col-sm-12 .field-name-field-subtitle,
   .node.node-offer > .row.row-top .col-sm-12 .field-name-post-date {
     font-size: 14px;
   }
@@ -9889,7 +9893,8 @@ form .views-exposed-form {
 }
 form .views-exposed-form .views-exposed-widgets {
   position: relative;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 280px;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget {
   float: none;
@@ -9936,10 +9941,10 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
   margin: 0 5%;
   padding: 0 0 90%;
   height: 0;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  background-color: #222222;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #cccccc;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item input {
   display: none;
@@ -10274,10 +10279,8 @@ footer.footer {
   background: rgba(255, 255, 255, 0);
 }
 footer.footer .footer-exposed-form {
-  margin-bottom: -70px;
   display: none;
-}
-footer.footer .footer-exposed-form .container {
+  margin-bottom: -70px;
   padding-bottom: 70px;
   background: rgba(255, 255, 255, 0.9);
 }

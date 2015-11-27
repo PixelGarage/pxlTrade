@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Customize confirmation screen after successful submission.
@@ -20,10 +19,10 @@
  */
 ?>
 <div class="webform-confirmation">
-  <?php if($success == 'success'): ?>
+  <?php if($status == 'success'): ?>
     <span class="fa fa-check"></span>
   <?php endif; ?>
-  <?php if($success == 'just-taken'): ?>
+  <?php if($status == 'just-taken'): ?>
       <span class="fa fa-times"></span>
   <?php endif; ?>
   <div class="confirmation-message">

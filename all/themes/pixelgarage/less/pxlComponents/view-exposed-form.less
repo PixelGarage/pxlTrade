@@ -23,8 +23,8 @@
   .form-item {
     position: relative;
     .checkbox-size;
-    #pxl-mixins.border-radius(50%);
-    background-color: @pxl-color-icon-dark;
+    #pxl-mixins.border-radius(@border-radius-small);
+    background-color: @pxl-color-icon-light;
 
     input {
       display: none;
@@ -102,7 +102,8 @@ form {
 
     .views-exposed-widgets {
       position: relative;
-      margin: 0;
+      margin: 0 auto;
+      max-width: 280px;
 
       .views-exposed-widget {
         float: none;

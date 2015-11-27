@@ -7,7 +7,7 @@
 function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
   //
   // check if submission was successful, and return with error messages when not.
-  if ($vars['success'] == 'error') {
+  if ($vars['status'] == 'error') {
     $vars['confirmation_message'] = t('Sorry! An error occurred during the submission process.');
     return;
   }
@@ -82,7 +82,7 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
       }
       else {
         // Offer not available anymore: last available offer has been taken by another customer just now
-        $vars['success'] = 'just-taken';
+        $vars['status'] = 'just-taken';
         $vars['confirmation_message'] = t('We are very sorry! The offer has been taken just now by another customer.');
       }
     }
@@ -120,12 +120,13 @@ function _pxltrade_create_offer_from_submission($submission, &$offer) {
   $offer->field_number_offer[$offer->language][0]['value'] = $submission->data[17][0]; // number of offers
 
   // address
-  $offer->field_address[$offer->language][0]['country'] = 'ch';
+  $offer->field_address[$offer->language][0]['country'] = $submission->data[18][0];  // country
   $offer->field_address[$offer->language][0]['first_name'] = $submission->data[7][0]; // first name
   $offer->field_address[$offer->language][0]['last_name'] = $submission->data[16][0]; // last name
   $offer->field_address[$offer->language][0]['thoroughfare'] = $submission->data[8][0]; // street / nr
   $offer->field_address[$offer->language][0]['postal_code'] = $submission->data[9][0]; // PLZ
   $offer->field_address[$offer->language][0]['locality'] = $submission->data[10][0]; // city
+  $offer->field_subtitle[$offer->language][0]['value'] = $submission->data[10][0]; // city als subtitle
 
   $offer->field_phone[$offer->language][0]['value'] = (isset($submission->data[11])) ? $submission->data[11][0] : ''; // phone
   $offer->field_email[$offer->language][0]['email'] = $submission->data[12][0]; // email

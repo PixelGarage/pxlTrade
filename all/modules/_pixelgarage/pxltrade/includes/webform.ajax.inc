@@ -58,7 +58,7 @@ function _webform_ajax_callback_completed($form, $form_state) {
     $error_messages = drupal_get_messages('error', FALSE);
     $output = array(
       '#type' => 'markup',
-      '#markup' => theme('pxltrade_delivery_confirmation', array('node' => $form['#node'], 'sid' => $sid, 'success' => empty($error_messages) ? 'success' : 'error')),
+      '#markup' => theme('pxltrade_delivery_confirmation', array('node' => $form['#node'], 'sid' => $sid, 'status' => empty($error_messages) ? 'success' : 'error')),
       '#prefix' => '<div id="' . $wrapper_id . '">',
       '#suffix' => '</div>',
     );
