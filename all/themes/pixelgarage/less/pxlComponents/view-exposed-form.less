@@ -16,7 +16,7 @@
 
 .pxl-checkbox(@icon-width: 60%; @icon-y-shift: 0; @img-border-color: @pxl-color-red) {
   display: inline-block;
-  margin: 5px 10px;
+  margin: 10px;
   width: 60px;
   vertical-align: top;
 
@@ -37,6 +37,7 @@
       font-weight: normal;
 
       > img {
+        cursor: pointer;
         position: absolute;
         left: 0;
         top: @icon-y-shift;
@@ -65,30 +66,24 @@
 
 .submit-button(@color: #fff; @bg-color: @gray-light) {
   display: inline-block;
-  margin: 0;
-  padding: 3px 8px;
+  margin: 10px;
+  padding: 3px 0 3px 2px;
+  width: 50px;
+  height: 50px;
   font-family: @pxl-text-font-bold;
-  font-size: 12px;
+  font-size: 40px;
   line-height: 1;
-  letter-spacing: 1.5px;
   text-transform: uppercase;
+  text-align: center;
   color: @color;
   outline: none;
-  #pxl-mixins.border-radius(@border-radius-base);
-  border: 1px solid darken(@bg-color, 5%);
+  #pxl-mixins.border-radius(50%);
+  border: none;
   background-color: @bg-color;
-
-  @media @tablet {
-    padding: 4px 12px;
-    font-size: 14px;
-  }
-  @media @normal {
-    padding: 6px 15px;
-    font-size: 17px;
-  }
 
   &:hover {
     color: @bg-color;
+    border: 1px solid @bg-color;
     background: none;
   }
 }
@@ -126,7 +121,6 @@ form {
               // location filter
               margin: 0 auto 20px;
               width: 100%;
-              max-width: 500px;
               #pxl-mixins.border-radius(5px);
               border: 2px solid @pxl-color-red;
               #pxl-mixins.box-shadow(@pxl-box-shadow);
@@ -142,7 +136,7 @@ form {
               font-size: @font-size-small;
 
               .pxl-checkbox{
-                .pxl-checkbox(90%, 40%, none);
+                .pxl-checkbox(90%, 50%, none);
               }
             }
 
@@ -154,22 +148,19 @@ form {
 
         &.views-submit-button,
         &.views-reset-button {
-          display: none;
-          text-align: right;
+          display: block;
+          text-align: center;
           margin: 0;
-          padding: 10px 0 0;
-
-          @media @tablet {
-            padding: 20px 0 10px;
-          }
-          @media @normal {
-            padding: 35px 0 25px;
-          }
+          padding: 0;
 
           button {
             .submit-button(#fff, @pxl-color-red);
           }
         }
+        &.views-submit-button {
+          display: none;
+        }
+
       }
     }
   }

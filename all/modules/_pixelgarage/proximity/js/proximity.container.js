@@ -35,6 +35,7 @@
           $dialog.on('hidden.bs.modal', function () {
             // empty the modal body stopping all media etc.
             $(this).find('.modal-body').empty();
+            window.location = '/'; // redirect to home page to update view
           });
         });
 

@@ -9464,7 +9464,7 @@ form#user-login {
  *  Node / block webform component
  * --------------------------------------------------*/
 .modal-body > .node-webform {
-  margin: 30px 10px 10px;
+  padding: 50px 10px 20px;
 }
 .node-webform div.col-sm-12 {
   width: 100%;
@@ -9823,6 +9823,7 @@ form#user-login {
 .view-post-grid .view-content .pe-container .pe-item {
   position: relative;
   display: inline-block;
+  vertical-align: top;
   margin: 0 -2px;
   width: 50%;
   padding: 5px;
@@ -9844,8 +9845,12 @@ form#user-login {
   }
 }
 .view-post-grid .view-content .pe-container .pe-item .pe-item-inner {
+  cursor: pointer;
   position: relative;
   margin: 0;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
   border-radius: 7px;
@@ -9854,6 +9859,12 @@ form#user-login {
 .view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn {
   display: block;
   padding: 15px;
+  outline: none;
+}
+.view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn.active,
+.view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn:hover,
+.view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn:focus {
+  outline: none;
 }
 .view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn .views-field-field-image {
   padding: 0;
@@ -9912,7 +9923,6 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget > label {
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .form-text {
   margin: 0 auto 20px;
   width: 100%;
-  max-width: 500px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -9932,7 +9942,7 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox {
   display: inline-block;
-  margin: 5px 10px;
+  margin: 10px;
   width: 60px;
   vertical-align: top;
 }
@@ -9956,9 +9966,10 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
   font-weight: normal;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item .control-label > img {
+  cursor: pointer;
   position: absolute;
   left: 0;
-  top: 40%;
+  top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -9988,59 +9999,39 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button,
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-reset-button {
-  display: none;
-  text-align: right;
+  display: block;
+  text-align: center;
   margin: 0;
-  padding: 10px 0 0;
-}
-@media screen and (min-width: 768px) {
-  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button,
-  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-reset-button {
-    padding: 20px 0 10px;
-  }
-}
-@media screen and (min-width: 1024px) {
-  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button,
-  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-reset-button {
-    padding: 35px 0 25px;
-  }
+  padding: 0;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button button,
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-reset-button button {
   display: inline-block;
-  margin: 0;
-  padding: 3px 8px;
+  margin: 10px;
+  padding: 3px 0 3px 2px;
+  width: 50px;
+  height: 50px;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 12px;
+  font-size: 40px;
   line-height: 1;
-  letter-spacing: 1.5px;
   text-transform: uppercase;
+  text-align: center;
   color: #ffffff;
   outline: none;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  border: 1px solid #ff1953;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border: none;
   background-color: #ff3366;
-}
-@media screen and (min-width: 768px) {
-  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button button,
-  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-reset-button button {
-    padding: 4px 12px;
-    font-size: 14px;
-  }
-}
-@media screen and (min-width: 1024px) {
-  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button button,
-  form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-reset-button button {
-    padding: 6px 15px;
-    font-size: 17px;
-  }
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button button:hover,
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-reset-button button:hover {
   color: #ff3366;
+  border: 1px solid #ff3366;
   background: none;
+}
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button {
+  display: none;
 }
 /*
  *  Header section (navigation)

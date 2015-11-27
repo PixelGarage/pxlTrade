@@ -99,10 +99,10 @@
 
   /**
    * Allows full size clickable items.
+   */
    Drupal.behaviors.fullSizeClickableItems = {
     attach: function () {
-      var $clickableItems = $('.node-link-item.node-teaser .field-group-div')
-        .add('.node-team-member.node-teaser .field-group-div');
+      var $clickableItems = $('.pe-container .pe-item-inner');
 
       $clickableItems.once('click', function () {
         $(this).on('click', function () {
@@ -112,7 +112,6 @@
       });
     }
   };
-   */
 
   /**
    * Swaps images from black/white to colored on mouse hover.
