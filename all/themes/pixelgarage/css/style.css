@@ -1563,7 +1563,7 @@ pre code {
 }
 @media (min-width: 1280px) {
   .container {
-    width: 1170px;
+    width: 970px;
   }
 }
 .container-fluid {
@@ -6630,7 +6630,7 @@ body #admin-menu .dropdown li {
 }
 @media screen and (min-width: 1280px) {
   .navbar.container {
-    max-width: 1140px;
+    max-width: 940px;
   }
 }
 .navbar.container > .container {
