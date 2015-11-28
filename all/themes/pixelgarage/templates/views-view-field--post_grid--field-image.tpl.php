@@ -25,7 +25,9 @@
   $term = $row->_field_data['tid']['entity'];
   $name = $term->name;
   $alt = !empty($term->field_image) ? $term->field_image[LANGUAGE_NONE][0]['alt'] : '';
-  $path = drupal_get_path('theme', 'pixelgarage') . '/images/' . strtolower($name) . '.svg';
+  $filename = !empty($term->field_image) ? $term->field_image[LANGUAGE_NONE][0]['filename'] : 'other.svg';
+  $filename = str_replace(array('jpg', 'png'), 'svg', $filename);
+  $path = drupal_get_path('theme', 'pixelgarage') . '/images/' . strtolower($filename);
   if (!file_exists($path)) {
     $path = drupal_get_path('theme', 'pixelgarage') . '/images/other.svg';
   }

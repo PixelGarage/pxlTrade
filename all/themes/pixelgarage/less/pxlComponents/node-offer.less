@@ -9,6 +9,8 @@
 @row-first-height-small: 200px;
 @row-first-height: 300px;
 
+@pxl-label-color: #888;
+
 // Mixins
 // -------------------------
 
@@ -85,6 +87,9 @@
         .field-label {
           width: 30%;
           min-width: 140px;
+          font-family: @pxl-text-font;
+          color: @pxl-label-color;
+          font-weight: normal;
         }
 
         .field-name-field-category {
@@ -147,6 +152,9 @@
               .field-label {
                 width: 30%;
                 min-width: 100px;
+                font-family: @pxl-text-font;
+                color: @pxl-label-color;
+                font-weight: normal;
               }
 
               .field-name-field-address {

@@ -12,12 +12,6 @@
 $rendering_node_id = null;
 
 /**
- * Flag indicating if form should be AJAXified.
- */
-$ajax_form = null;
-
-
-/**
  * Alters the proximity item load parameter array.
  *
  * The load parameter array defines a specific url parameter for each proximity item.
@@ -51,8 +45,7 @@ function pxltrade_proximity_load_params_alter($container_index, $view_result, &$
 function pxltrade_proximity_render_item_alter($container_index, $param, &$render_item) {
   //
   // Set ajax mode for all forms displayed in proximity content container
-  global $rendering_node_id, $ajax_form;
-  $ajax_form = true;
+  global $rendering_node_id;
 
   //
   // The $param contains a node id (redirect of all nodes)
@@ -114,25 +107,25 @@ function pxltrade_preprocess_views_view_proximity(&$vars) {
  * Alters a trading or delivery form.
  *
  * 1) Adds the offer nid to the hidden field of a delivery form as back reference to the offer.
- * 2) Ajaxify the delivery form submission (allows to display the confirmation at forms place.
+ * 2) Ajaxify the trading/delivery form submission (allows to display the confirmation at forms place.
  *
- * @param $form
- * @param $form_state
- * @param $form_id
+ * CAUTION: File upload and other form actions with server roundtrip call this function too, so no
  */
 function pxltrade_form_alter(&$form, &$form_state, $form_id) {
   //
-  // Alter only delivery and trading forms
+  // Check for webforms (no other forms are altered here)
   if (!isset($form['#node'])) return;
 
   $node = $form['#node'];
   $is_delivery_form = !empty($node->field_delivery_type) && $node->field_delivery_type[LANGUAGE_NONE][0]['tid'];
   $is_trading_form = !empty($node->field_content_type) && $node->field_content_type[LANGUAGE_NONE][0]['value'];
+
+  // Alter only delivery and trading webforms
   if (!$is_delivery_form && !$is_trading_form) return;
 
   //
   // Adapt delivery form ONLY when it is embedded in an offer node (rendering_node_id is set)
-  global $rendering_node_id, $ajax_form;
+  global $rendering_node_id;
 
   if ($is_delivery_form && $rendering_node_id) {
     //
@@ -145,8 +138,6 @@ function pxltrade_form_alter(&$form, &$form_state, $form_id) {
       $form['submitted']['offer_email']['#value'] = $offer->field_email[LANGUAGE_NONE][0]['email'];
     }
   }
-
-  if (!$ajax_form) return;
 
   //
   // AJAXify delivery and trading forms once (confirmation message replaces form)

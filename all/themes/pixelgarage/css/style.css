@@ -9313,6 +9313,9 @@ form#user-login {
 .node.node-offer > .row.row-first .col-right .field-label {
   width: 30%;
   min-width: 140px;
+  font-family: 'ProximaNovaRegular', sans-serif;
+  color: #888888;
+  font-weight: normal;
 }
 .node.node-offer > .row.row-first .col-right .field-name-body {
   margin-top: 10px;
@@ -9451,6 +9454,9 @@ form#user-login {
 .node.node-offer > .row.row-second .col-sm-12 .collapse > .row .col-left .field-label {
   width: 30%;
   min-width: 100px;
+  font-family: 'ProximaNovaRegular', sans-serif;
+  color: #888888;
+  font-weight: normal;
 }
 .node.node-offer > .row.row-second .col-sm-12 .collapse > .row .col-right {
   padding-top: 20px;
@@ -9555,7 +9561,7 @@ form#user-login {
   font-weight: normal;
   line-height: 1.5em;
   text-align: left;
-  color: #222222;
+  color: #888888;
 }
 @media screen and (min-width: 480px) {
   .node-webform div.col-sm-12 form.webform-client-form .webform-component label {
