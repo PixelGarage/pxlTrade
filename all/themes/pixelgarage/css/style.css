@@ -9520,6 +9520,9 @@ form#user-login {
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable {
   position: relative;
 }
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td {
+  padding-right: 40px;
+}
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button {
   position: absolute;
   right: 2px;
