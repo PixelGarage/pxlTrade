@@ -104,10 +104,29 @@
         background-color: #fff;
 
         .table-responsive {
+          cursor: all-scroll;
+          max-width: @modal-sm - 84px;
+
+          @media @narrow {
+            max-width: @modal-xs - 84px;
+          }
+          @media @tablet {
+            max-width: none;
+          }
+
           table {
             tbody {
-              button {
-                .resp-submit-button(@webform-color-submit, @webform-bg-color-submit);
+              tr.draggable {
+                position: relative;
+                td {
+                  button {
+                    display: inline-block;
+                    position: absolute;
+                    right: 2px;
+                    width: auto;
+                    .resp-submit-button(@pxl-color-bg, @pxl-color-red);
+                  }
+                }
               }
             }
           }

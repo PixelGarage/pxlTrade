@@ -9503,7 +9503,27 @@ form#user-login {
   max-width: 100%;
   background-color: #fff;
 }
-.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody button {
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive {
+  cursor: all-scroll;
+  max-width: 216px;
+}
+@media screen and (min-width: 480px) {
+  .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive {
+    max-width: 366px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive {
+    max-width: none;
+  }
+}
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable {
+  position: relative;
+}
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button {
+  position: absolute;
+  right: 2px;
+  width: auto;
   display: inline-block;
   margin: 0;
   padding: 0.5em 1em;
@@ -9512,28 +9532,28 @@ form#user-login {
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #222222;
+  color: #ffffff;
   outline: none;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
   border: none;
-  background-color: #eeeeee;
+  background-color: #ff3366;
 }
 @media screen and (min-width: 480px) {
-  .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody button {
+  .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button {
     font-size: 2.21354167vw;
   }
 }
 @media screen and (min-width: 768px) {
-  .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody button {
+  .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button {
     font-size: 17px;
   }
 }
-.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody button:hover,
-.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody button:focus {
-  color: #eeeeee;
-  background: #222222;
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button:hover,
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button:focus {
+  color: #ff3366;
+  background: #ffffff;
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .webform-component-multiple-file {
   margin: 0;
