@@ -4,6 +4,9 @@
 * A description of what your module does.
 */
 
+define('PXLTRADE_MENU_PATH', 'admin/pxltrade');
+
+
 require_once 'includes/webform.inc';  // specific webform enhancements for trading plattform
 require_once 'includes/webform.mail.inc'; // webform mail adaptations
 require_once 'includes/proximity.action.inc'; // implements proximity item click action
@@ -24,6 +27,20 @@ function pxltrade_init() {
     drupal_goto('proximity-container-item/0/' . $param);
   }
 }
+
+function pxltrade_menu() {
+  $items[PXLTRADE_MENU_PATH] = array(
+    'title' => 'PixelTrade',
+    'description' => 'PxlTrade - a social and ecological trading plattform.',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file path' => drupal_get_path('module', 'system'),
+    'file' => 'system.admin.inc',
+    'weight' => -7,
+  );
+  return $items;
+}
+
 
 /**
  * Implements hook_theme_registry_alter().

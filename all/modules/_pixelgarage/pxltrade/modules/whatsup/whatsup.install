@@ -1,8 +1,10 @@
 <?php
-
 /**
  * @file
- * Install, update and uninstall functions for the WhatsApp module.
+ * Install, update and uninstall functions for the WhatsUp module.
+ *
+ * Date: 04.12.15
+ * Time: 20:57
  */
 
 /**
@@ -10,7 +12,7 @@
  */
 function whatsapp_uninstall() {
   variable_del('whatsapp_sitewide_phone');
-  variable_del('whatsapp_sitewide_identifier');
   variable_del('whatsapp_sitewide_username');
   variable_del('whatsapp_sitewide_status');
+  variable_del('whatsapp_sitewide_pwd');
 }

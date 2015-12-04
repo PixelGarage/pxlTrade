@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Module implementation file.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function whatsup_menu() {
+  $items['admin/pxltrade/whatsup'] = array(
+    'title' => 'WhatsApp',
+	  'description' => 'WhatsApp account setup: define settings, register account and test message sending.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('whatsup_settings_form'),
+    'access arguments' => array('administer whatsup settings'),
+    'file' => 'whatsup.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 0,
+  );
+  $items['admin/pxltrade/whatsup/settings'] = $items['admin/pxltrade/whatsup'];
+  $items['admin/pxltrade/whatsup/settings']['type'] = MENU_DEFAULT_LOCAL_TASK;
+
+  $items['admin/pxltrade/whatsup/registration'] = array(
+    'title' => 'Account registration',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('whatsup_account_registration_form'),
+    'access arguments' => array('administer whatsup settings'),
+    'file' => 'whatsup.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+  );
+
+  $items['admin/pxltrade/whatsup/test'] = array(
+    'title' => 'Send Test Message',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('whatsup_test_message_form'),
+    'access arguments' => array('administer whatsup settings'),
+    'file' => 'whatsup.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 2,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function whatsup_permission() {
+  return array(
+    'administer whatsup settings' => array(
+      'title' => t('Administer WhatsApp settings'),
+      'description' => t('Saves the site telephone number to send WhatsApp messages from.'),
+    ),
+  );
+}

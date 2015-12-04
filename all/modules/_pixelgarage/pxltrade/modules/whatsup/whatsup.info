@@ -1,0 +1,9 @@
+name = Drupal WhatsApp integration
+description = Allows sending WhatsApp messages to users of this popular messaging service.
+core = 7.x
+project = Pixelgarage
+configure = admin/config/system/pxltrade
+version = "7.x-1.0"
+
+dependencies[] = composer_manager
+
