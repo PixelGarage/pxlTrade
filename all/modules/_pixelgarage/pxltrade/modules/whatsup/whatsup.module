@@ -165,8 +165,9 @@ function whatsup_send_message($to, $message, $encrypted = false, $debug = false)
 
 
   } catch (Exception $e) {
-    drupal_set_message($e->getMessage(), 'error');
-    watchdog('whatsup', $e->getMessage(), WATCHDOG_ERROR);
+    $msg = !empty($e->getMessage()) ? $e->getMessage() : t('No message sent: An undefined WhatsApp error occurred!');
+    drupal_set_message($msg, 'error');
+    watchdog('whatsup', $msg, WATCHDOG_ERROR);
     return false;
   }
 
