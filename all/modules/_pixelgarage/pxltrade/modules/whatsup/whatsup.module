@@ -1,9 +1,15 @@
 <?php
-
 /**
  * @file
  * Module implementation file.
  */
+
+
+/**
+ * Path to chat API.
+ */
+define('WHATSAPP_CHAT_API_PATH', '/whatsapp/chat-api');
+
 
 /**
  * Implements hook_menu().
@@ -56,3 +62,162 @@ function whatsup_permission() {
     ),
   );
 }
+
+
+/* --------------------------------------------------
+ * WhatsApp Chat-API wrappers
+ * --------------------------------------------------*/
+/**
+ * Retrieves the whatsup data folder.
+ */
+function whatsup_data_folder() {
+  $path =  composer_manager_vendor_dir() . WHATSAPP_CHAT_API_PATH . '/src/wadata/';
+  return $path;
+}
+
+/**
+ * Formats a phone number to communicate on the WhatsApp network.
+ * OutputFormat: 41881112233
+ * Input: +41 88 111 22 33 or +41-88-111-2233 or 0041 88 111 22 33 or similar
+ */
+function whatsup_format_phone_number($phone_number) {
+  $number =  str_replace(array(' ', '-', '+'), '', $phone_number);
+  if (strpos($number, '00') === 0) {
+    $number = substr($number, 2);
+  }
+  return $number;
+}
+
+/**
+ * Gets the WhatsApp password for the registered account.
+ * If a password is given as parameter, this password is saved to the password file
+ * and also returned.
+ *
+ * @param null $pwd
+ * @return string|bool The current password of the registered account or false if not available.
+ * @throws Exception
+ */
+function whatsup_password($pwd = null) {
+  $phone_number = variable_get('whatsup_sitewide_phone', '');
+  $pwd_file = whatsup_data_folder() . "pwd.$phone_number.dat";
+
+  // read the password file
+  if (!$pwd) {
+    if (is_readable($pwd_file)) {
+      $data = file_get_contents($pwd_file);
+      return $data;
+    }
+    else {
+      throw new Exception('Unable to read password file: ' . $pwd_file);
+    }
+  }
+
+  // save given password to file
+  if (file_put_contents($pwd_file, $pwd) === false) {
+    throw new Exception('Unable to write password file: ' . $pwd_file);
+  }
+  return $pwd;
+}
+
+/**
+ * Sends a message via the WhatsApp network.
+ *
+ * @param string     $to
+ *                   The recipient number.
+ * @param string     $message
+ *                   The message to be sent.
+ * @param bool       $encrypted
+ *                   Flag indicating if the message is sent encrypted.
+ * @param bool       $debug
+ *                   Set the debug mode.
+ *
+ * @return bool True, if message has been sent successfully, false otherwise.
+ * @throws Exception
+ */
+function whatsup_send_message($to, $message, $encrypted = false, $debug = false) {
+
+  try {
+    // get sending details
+    $phone_number = variable_get('whatsup_sitewide_phone', '');
+    $nickname = variable_get('whatsup_sitewide_username', variable_get('site_name'));
+    $pwd = whatsup_password();
+
+    // send message
+    $wp = new WhatsProt($phone_number, $nickname, $debug, $debug);
+    if (!$wp->connect()) {
+      throw new Exception('No connection to the WhatsApp network could be established.');
+    }
+    $wp->loginWithPassword($pwd);
+
+    //
+    // send message if number is registered on WhatsApp
+    $recipient = whatsup_format_phone_number($to);
+    $synched = whatsup_sync_number($recipient, $wp);
+    if ($synched) {
+      // send the message
+      $id = $wp->sendMessage($recipient, $message, !$encrypted);
+      $wp->waitForServer($id);
+
+    } else {
+      // recipient is not available on WhatsApp network
+      return false;
+    }
+
+
+  } catch (Exception $e) {
+    drupal_set_message($e->getMessage(), 'error');
+    watchdog('whatsup', $e->getMessage(), WATCHDOG_ERROR);
+    return false;
+  }
+
+  // message sent successfully
+  return true;
+}
+
+
+/* --------------------------------------------------
+ * WhatsApp number synchronisation
+ * --------------------------------------------------*/
+/**
+ * Flag is set, if synchronizing number is available on WhatsApp network.
+ */
+$exist_on_whatsapp = false;
+$synchronizing_number = null;
+
+/**
+ * Result of number synchronisation with WhatsApp
+ * @param $result SyncResult
+ */
+function onSyncResult($result)
+{
+  global $exist_on_whatsapp, $synchronizing_number;
+
+  $exist_on_whatsapp = false;
+
+  foreach ($result->existing as $number => $address) {
+    // result format: +41881112233 => 41881112233@s.whatsapp.net
+    $number = whatsup_format_phone_number($number);
+    if ($synchronizing_number == $number) {
+      $exist_on_whatsapp = true;
+      break;
+    }
+  }
+}
+
+/**
+ * Syncs a number on the WhatsApp network.
+ *
+ * @param $number string  The number to be synched on WhatsApp network.
+ * @param $wp WhatsProt   The WhatsProt instance, already in logged in state.
+ * @return bool           Returns true, if the number is available on WhatsApp, otherwise false.
+ */
+function whatsup_sync_number($number, &$wp) {
+  global $exist_on_whatsapp, $synchronizing_number;
+
+  $synchronizing_number = $number;
+  //bind event handler
+  $wp->eventManager()->bind('onGetSyncResult', 'onSyncResult');
+  $wp->sendSync($number);
+  return $exist_on_whatsapp;
+}
+

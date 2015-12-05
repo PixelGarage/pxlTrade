@@ -14,5 +14,4 @@ function whatsapp_uninstall() {
   variable_del('whatsapp_sitewide_phone');
   variable_del('whatsapp_sitewide_username');
   variable_del('whatsapp_sitewide_status');
-  variable_del('whatsapp_sitewide_pwd');
 }
