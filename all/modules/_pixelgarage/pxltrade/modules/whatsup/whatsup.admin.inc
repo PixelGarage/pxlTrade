@@ -88,8 +88,9 @@ function whatsup_settings_form($form, &$form_state) {
         }
 
       } catch (Exception $e) {
-        drupal_set_message($e->getMessage(), 'error');
-        watchdog('whatsup', $e->getMessage(), WATCHDOG_ERROR);
+        $msg = !empty($e->getMessage()) ? $e->getMessage() : t('No credentials checked: An undefined WhatsApp error occurred!');
+        drupal_set_message($msg, 'error');
+        watchdog('whatsup', $msg, WATCHDOG_ERROR);
       }
     }
     else {
@@ -221,8 +222,9 @@ function whatsup_account_registration_form_request_submit($form, &$form_state) {
     $result = $regManager->codeRequest($method);
 
   } catch (Exception $e) {
-    drupal_set_message($e->getMessage(), 'error');
-    watchdog('whatsup', $e->getMessage(), WATCHDOG_ERROR);
+    $msg = !empty($e->getMessage()) ? $e->getMessage() : t('No code requested: An undefined WhatsApp error occurred!');
+    drupal_set_message($msg, 'error');
+    watchdog('whatsup', $msg, WATCHDOG_ERROR);
 
   }
 
@@ -255,8 +257,9 @@ function whatsup_account_registration_form_code_submit($form, &$form_state) {
     $result = $regManager->codeRegister($code);
 
   } catch (Exception $e) {
-    drupal_set_message($e->getMessage(), 'error');
-    watchdog('whatsup', $e->getMessage(), WATCHDOG_ERROR);
+    $msg = !empty($e->getMessage()) ? $e->getMessage() : t('No code registered: An undefined WhatsApp error occurred!');
+    drupal_set_message($msg, 'error');
+    watchdog('whatsup', $msg, WATCHDOG_ERROR);
 
   }
 
