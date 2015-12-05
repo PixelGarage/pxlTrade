@@ -47,7 +47,7 @@ function whatsup_settings_form($form, &$form_state) {
   // REMARK: changes password each call
   if ($identityExists && !empty($phone_number)) {
     // add checkbox to enable/disable credential check
-    $check_credentials = variable_get('whatsup_check_credentials', 0);
+    $check_credentials = variable_get('whatsup_check_credentials', 1);
     $form['whatsup_check_credentials'] = array(
       '#type' => 'checkbox',
       '#title' => t('Display credentials'),
