@@ -8,10 +8,12 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
   //
   // check if submission was successful, and return with error messages when not.
   if ($vars['status'] == 'error') {
-    $vars['confirmation_message'] = t('Sorry! An error occurred during the submission process.');
+    $vars['confirmation_message'] = t('<strong>Sorry for the inconvenience!<strong><br> Due to a system error no requests can be processed at the moment. Please try it later again...');
     return;
   }
 
+  //
+  // Submission successful, complete order
   // Get the original node of the translation set (see tnid)
   $webform = $vars['node'];
   $tnid = $webform->tnid ? $webform->tnid : $webform->nid;
@@ -20,18 +22,19 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
   $submissions = webform_get_submissions(array('nid' => $tnid, 'sid' => $vars['sid']));
   $submission = $submissions[$vars['sid']];
 
-  // check if webform has related node type set (-> trading forms)
+  // check if webform has related node type set (-> offer forms)
   $rel_node_type = (!empty($orig_form->field_content_type) && $orig_form->field_content_type[LANGUAGE_NONE][0]['value']) ?
     $orig_form->field_content_type[LANGUAGE_NONE][0]['value'] : false;
-  $is_trading_form = $rel_node_type && node_type_load($rel_node_type);
+  $is_offer_form = $rel_node_type && node_type_load($rel_node_type);
 
   $is_delivery_form = (!empty($orig_form->field_delivery_type) && $orig_form->field_delivery_type[LANGUAGE_NONE][0]['tid']) ? true : false;
 
-  // process webform according to its type
+  //
+  // Process webform according to its type (offer, delivery)
   $node = null;
-  if ($is_trading_form) {
+  if ($is_offer_form) {
     //
-    // TRADING FORM COMPLETION:
+    // OFFER FORM COMPLETION:
     // create a node of the given type and copy submission values to it
     $status = (!empty($orig_form->field_publish_immediately) && $orig_form->field_publish_immediately[LANGUAGE_NONE][0]['value'] == 1) ? 1 : 0;
 
@@ -55,7 +58,7 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
     }
     else {
       $vars['confirmation_message'] =
-        t('Thank you! Your offer has been successfully published. Shortly you get an email from us with further details.');
+        t('<strong>Thank you very much!</strong><br> Your offer has been successfully published. Shortly you get an email with further details.');
     }
 
 
@@ -63,6 +66,7 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
   else if ($is_delivery_form) {
     //
     // DELIVERY FORM COMPLETION:
+    //
     // update the processed offer
     $offer_nid = _webform_submission_value('offer_nid', $orig_form, $submission);
     if($offer_nid) {
@@ -83,8 +87,17 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
       else {
         // Offer not available anymore: last available offer has been taken by another customer just now
         $vars['status'] = 'just-taken';
-        $vars['confirmation_message'] = t('We are very sorry! The offer has been taken just now by another customer.');
+        $vars['confirmation_message'] = t('<strong>We are very sorry!</strong><br> The offer has just been taken by another user.');
       }
+    }
+
+    //
+    // display supplier contact info's, if customer could not be contacted via WhatsApp
+    $session_data = &pxltrade_session_data();
+    if (isset($session_data['no_contact'])) {
+      $vars['status'] = 'no-contact';
+      $vars['confirmation_message'] = $session_data['no_contact'];
+      unset($session_data['no_contact']);
     }
   }
 

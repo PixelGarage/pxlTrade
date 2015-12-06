@@ -9815,19 +9815,25 @@ form#user-login {
 .webform-confirmation .fa {
   margin: 0;
   padding: 0;
-  width: 80px;
-  font-size: 60px;
-  line-height: 80px;
-  color: #fff;
-  -moz-border-radius: 40px;
-  -webkit-border-radius: 40px;
-  border-radius: 40px;
+  width: 60px;
+  height: 60px;
+  font-size: 40px;
+  line-height: 60px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
 }
 .webform-confirmation .fa.fa-check {
-  background: springgreen none;
+  color: springgreen;
+  border: 2px solid springgreen;
 }
 .webform-confirmation .fa.fa-times {
-  background: #f0ad4e none;
+  color: #d9534f;
+  border: 2px solid #d9534f;
+}
+.webform-confirmation .fa.fa-exclamation {
+  color: #f0ad4e;
+  border: 2px solid #f0ad4e;
 }
 .webform-confirmation .confirmation-message p {
   margin-top: 20px;

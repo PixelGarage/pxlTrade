@@ -16,7 +16,7 @@
 @webform-color-submit: @text-color;
 @webform-bg-color-submit: @gray-lighter;
 
-@pxl-success-badge-dim: 80px;
+@pxl-success-badge-dim: 60px;
 
 
 
@@ -298,16 +298,22 @@
     margin: 0;
     padding: 0;
     width: @pxl-success-badge-dim;
+    height: @pxl-success-badge-dim;
     font-size: (@pxl-success-badge-dim - 20px);
     line-height: @pxl-success-badge-dim;
-    color: #fff;
     #pxl-mixins.border-radius(@pxl-success-badge-dim/2);
 
     &.fa-check {
-      background: @brand-success none;
+      color: @brand-success;
+      border: 2px solid @brand-success;
     }
     &.fa-times {
-      background: @brand-warning none;
+      color: @brand-danger;
+      border: 2px solid @brand-danger;
+    }
+    &.fa-exclamation {
+      color: @brand-warning;
+      border: 2px solid @brand-warning;
     }
   }
 

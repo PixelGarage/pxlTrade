@@ -12,6 +12,26 @@ require_once 'includes/webform.mail.inc'; // webform mail adaptations
 require_once 'includes/proximity.action.inc'; // implements proximity item click action
 
 
+/* --------------------------------------------------
+ * PxlTrade session data
+ * --------------------------------------------------*/
+/**
+ * Session wide data container.
+ *
+ * @return array Returns the session data array.
+ */
+function &pxltrade_session_data() {
+  if (!isset($_SESSION['pxlTrade'])) {
+    $_SESSION['pxlTrade'] = array();
+  }
+  return $_SESSION['pxlTrade'];
+}
+
+
+/* --------------------------------------------------
+ * PxlTrade hook implementation
+ * --------------------------------------------------*/
+
 /**
  * Implements hook_init().
  *
@@ -28,6 +48,11 @@ function pxltrade_init() {
   }
 }
 
+/**
+ * Define the pxltrade menu as top node of the admin menu.
+ * All administration of the PxlTrade latform is added below this menu.
+ * @return mixed
+ */
 function pxltrade_menu() {
   $items[PXLTRADE_MENU_PATH] = array(
     'title' => 'PixelTrade',

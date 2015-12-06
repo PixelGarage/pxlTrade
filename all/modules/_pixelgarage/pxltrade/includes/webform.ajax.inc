@@ -56,9 +56,10 @@ function _webform_ajax_callback_completed($form, $form_state) {
     //
     // AJAX: Display webform confirmation always at the webform place (overrule confirmation settings).
     $error_messages = drupal_get_messages('error', FALSE);
+    $status = empty($error_messages) ? 'success' : 'error';
     $output = array(
       '#type' => 'markup',
-      '#markup' => theme('pxltrade_delivery_confirmation', array('node' => $form['#node'], 'sid' => $sid, 'status' => empty($error_messages) ? 'success' : 'error')),
+      '#markup' => theme('pxltrade_delivery_confirmation', array('node' => $form['#node'], 'sid' => $sid, 'status' => $status)),
       '#prefix' => '<div id="' . $wrapper_id . '">',
       '#suffix' => '</div>',
     );

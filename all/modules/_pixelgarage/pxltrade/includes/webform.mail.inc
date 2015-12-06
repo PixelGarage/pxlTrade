@@ -90,6 +90,17 @@ function pxltrade_mail_alter(&$message) {
 
   //
   // Resolve tokens and adapt mails accordingly
+  switch ($orig_form->nid) {
+    case 14:
+      $customer_phone = $submission->data[6][0];
+      break;
+    case 15:
+      $customer_phone = $submission->data[1][0];
+      break;
+    default:
+      $customer_phone = false;
+      break;
+  }
   $to_search = array(
     '%offer_title%' => $offer->title,
     '%first_name%' => $offer->field_address[LANGUAGE_NONE][0]['first_name'],
@@ -115,7 +126,7 @@ function pxltrade_mail_alter(&$message) {
       // tokens for home delivery
       $to_search += array(
         '%full_name%' => $submission->data[1][0],
-        '%phone%' => $submission->data[6][0],
+        '%phone%' => $customer_phone,
         '%email%' => isset($submission->data[5]) ? $submission->data[5][0] : '',
         '%add_info%' => isset($submission->data[9]) ? $submission->data[9][0] : '',
         '%street_nr%' => $submission->data[2][0],
@@ -126,7 +137,7 @@ function pxltrade_mail_alter(&$message) {
     else if ($orig_form->nid == 15) {
       $to_search += array(
         '%full_name%' => $submission->data[4][0],
-        '%phone%' => $submission->data[1][0],
+        '%phone%' => $customer_phone,
         '%email%' => isset($submission->data[2]) ? $submission->data[2][0] : '',
       );
     }
@@ -141,16 +152,40 @@ function pxltrade_mail_alter(&$message) {
 
   //
   // WHATSAPP DELIVERY:
-  // No email address is given (only for customers allowed)
-  // --> send a whats-app message instead and disable this email message
+  // No email address is given
+  // --> send a WhatsApp message instead and disable this email delivery
   global $dummy_address;
   if ($message['to'] == $dummy_address) {
+    //
     // don't send email
     $message['send'] = false;
 
     //
-    // send whats-app message to customer with details of the offer provider
+    // send WhatsApp message to customer with details about the supplier
+    $success = false;
+    if ($customer_phone && module_exists('whatsup')) {
+      $success = whatsup_send_message($customer_phone, $message['body'][0]);
+    }
 
+    //
+    // No WhatsApp sending possible
+    if (!$success) {
+      //
+      // No success with no error means, WhatsApp itself or the customer phone number is not reachable via WhatsApp network.
+      // --> Display supplier details in confirmation message
+      $session_data = &pxltrade_session_data();
+      $error = drupal_get_messages('error', false);
+
+      if (empty($error)) {
+        // number not registered on WhatsApp network
+        $session_data['no_contact'] = t('<strong>You cannot be contacted:<br> Your Phone number is not registered on WhatsApp!</strong><br><br>');
+      } else {
+        // WhatsApp error occurred
+        $session_data['no_contact'] = t('<strong>You cannot be contacted:<br> WhatsApp message could not be delivered!</strong><br><br>');
+      }
+      // add email message replaced with html line-breaks
+      $session_data['no_contact'] .= str_replace(PHP_EOL, '<br>', $message['body'][0]);
+    }
 
     return;
   }

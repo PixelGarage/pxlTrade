@@ -22,8 +22,11 @@
   <?php if($status == 'success'): ?>
     <span class="fa fa-check"></span>
   <?php endif; ?>
-  <?php if($status == 'just-taken'): ?>
-      <span class="fa fa-times"></span>
+  <?php if($status == 'just-taken' || $status == 'no-contact'): ?>
+    <span class="fa fa-exclamation"></span>
+  <?php endif; ?>
+  <?php if($status == 'error'): ?>
+    <span class="fa fa-times"></span>
   <?php endif; ?>
   <div class="confirmation-message">
     <?php if ($confirmation_message): ?>
