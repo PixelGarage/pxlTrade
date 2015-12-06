@@ -68,7 +68,7 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
     // DELIVERY FORM COMPLETION:
     //
     // update the processed offer
-    $offer_nid = _webform_submission_value('offer_nid', $orig_form, $submission);
+    $offer_nid = _webform_submission_value($orig_form, 'offer_nid', $submission);
     if($offer_nid) {
       $node = node_load($offer_nid);
 
@@ -139,9 +139,9 @@ function _pxltrade_create_offer_from_submission($submission, &$offer) {
   $offer->field_address[$offer->language][0]['thoroughfare'] = $submission->data[8][0]; // street / nr
   $offer->field_address[$offer->language][0]['postal_code'] = $submission->data[9][0]; // PLZ
   $offer->field_address[$offer->language][0]['locality'] = $submission->data[10][0]; // city
-  $offer->field_subtitle[$offer->language][0]['value'] = $submission->data[10][0]; // city als subtitle
+  $offer->field_subtitle[$offer->language][0]['value'] = $submission->data[10][0]; // city as subtitle
 
-  $offer->field_phone[$offer->language][0]['value'] = (isset($submission->data[11])) ? $submission->data[11][0] : ''; // phone
+  $offer->field_phone[$offer->language][0]['value'] = (!empty($submission->data[11])) ? $submission->data[11][0] : ''; // phone
   $offer->field_email[$offer->language][0]['email'] = $submission->data[12][0]; // email
   $offer->field_delivery_form[$offer->language][0]['target_id'] = _pxltrade_convert_delivery_term_to_form($submission->data[14][0]); // delivery type/form
 }

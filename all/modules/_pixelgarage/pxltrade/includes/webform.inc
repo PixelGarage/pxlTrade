@@ -12,14 +12,19 @@
 /**
  * Gets a specific component value from a webform submission.
  *
- * @param $form_key
- * @param $node
- * @param $submission
+ * @param object $node
+ *    The webform node containing the component to be read.
+ * @param string $form_key
+ *    The defined form key of the component.
+ * @param object $submission
+ *    The form submission with the entered values.
+ * @return string The value of the webform component or an empty string, if not set.
+ *    The value of the webform component or an empty string, if not set.
  */
-function _webform_submission_value($form_key, $node, $submission) {
+function _webform_submission_value($node, $form_key, $submission) {
   foreach ($node->webform['components'] as $key => $data) {
     if ($data['form_key'] == $form_key) {
-      return $submission->data[$key][0];
+      return !empty($submission->data[$key]) ? $submission->data[$key][0] : '';
     }
   }
 }
