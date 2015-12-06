@@ -109,12 +109,15 @@ function pxltrade_preprocess_views_view_proximity(&$vars) {
  * 1) Adds the offer nid to the hidden field of a delivery form as back reference to the offer.
  * 2) Ajaxify the trading/delivery form submission (allows to display the confirmation at forms place.
  *
- * CAUTION: File upload and other form actions with server roundtrip call this function too, so no
+ * CAUTION:
+ * - File upload inside form and other form actions with server roundtrip call this function too and has to AJAXify the form.
+ * - Admin task of the forms (edit, config etc.) call this function too, but should not AJAXify form
+ *
  */
 function pxltrade_form_alter(&$form, &$form_state, $form_id) {
   //
-  // Check for webforms (no other forms are altered here)
-  if (!isset($form['#node'])) return;
+  // Check for client webforms (no other forms are altered here)
+  if (strpos($form_id, 'webform_client_form') !== 0) return;
 
   $node = $form['#node'];
   $is_delivery_form = !empty($node->field_delivery_type) && $node->field_delivery_type[LANGUAGE_NONE][0]['tid'];
