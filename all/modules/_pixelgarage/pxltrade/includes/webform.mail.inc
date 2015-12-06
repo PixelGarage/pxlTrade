@@ -83,7 +83,7 @@ function pxltrade_mail_alter(&$message) {
     if (!$offer) {
       $error_msg = t('The offer data could not be found. Please contact an administrator.');
       drupal_set_message($error_msg, 'error');
-      watchdog('pxlTrade', $error_msg, WATCHDOG_ERROR);
+      watchdog('pxlTrade', $error_msg, array(), WATCHDOG_ERROR);
     }
     return;
   }
