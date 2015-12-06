@@ -19,8 +19,11 @@
 $dummy_address = null;
 
 /**
- * Make sure that all mails have a receiver email-address (needed to be processed)
- * Remark: email field in delivery form is not required, only phone.
+ * Called for each webform submission before it is saved
+ *
+ * Make sure that all email form fields have a an email-address added. Otherwise fill with a dummy address which
+ * is used as trigger to send the message on another channel (WhatsApp etc.).
+ * Remark: Email field in delivery form is not required, only phone.
  */
 function pxltrade_webform_submission_presave($node, &$submission) {
   // find the email component in the webform
@@ -41,6 +44,9 @@ function pxltrade_webform_submission_presave($node, &$submission) {
     }
   }
 
+  // reset 'no_contact' session data
+  $session_data = &pxltrade_session_data();
+  unset($session_data['no_contact']);
 }
 
 /**
@@ -67,12 +73,22 @@ function pxltrade_mail_alter(&$message) {
   // DELIVERY WEBFORM
   // Alter the mail message accordingly
   //
+  // send message only, if customer mail or WhatsUp message could be sent
+  // Mail order important:
+  // 1) customer
+  // 2) supplier
+  $session_data = &pxltrade_session_data();
+  if (isset($session_data['no_contact'])) {
+    $message['send'] = false;
+    return;
+  }
+
   $tnid = $node->tnid ? $node->tnid : $node->nid;
   $orig_form = node_load($tnid);
   $submission = $message['params']['submission'];
   $eid = $message['params']['email']['eid'];
   $template = variable_get('webform_mail_template_' . $node->nid . '_' . $eid, 'default');
-  $offer_nid = _webform_submission_value('offer_nid', $orig_form, $submission);
+  $offer_nid = _webform_submission_value($orig_form, 'offer_nid', $submission);
 
   if(!($offer = node_load($offer_nid)) || !$offer->status) {
     //
@@ -90,15 +106,20 @@ function pxltrade_mail_alter(&$message) {
 
   //
   // Resolve tokens and adapt mails accordingly
+  // Todo: make submission field search generic (form independant)
+  global $dummy_address;
   switch ($orig_form->nid) {
     case 14:
       $customer_phone = $submission->data[6][0];
+      $customer_email = (!empty($submission->data[5]) && ($dummy_address != $submission->data[5][0])) ? $submission->data[5][0] : '';
       break;
     case 15:
       $customer_phone = $submission->data[1][0];
+      $customer_email = (!empty($submission->data[2]) && ($dummy_address != $submission->data[2][0])) ? $submission->data[2][0] : '';
       break;
     default:
-      $customer_phone = false;
+      $customer_phone = '';
+      $customer_email = '';
       break;
   }
   $to_search = array(
@@ -127,18 +148,19 @@ function pxltrade_mail_alter(&$message) {
       $to_search += array(
         '%full_name%' => $submission->data[1][0],
         '%phone%' => $customer_phone,
-        '%email%' => isset($submission->data[5]) ? $submission->data[5][0] : '',
-        '%add_info%' => isset($submission->data[9]) ? $submission->data[9][0] : '',
+        '%email%' => $customer_email,
+        '%add_info%' => !empty($submission->data[9]) ? $submission->data[9][0] : '',
         '%street_nr%' => $submission->data[2][0],
         '%plz%' => $submission->data[3][0],
         '%location%' => $submission->data[4][0],
       );
     }
     else if ($orig_form->nid == 15) {
+      // tokens for pick-up delivery
       $to_search += array(
         '%full_name%' => $submission->data[4][0],
         '%phone%' => $customer_phone,
-        '%email%' => isset($submission->data[2]) ? $submission->data[2][0] : '',
+        '%email%' => $customer_email,
       );
     }
 
@@ -154,7 +176,6 @@ function pxltrade_mail_alter(&$message) {
   // WHATSAPP DELIVERY:
   // No email address is given
   // --> send a WhatsApp message instead and disable this email delivery
-  global $dummy_address;
   if ($message['to'] == $dummy_address) {
     //
     // don't send email
@@ -163,7 +184,7 @@ function pxltrade_mail_alter(&$message) {
     //
     // send WhatsApp message to customer with details about the supplier
     $success = false;
-    if ($customer_phone && module_exists('whatsup')) {
+    if (!empty($customer_phone) && module_exists('whatsup')) {
       $success = whatsup_send_message($customer_phone, $message['body'][0]);
     }
 
@@ -171,10 +192,9 @@ function pxltrade_mail_alter(&$message) {
     // No WhatsApp sending possible
     if (!$success) {
       //
-      // No success with no error means, WhatsApp itself or the customer phone number is not reachable via WhatsApp network.
+      // No success with no error means, WhatsApp itself or the customer phone number is not reachable on WhatsApp network.
       // --> Display supplier details in confirmation message
-      $session_data = &pxltrade_session_data();
-      $error = drupal_get_messages('error', false);
+      $error = drupal_get_messages('error', true); // empty error message queue, we treat it differently
 
       if (empty($error)) {
         // number not registered on WhatsApp network
