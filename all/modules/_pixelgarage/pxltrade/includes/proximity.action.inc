@@ -44,7 +44,7 @@ function pxltrade_proximity_load_params_alter($container_index, $view_result, &$
  */
 function pxltrade_proximity_render_item_alter($container_index, $param, &$render_item) {
   //
-  // Set ajax mode for all forms displayed in proximity content container
+  // store rendering node id during rendering
   global $rendering_node_id;
 
   //
@@ -53,7 +53,7 @@ function pxltrade_proximity_render_item_alter($container_index, $param, &$render
     $nid = substr($param, 5);
     if ($node = node_load($nid)) {
       $rendering_node_id = $node->nid;
-      $render_item = node_view($node);
+      $render_item = node_view($node); // calls pxltrade_form_alter() for embedded form
     }
     return;
   }
@@ -77,7 +77,7 @@ function pxltrade_proximity_render_item_alter($container_index, $param, &$render
   $rendered_nodes = array();
   foreach ($nodes as $node) {
     $rendering_node_id = $node->nid;
-    $rendered_nodes[] = node_view($node);
+    $rendered_nodes[] = node_view($node); // calls pxltrade_form_alter() for embedded form
   }
 
   $render_item = theme('pxltrade_bs_carousel',
@@ -99,20 +99,17 @@ function pxltrade_proximity_render_item_alter($container_index, $param, &$render
  */
 function pxltrade_preprocess_views_view_proximity(&$vars) {
   $path = drupal_get_path('module', 'pxltrade');
-
   drupal_add_js(drupal_get_path('module', 'webform') . '/js/webform.js');
 }
 
 /**
  * Alters a trading or delivery form.
  *
- * 1) Adds the offer nid to the hidden field of a delivery form as back reference to the offer.
- * 2) Ajaxify the trading/delivery form submission (allows to display the confirmation at forms place.
+ * 1) Adds the offer nid and email to the hidden fields of a delivery form as back reference to the offer.
+ * 2) Ajaxify the offer/delivery form submission (allows to display the confirmation at forms place)
  *
  * CAUTION:
- * - File upload inside form and other form actions with server roundtrip call this function too and has to AJAXify the form.
- * - Admin task of the forms (edit, config etc.) call this function too, but should not AJAXify form
- *
+ * Make sure, only webform client forms are altered (offer, delivery forms)!
  */
 function pxltrade_form_alter(&$form, &$form_state, $form_id) {
   //
@@ -127,7 +124,7 @@ function pxltrade_form_alter(&$form, &$form_state, $form_id) {
   if (!$is_delivery_form && !$is_trading_form) return;
 
   //
-  // Adapt delivery form ONLY when it is embedded in an offer node (rendering_node_id is set)
+  // set hidden fields in delivery form when rendering_node_id is set (during offer rendering)
   global $rendering_node_id;
 
   if ($is_delivery_form && $rendering_node_id) {
