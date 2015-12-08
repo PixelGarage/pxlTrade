@@ -9164,6 +9164,7 @@ form#user-login {
 .node.node-page div.col-sm-12 .field-name-body h2,
 .node.node-page div.col-sm-12 .field-name-body h3 {
   font-size: 20px;
+  color: #ff5265;
 }
 .node.node-page div.col-sm-12 .field-name-body p,
 .node.node-page div.col-sm-12 .field-name-body tbody td {
@@ -9179,12 +9180,14 @@ form#user-login {
 }
 .node.node-page div.col-sm-12 .field-name-body pre,
 .node.node-page div.col-sm-12 .field-name-body address {
-  font-family: 'ProximaNovaLight', sans-serif;
+  font-family: 'ProximaNovaBoldit', sans-serif;
   font-size: 16px;
+  color: #ff5265;
+  text-align: center;
 }
 .node.node-page div.col-sm-12 .field-name-body hr {
   border: 0;
-  border-bottom: 2px solid #222222;
+  border-bottom: 2px solid #ff5265;
   background: none;
 }
 .node.node-page div.col-sm-12 .field-name-body img,
