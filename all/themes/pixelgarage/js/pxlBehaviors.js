@@ -74,6 +74,9 @@
 
         // hide filter panel
         $exposedForm.slideUp(400);
+
+        // enable background scrolling
+        $body.css('overflow', 'auto');
       };
 
       // filter menus click
@@ -108,9 +111,6 @@
           } else {
             // hide form
             _hideExposedForm();
-
-            // enable background scrolling
-            $body.css('overflow', 'auto');
           }
         });
       });
