@@ -10203,11 +10203,16 @@ html {
 }
 body {
   position: relative;
+  height: 100%;
   min-height: 300px;
   background: #4d4d4d;
 }
 body .main-container {
   padding: 0;
+  height: 100%;
+}
+body .main-container .container {
+  min-height: 100%;
 }
 body .main-container .container #page-header .region-header h2.block-title {
   margin: 20px 0 10px;
