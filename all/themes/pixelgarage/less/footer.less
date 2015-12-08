@@ -4,6 +4,7 @@
 
 // Variables
 // -------------------------
+@pxl-footer-item-size-small: 50px;
 @pxl-footer-item-size: 60px;
 @pxl-footer-item-padding: 5px;
 
@@ -21,15 +22,22 @@ footer.footer {
   left: 0;
   right: 0;
   margin: 0 auto;
-  padding: 0 @grid-gutter-width/2;
+  padding: 0;
   border: none;
   background: rgba(255,255,255, 0.0);
 
   .footer-exposed-form {
     display: none;
-    margin-bottom: -(@pxl-footer-item-size + 2*@pxl-footer-item-padding);
-    padding-bottom: (@pxl-footer-item-size + 2*@pxl-footer-item-padding);
+    margin-bottom: -(@pxl-footer-item-size-small + 2*@pxl-footer-item-padding);
+    padding-bottom: (@pxl-footer-item-size-small + 2*@pxl-footer-item-padding);
     background: rgba(255,255,255, 0.9);
+
+    @media @tablet {
+      margin-bottom: -(@pxl-footer-item-size + 2*@pxl-footer-item-padding);
+      padding-bottom: (@pxl-footer-item-size + 2*@pxl-footer-item-padding);
+    }
+
+    // see view-exposed-form for styling
   }
 
   .footer-content {
@@ -43,9 +51,9 @@ footer.footer {
           display: block;
           margin: 0 auto;
           padding: @pxl-footer-item-padding;
-          width: 2*@pxl-footer-item-size + 20px;
+          width: 2*@pxl-footer-item-size-small + 20px;
           text-align: center;
-          #pxl-mixins.border-radius(@pxl-footer-item-size/2 + 5px);
+          #pxl-mixins.border-radius(@pxl-footer-item-size-small/2 + 5px);
           .border-bottom-radius(0);
           border-bottom-width: 0;
           #pxl-mixins.box-shadow(0 0 5px rgba(100,100,100,0.8));
@@ -54,20 +62,20 @@ footer.footer {
           li {
             display: inline-block;
             vertical-align: top;
-            width: @pxl-footer-item-size;
-            height: @pxl-footer-item-size;
+            width: @pxl-footer-item-size-small;
+            height: @pxl-footer-item-size-small;
 
             &.menu-filter,
             &.menu-location {
               #pxl-mixins.border-radius(50%);
-              background: @pxl-color-icon-dark url(../images/nav_filter.svg) no-repeat top center/contain;
+              background: @pxl-color-icon-footer url(../images/nav_filter.svg) no-repeat top center/contain;
 
               >.nolink {
                 display: none;
               }
             }
             &.menu-location  {
-              background: @pxl-color-icon-dark url(../images/nav_location.svg) no-repeat top center/contain;
+              background: @pxl-color-icon-footer url(../images/nav_location.svg) no-repeat top center/contain;
             }
 
             &.active, &.selected {
@@ -85,6 +93,17 @@ footer.footer {
               color: @text-color;
             }
 
+          }
+
+          @media @tablet {
+            width: 2*@pxl-footer-item-size + 20px;
+            #pxl-mixins.border-radius(@pxl-footer-item-size/2 + 5px);
+            .border-bottom-radius(0);
+
+            li {
+              width: @pxl-footer-item-size;
+              height: @pxl-footer-item-size;
+            }
           }
         }
       }

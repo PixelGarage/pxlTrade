@@ -4,7 +4,10 @@
 
 // Variables
 // -------------------------
-@carousel-control-top: 200px;
+@carousel-control-top-small: 110px;
+@carousel-control-top: 160px;
+@carousel-control-shift-small: -10px;
+@carousel-control-shift: -30px;
 
 // Mixins
 // -------------------------
@@ -15,8 +18,8 @@
 // -------------------------
 .pxltrade-bs-carousel.carousel {
   position: relative;
-  margin: 0 @carousel-control-width/2;
-  padding: 20px 0;
+  margin: 0;
+  padding: 0;
   height: auto;
 
   > .carousel-inner {
@@ -33,7 +36,7 @@
   > a.carousel-control {
     display: block;
     position: absolute;
-    top: @carousel-control-top;
+    top: @carousel-control-top-small;
     bottom: auto;
     padding: 0;
     width: @carousel-control-width;
@@ -44,11 +47,19 @@
     border: 2px solid @pxl-color-red;
     background: @pxl-color-bg;
 
+    @media @narrow {
+      top: @carousel-control-top;
+    }
+
     &.left {
-      left: -(@carousel-control-width/2);
+      left: @carousel-control-shift-small;
       .border-left-radius(0);
       border-left-width: 0;
       .box-shadow(@pxl-box-shadow-left);
+
+      @media @narrow {
+        left: @carousel-control-shift;
+      }
 
       .fa {
         margin-left: -10px;
@@ -56,10 +67,14 @@
     }
 
     &.right {
-      right: -(@carousel-control-width/2);
+      right: @carousel-control-shift-small;
       .border-right-radius(0);
       border-right-width: 0;
       .box-shadow(@pxl-box-shadow-right);
+
+      @media @narrow {
+        right: @carousel-control-shift;
+      }
 
       .fa {
         margin-right: -10px;

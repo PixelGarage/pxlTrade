@@ -77,7 +77,7 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
         // offer is still available
         $remaining_offers = --$node->field_number_offer[LANGUAGE_NONE][0]['value'];
         $node->field_number_offer[LANGUAGE_NONE][0]['value'] = $remaining_offers;
-        $node->status = ($remaining_offers > 0) ? 1 : 0;
+        $node->status = ($remaining_offers == 0) ? 0 : 1;
         $node = node_submit($node);
         node_save($node);
         // set the confirmation message configured in the form

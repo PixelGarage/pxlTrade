@@ -7,12 +7,13 @@
 @webform-max-width: 100%;
 @webform-inline-input-width: 58.333333%;
 
-@webform-color-label: #888;
+@webform-color-label: @body-bg;
 @webform-color-text: @text-color;
-@webform-color-border: #eee;
+@webform-color-border: @pxl-color-icon-light;
 @webform-color-border-active: @brand-primary;
 @webform-bg-color-input: #eee;
 @webform-color-shadow: @gray-lighter;
+
 @webform-color-submit: @text-color;
 @webform-bg-color-submit: @gray-lighter;
 
@@ -23,10 +24,11 @@
 // Mixins
 // -------------------------
 .form-label() {
+  margin: 5px 10px 10px 0;
   padding: 0;
   width: auto;
   font-family: @pxl-text-font-bold;
-  #pxl-mixins.font-size-responsive(@resp-font-size-max);
+  font-size: @font-size-base;
   font-weight: normal;
   line-height: 1.5em;
   text-align: left;
@@ -40,16 +42,17 @@
 .resp-submit-button(@color: #fff; @bg-color: @gray-light) {
   display: inline-block;
   margin: 0;
-  padding: 0.5em 1em;
+  padding: 0.3em 1em;
+  height: 100%;
   font-family: @pxl-text-font-bold;
-  #pxl-mixins.font-size-responsive(@resp-font-size-max);
+  font-size: @font-size-base;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: @color;
   outline: none;
   #pxl-mixins.border-radius(@border-radius-small);
-  border: none;
+  border: 2px solid @bg-color;
   background-color: @bg-color;
 
   &:hover, &:focus {
@@ -63,10 +66,6 @@
 // Node settings
 // -------------------------
 .node-webform {
-  .modal-body >& {
-    padding: 50px 10px 20px;
-  }
-
   div.col-sm-12 {
     width: 100%;
 
@@ -86,16 +85,19 @@
             font-family: @pxl-text-font-bold;
             color: @pxl-color-red;
             text-align: center;
-            #pxl-mixins.font-size-responsive(20px);
+            font-size: @font-size-large;
           }
         }
 
         .panel-body {
+          .help-block {
+            display: none;
+          }
           // contains all webform-components of fieldset
         }
       }
 
-      // multiple file field wrapper
+      // multiple file field wrapper, when files are in table
       [id$=ajax-wrapper] {
         /* multi-file upload container */
         overflow: auto;
@@ -125,8 +127,11 @@
                   button {
                     display: inline-block;
                     position: absolute;
+                    top: 2px;
+                    bottom: 2px;
                     right: 2px;
                     width: auto;
+                    height: auto;
                     .resp-submit-button(@pxl-color-bg, @pxl-color-red);
                   }
                 }
@@ -145,8 +150,15 @@
               display: inline-block;
               position: absolute;
               top: 2px;
+              bottom: 2px;
               right: 2px;
               width: auto;
+              height: auto;
+
+              button {
+                .resp-submit-button(@pxl-color-bg, @pxl-color-red);
+                z-index: 10; // goes over file description
+              }
             }
           }
         }
@@ -154,28 +166,28 @@
 
       // all components
       .webform-component {
-        margin: 0 auto 10px;
+        margin: 0 auto 15px;
         padding: 0;
         max-width: @webform-max-width;
         background-color: #fff;
 
-        label {
+        .control-label {
           .form-label;
         }
 
         div.description {
           display: block;
           margin: 0;
-          padding-bottom: 10px;
+          padding: 5px 0 10px;
           font-family: @pxl-text-font;
           font-size: @resp-font-size-min;
         }
 
         input, textarea {
-          padding: 0 10px;
+          padding: 5px 10px;
           height: auto;
           font-family: @pxl-text-font-light;
-          #pxl-mixins.font-size-responsive(@resp-font-size-max);
+          font-size: @font-size-base;
           line-height: 1.5em;
           text-align: left;
           color: @webform-color-text;
@@ -197,9 +209,10 @@
         }
 
         select {
+          padding: 5px 10px;
           height: auto;
           font-family: @pxl-text-font-light;
-          #pxl-mixins.font-size-responsive(@resp-font-size-max);
+          font-size: @font-size-base;
           line-height: 1.2em;
           text-align: left;
           color: @webform-color-text;
@@ -234,7 +247,8 @@
           button.btn {
             display: inline-block;
             margin: 0;
-            .resp-submit-button(@webform-color-submit, @webform-bg-color-submit);
+            .resp-submit-button(@pxl-color-bg, @pxl-color-red);
+            z-index: 10;
           }
         }
 
@@ -245,7 +259,7 @@
           h2 {
             font-family: @pxl-text-font-bold;
             font-weight: normal;
-            #pxl-mixins.font-size-responsive(@resp-font-size-max);
+            font-size: @font-size-base;
             line-height: 1em;
             text-align: left;
           }
@@ -264,24 +278,40 @@
           position: relative;
 
           label, input {
-            display: inline-block;
+            display: block;
+
+            @media @narrow {
+              display: inline-block;
+            }
           }
 
           input.form-text, select {
-            position: absolute;
-            right: 0;
-            width: @webform-inline-input-width;
+            position: relative;
+            right: auto;
+            width: 100%;
+
+            @media @narrow {
+              position: absolute;
+              right: 0;
+              width: @webform-inline-input-width;
+            }
           }
         }
 
       }
 
+      .webform-component-multiple-file {
+        label.control-label {
+          display: none;
+        }
+      }
+
       div.form-actions {
         padding-top: 0;
+        text-align: center;
 
         button.webform-submit {
-          float: right;
-          .resp-submit-button(@webform-color-submit, @webform-bg-color-submit);
+          .resp-submit-button(@pxl-color-bg, @pxl-color-red);
         }
       }
     }
@@ -304,16 +334,16 @@
     #pxl-mixins.border-radius(@pxl-success-badge-dim/2);
 
     &.fa-check {
-      color: @brand-success;
-      border: 2px solid @brand-success;
+      color: @pxl-color-green;
+      border: 2px solid @pxl-color-green;
     }
     &.fa-times {
-      color: @brand-danger;
-      border: 2px solid @brand-danger;
+      color: @pxl-color-red;
+      border: 2px solid @pxl-color-red;
     }
     &.fa-exclamation {
-      color: @brand-warning;
-      border: 2px solid @brand-warning;
+      color: @pxl-color-yellow;
+      border: 2px solid @pxl-color-yellow;
     }
   }
 

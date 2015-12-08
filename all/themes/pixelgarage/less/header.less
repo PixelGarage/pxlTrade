@@ -9,6 +9,10 @@
 @header-font-size-small: 32px;
 @header-font-size: 42px;
 
+@header-img-height-small: 32px;
+@header-img-height: 42px;
+
+
 @header-height-small: 2*@header-padding-tb + @header-font-size-small;
 @header-height: 2*@header-padding-tb + @header-font-size;
 
@@ -51,14 +55,24 @@ header#navbar {
       text-align: center;
 
       a.logo {
-        display: none;
+        display: block;
+        margin: 0;
+        width: 100%;
 
         img {
+          margin: 0 auto;
+          width: @header-img-height-small * 6;
+          height: @header-img-height-small;
+
+          @media @narrow {
+            width: @header-img-height * 6;
+            height: @header-img-height;
+          }
         }
       }
 
       a.navbar-brand {
-        display: inline-block;
+        display: none;
         float: none;
         margin: 0;
         padding: 0;

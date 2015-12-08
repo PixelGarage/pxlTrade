@@ -1064,7 +1064,7 @@ body {
   font-size: 16px;
   line-height: 1.25;
   color: #222222;
-  background-color: #ffffff;
+  background-color: #4d4d4d;
 }
 input,
 button,
@@ -1109,7 +1109,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.25;
-  background-color: #ffffff;
+  background-color: #4d4d4d;
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1553,17 +1553,17 @@ pre code {
 }
 @media (min-width: 768px) {
   .container {
-    width: 750px;
+    width: 730px;
   }
 }
 @media (min-width: 1024px) {
   .container {
-    width: 970px;
+    width: 800px;
   }
 }
 @media (min-width: 1280px) {
   .container {
-    width: 970px;
+    width: 800px;
   }
 }
 .container-fluid {
@@ -2256,7 +2256,7 @@ th {
   border-top: 2px solid #dddddd;
 }
 .table .table {
-  background-color: #ffffff;
+  background-color: #4d4d4d;
 }
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > th,
@@ -3901,7 +3901,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #ff5265;
-  background-color: #ffffff;
+  background-color: #4d4d4d;
   border: 1px solid #dddddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -3947,7 +3947,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .nav-tabs.nav-justified > .active > a,
   .nav-tabs.nav-justified > .active > a:hover,
   .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #ffffff;
+    border-bottom-color: #4d4d4d;
   }
 }
 .nav-pills > li {
@@ -4015,7 +4015,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .nav-tabs-justified > .active > a,
   .nav-tabs-justified > .active > a:hover,
   .nav-tabs-justified > .active > a:focus {
-    border-bottom-color: #ffffff;
+    border-bottom-color: #4d4d4d;
   }
 }
 .tab-content > .tab-pane {
@@ -4863,7 +4863,7 @@ a.badge:focus {
   padding: 4px;
   margin-bottom: 20px;
   line-height: 1.25;
-  background-color: #ffffff;
+  background-color: #4d4d4d;
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: border 0.2s ease-in-out;
@@ -5777,7 +5777,7 @@ button.close {
 }
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 600px;
+    width: 730px;
     margin: 30px auto;
   }
   .modal-content {
@@ -5785,7 +5785,7 @@ button.close {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
   .modal-sm {
-    width: 300px;
+    width: 100%;
   }
 }
 @media (min-width: 1024px) {
@@ -6620,17 +6620,17 @@ body #admin-menu .dropdown li {
 }
 @media screen and (min-width: 768px) {
   .navbar.container {
-    max-width: 720px;
+    max-width: 700px;
   }
 }
 @media screen and (min-width: 1024px) {
   .navbar.container {
-    max-width: 940px;
+    max-width: 770px;
   }
 }
 @media screen and (min-width: 1280px) {
   .navbar.container {
-    max-width: 940px;
+    max-width: 770px;
   }
 }
 .navbar.container > .container {
@@ -8978,8 +8978,8 @@ form#user-login {
  * --------------------------------------------------*/
 .pxltrade-bs-carousel.carousel {
   position: relative;
-  margin: 0 15px;
-  padding: 20px 0;
+  margin: 0;
+  padding: 0;
   height: auto;
 }
 .pxltrade-bs-carousel.carousel > .carousel-inner {
@@ -8988,7 +8988,7 @@ form#user-login {
 .pxltrade-bs-carousel.carousel > a.carousel-control {
   display: block;
   position: absolute;
-  top: 200px;
+  top: 110px;
   bottom: auto;
   padding: 0;
   width: 30px;
@@ -9001,24 +9001,39 @@ form#user-login {
   border: 2px solid #ff5265;
   background: #ffffff;
 }
+@media screen and (min-width: 480px) {
+  .pxltrade-bs-carousel.carousel > a.carousel-control {
+    top: 160px;
+  }
+}
 .pxltrade-bs-carousel.carousel > a.carousel-control.left {
-  left: -15px;
+  left: -10px;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   border-left-width: 0;
   -webkit-box-shadow: 2px 0 2px rgba(100, 100, 100, 0.4);
   box-shadow: 2px 0 2px rgba(100, 100, 100, 0.4);
 }
+@media screen and (min-width: 480px) {
+  .pxltrade-bs-carousel.carousel > a.carousel-control.left {
+    left: -30px;
+  }
+}
 .pxltrade-bs-carousel.carousel > a.carousel-control.left .fa {
   margin-left: -10px;
 }
 .pxltrade-bs-carousel.carousel > a.carousel-control.right {
-  right: -15px;
+  right: -10px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   border-right-width: 0;
   -webkit-box-shadow: -2px 0 2px rgba(100, 100, 100, 0.4);
   box-shadow: -2px 0 2px rgba(100, 100, 100, 0.4);
+}
+@media screen and (min-width: 480px) {
+  .pxltrade-bs-carousel.carousel > a.carousel-control.right {
+    right: -30px;
+  }
 }
 .pxltrade-bs-carousel.carousel > a.carousel-control.right .fa {
   margin-right: -10px;
@@ -9027,23 +9042,29 @@ form#user-login {
  *  Modal dialog component
  * --------------------------------------------------*/
 .modal .modal-backdrop {
-  background-color: #eee;
+  background-color: #aaa;
 }
 .modal .modal-backdrop.in {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 .modal .modal-dialog {
-  margin: 30px auto;
-  width: 300px;
+  margin: 20px auto;
+  width: 100%;
+}
+.admin-menu .modal .modal-dialog {
+  margin: 29px auto 0;
 }
 @media screen and (min-width: 480px) {
   .modal .modal-dialog {
-    width: 450px;
+    min-width: 480px;
+    width: 90%;
+    max-width: 690px;
   }
 }
 @media screen and (min-width: 768px) {
   .modal .modal-dialog {
-    width: 600px;
+    width: 90%;
+    max-width: 800px;
   }
 }
 @media screen and (min-width: 1024px) {
@@ -9064,7 +9085,7 @@ form#user-login {
 }
 .modal .modal-dialog .modal-content .modal-header {
   padding: 0;
-  min-height: 0;
+  min-height: 60px;
   border: none;
 }
 .modal .modal-dialog .modal-content .modal-header button.close {
@@ -9083,8 +9104,13 @@ form#user-login {
   color: #ff5265;
 }
 .modal .modal-dialog .modal-content .modal-body {
-  padding: 0;
+  padding: 0 10px 40px;
   height: auto !important;
+}
+@media screen and (min-width: 480px) {
+  .modal .modal-dialog .modal-content .modal-body {
+    padding: 0 30px 40px;
+  }
 }
 .modal .modal-dialog .modal-content .modal-footer {
   display: none;
@@ -9110,10 +9136,10 @@ form#user-login {
 /*
  *  Node page component
  * --------------------------------------------------*/
-.node-page div.col-sm-12 {
+.node.node-page div.col-sm-12 {
   width: 100%;
 }
-.node-page div.col-sm-12 .field-name-title h2 {
+.node.node-page div.col-sm-12 .field-name-title h2 {
   font-family: 'ProximaNovaBold', sans-serif;
   font-size: 20px;
   letter-spacing: 1.2px;
@@ -9121,67 +9147,28 @@ form#user-login {
   color: #222222;
 }
 @media screen and (min-width: 480px) {
-  .node-page div.col-sm-12 .field-name-title h2 {
-    font-size: 5vw;
+  .node.node-page div.col-sm-12 .field-name-title h2 {
+    font-size: 24px;
   }
 }
-@media screen and (min-width: 768px) {
-  .node-page div.col-sm-12 .field-name-title h2 {
-    font-size: 30px;
-  }
-}
-.node-page div.col-sm-12 .field-name-body h1,
-.node-page div.col-sm-12 .field-name-body h2,
-.node-page div.col-sm-12 .field-name-body h3,
-.node-page div.col-sm-12 .field-name-body h4,
-.node-page div.col-sm-12 .field-name-body h5,
-.node-page div.col-sm-12 .field-name-body h6 {
+.node.node-page div.col-sm-12 .field-name-body h1,
+.node.node-page div.col-sm-12 .field-name-body h2,
+.node.node-page div.col-sm-12 .field-name-body h3,
+.node.node-page div.col-sm-12 .field-name-body h4,
+.node.node-page div.col-sm-12 .field-name-body h5,
+.node.node-page div.col-sm-12 .field-name-body h6 {
   font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 12px;
+  font-size: 16px;
 }
-@media screen and (min-width: 480px) {
-  .node-page div.col-sm-12 .field-name-body h1,
-  .node-page div.col-sm-12 .field-name-body h2,
-  .node-page div.col-sm-12 .field-name-body h3,
-  .node-page div.col-sm-12 .field-name-body h4,
-  .node-page div.col-sm-12 .field-name-body h5,
-  .node-page div.col-sm-12 .field-name-body h6 {
-    font-size: 2.21354167vw;
-  }
+.node.node-page div.col-sm-12 .field-name-body h1,
+.node.node-page div.col-sm-12 .field-name-body h2,
+.node.node-page div.col-sm-12 .field-name-body h3 {
+  font-size: 20px;
 }
-@media screen and (min-width: 768px) {
-  .node-page div.col-sm-12 .field-name-body h1,
-  .node-page div.col-sm-12 .field-name-body h2,
-  .node-page div.col-sm-12 .field-name-body h3,
-  .node-page div.col-sm-12 .field-name-body h4,
-  .node-page div.col-sm-12 .field-name-body h5,
-  .node-page div.col-sm-12 .field-name-body h6 {
-    font-size: 17px;
-  }
-}
-.node-page div.col-sm-12 .field-name-body h1,
-.node-page div.col-sm-12 .field-name-body h2,
-.node-page div.col-sm-12 .field-name-body h3 {
-  font-size: 12.5px;
-}
-@media screen and (min-width: 480px) {
-  .node-page div.col-sm-12 .field-name-body h1,
-  .node-page div.col-sm-12 .field-name-body h2,
-  .node-page div.col-sm-12 .field-name-body h3 {
-    font-size: 2.60416667vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-page div.col-sm-12 .field-name-body h1,
-  .node-page div.col-sm-12 .field-name-body h2,
-  .node-page div.col-sm-12 .field-name-body h3 {
-    font-size: 20px;
-  }
-}
-.node-page div.col-sm-12 .field-name-body p,
-.node-page div.col-sm-12 .field-name-body tbody td {
+.node.node-page div.col-sm-12 .field-name-body p,
+.node.node-page div.col-sm-12 .field-name-body tbody td {
   font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   -ms-word-break: break-all;
   word-break: break-word;
   -webkit-hyphens: auto;
@@ -9190,48 +9177,28 @@ form#user-login {
   -o-hyphens: auto;
   hyphens: auto;
 }
-@media screen and (min-width: 480px) {
-  .node-page div.col-sm-12 .field-name-body p,
-  .node-page div.col-sm-12 .field-name-body tbody td {
-    font-size: 2.08333333vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-page div.col-sm-12 .field-name-body p,
-  .node-page div.col-sm-12 .field-name-body tbody td {
-    font-size: 16px;
-  }
-}
-.node-page div.col-sm-12 .field-name-body pre,
-.node-page div.col-sm-12 .field-name-body address {
+.node.node-page div.col-sm-12 .field-name-body pre,
+.node.node-page div.col-sm-12 .field-name-body address {
   font-family: 'ProximaNovaLight', sans-serif;
-  font-size: 12px;
+  font-size: 16px;
 }
-@media screen and (min-width: 480px) {
-  .node-page div.col-sm-12 .field-name-body pre,
-  .node-page div.col-sm-12 .field-name-body address {
-    font-size: 1.953125vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-page div.col-sm-12 .field-name-body pre,
-  .node-page div.col-sm-12 .field-name-body address {
-    font-size: 15px;
-  }
-}
-.node-page div.col-sm-12 .field-name-body hr {
+.node.node-page div.col-sm-12 .field-name-body hr {
   border: 0;
   border-bottom: 2px solid #222222;
   background: none;
 }
-.node-page div.col-sm-12 .field-name-body img,
-.node-page div.col-sm-12 .field-name-body embed,
-.node-page div.col-sm-12 .field-name-body video,
-.node-page div.col-sm-12 .field-name-body audio,
-.node-page div.col-sm-12 .field-name-body iframe {
+.node.node-page div.col-sm-12 .field-name-body img,
+.node.node-page div.col-sm-12 .field-name-body embed,
+.node.node-page div.col-sm-12 .field-name-body video,
+.node.node-page div.col-sm-12 .field-name-body audio,
+.node.node-page div.col-sm-12 .field-name-body iframe {
   display: block;
+  overflow: hidden;
+  margin: 20px auto;
+  width: 100%;
   max-width: 100%;
-  height: auto;
+  height: 0;
+  padding-bottom: 56.25%;
 }
 /*
  *  Offer node component
@@ -9255,34 +9222,12 @@ form#user-login {
   color: #ff5265;
   text-align: center;
   text-overflow: ellipsis;
-  font-size: 15.625px;
-}
-@media screen and (min-width: 480px) {
-  .node.node-offer > .row.row-top .col-sm-12 .field-name-title h2 {
-    font-size: 3.25520833vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node.node-offer > .row.row-top .col-sm-12 .field-name-title h2 {
-    font-size: 25px;
-  }
+  font-size: 20px;
 }
 .node.node-offer > .row.row-top .col-sm-12 .field-name-field-subtitle,
 .node.node-offer > .row.row-top .col-sm-12 .field-name-post-date {
   text-align: center;
-  font-size: 12px;
-}
-@media screen and (min-width: 480px) {
-  .node.node-offer > .row.row-top .col-sm-12 .field-name-field-subtitle,
-  .node.node-offer > .row.row-top .col-sm-12 .field-name-post-date {
-    font-size: 1.82291667vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node.node-offer > .row.row-top .col-sm-12 .field-name-field-subtitle,
-  .node.node-offer > .row.row-top .col-sm-12 .field-name-post-date {
-    font-size: 14px;
-  }
+  font-size: 14px;
 }
 .node.node-offer > .row.row-first .col-left .field-name-field-images .field-item:not(:first-child) {
   display: none;
@@ -9295,7 +9240,7 @@ form#user-login {
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
   border-radius: 7px;
-  border: 1px solid #cccccc;
+  border: 1px solid #e6e6e6;
 }
 @media screen and (min-width: 480px) {
   .node.node-offer > .row.row-first .col-left .field-name-field-images a.colorbox img {
@@ -9327,7 +9272,7 @@ form#user-login {
 .node.node-offer > .row.row-first .col-right .field-name-body h5,
 .node.node-offer > .row.row-first .col-right .field-name-body h6 {
   font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
 }
 @media screen and (min-width: 480px) {
   .node.node-offer > .row.row-first .col-right .field-name-body h1,
@@ -9352,26 +9297,26 @@ form#user-login {
 .node.node-offer > .row.row-first .col-right .field-name-body h1,
 .node.node-offer > .row.row-first .col-right .field-name-body h2,
 .node.node-offer > .row.row-first .col-right .field-name-body h3 {
-  font-size: 12.5px;
+  font-size: 13.75px;
 }
 @media screen and (min-width: 480px) {
   .node.node-offer > .row.row-first .col-right .field-name-body h1,
   .node.node-offer > .row.row-first .col-right .field-name-body h2,
   .node.node-offer > .row.row-first .col-right .field-name-body h3 {
-    font-size: 2.60416667vw;
+    font-size: 2.86458333vw;
   }
 }
 @media screen and (min-width: 768px) {
   .node.node-offer > .row.row-first .col-right .field-name-body h1,
   .node.node-offer > .row.row-first .col-right .field-name-body h2,
   .node.node-offer > .row.row-first .col-right .field-name-body h3 {
-    font-size: 20px;
+    font-size: 22px;
   }
 }
 .node.node-offer > .row.row-first .col-right .field-name-body p,
 .node.node-offer > .row.row-first .col-right .field-name-body tbody td {
   font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   -ms-word-break: break-all;
   word-break: break-word;
   -webkit-hyphens: auto;
@@ -9395,7 +9340,7 @@ form#user-login {
 .node.node-offer > .row.row-first .col-right .field-name-body pre,
 .node.node-offer > .row.row-first .col-right .field-name-body address {
   font-family: 'ProximaNovaLight', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
 }
 @media screen and (min-width: 480px) {
   .node.node-offer > .row.row-first .col-right .field-name-body pre,
@@ -9420,8 +9365,12 @@ form#user-login {
 .node.node-offer > .row.row-first .col-right .field-name-body audio,
 .node.node-offer > .row.row-first .col-right .field-name-body iframe {
   display: block;
+  overflow: hidden;
+  margin: 20px auto;
+  width: 100%;
   max-width: 100%;
-  height: auto;
+  height: 0;
+  padding-bottom: 56.25%;
 }
 .node.node-offer > .row.row-second .col-sm-12 .btn.accept-offer {
   display: block;
@@ -9469,9 +9418,6 @@ form#user-login {
 /*
  *  Node / block webform component
  * --------------------------------------------------*/
-.modal-body > .node-webform {
-  padding: 50px 10px 20px;
-}
 .node-webform div.col-sm-12 {
   width: 100%;
 }
@@ -9484,17 +9430,10 @@ form#user-login {
   font-family: 'ProximaNovaBold', sans-serif;
   color: #ff5265;
   text-align: center;
-  font-size: 12.5px;
+  font-size: 20px;
 }
-@media screen and (min-width: 480px) {
-  .node-webform div.col-sm-12 form.webform-client-form fieldset.panel .panel-heading .panel-title {
-    font-size: 2.60416667vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-webform div.col-sm-12 form.webform-client-form fieldset.panel .panel-heading .panel-title {
-    font-size: 20px;
-  }
+.node-webform div.col-sm-12 form.webform-client-form fieldset.panel .panel-body .help-block {
+  display: none;
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] {
   /* multi-file upload container */
@@ -9505,11 +9444,11 @@ form#user-login {
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive {
   cursor: all-scroll;
-  max-width: 216px;
+  max-width: 16%;
 }
 @media screen and (min-width: 480px) {
   .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive {
-    max-width: 366px;
+    max-width: 396px;
   }
 }
 @media screen and (min-width: 768px) {
@@ -9525,13 +9464,17 @@ form#user-login {
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button {
   position: absolute;
+  top: 2px;
+  bottom: 2px;
   right: 2px;
   width: auto;
+  height: auto;
   display: inline-block;
   margin: 0;
-  padding: 0.5em 1em;
+  padding: 0.3em 1em;
+  height: 100%;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -9540,18 +9483,8 @@ form#user-login {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  border: none;
+  border: 2px solid #ff5265;
   background-color: #ff5265;
-}
-@media screen and (min-width: 480px) {
-  .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button {
-    font-size: 2.21354167vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button {
-    font-size: 17px;
-  }
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button:hover,
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button:focus {
@@ -9567,51 +9500,68 @@ form#user-login {
   display: inline-block;
   position: absolute;
   top: 2px;
+  bottom: 2px;
   right: 2px;
   width: auto;
+  height: auto;
+}
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .webform-component-multiple-file .form-managed-file .input-group-btn button {
+  display: inline-block;
+  margin: 0;
+  padding: 0.3em 1em;
+  height: 100%;
+  font-family: 'ProximaNovaBold', sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  outline: none;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #ff5265;
+  background-color: #ff5265;
+  z-index: 10;
+}
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .webform-component-multiple-file .form-managed-file .input-group-btn button:hover,
+.node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .webform-component-multiple-file .form-managed-file .input-group-btn button:focus {
+  color: #ff5265;
+  background: #ffffff;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component {
-  margin: 0 auto 10px;
+  margin: 0 auto 15px;
   padding: 0;
   max-width: 100%;
   background-color: #fff;
 }
-.node-webform div.col-sm-12 form.webform-client-form .webform-component label {
+.node-webform div.col-sm-12 form.webform-client-form .webform-component .control-label {
+  margin: 5px 10px 10px 0;
   padding: 0;
   width: auto;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: normal;
   line-height: 1.5em;
   text-align: left;
-  color: #888888;
+  color: #4d4d4d;
 }
-@media screen and (min-width: 480px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component label {
-    font-size: 2.21354167vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component label {
-    font-size: 17px;
-  }
-}
-.node-webform div.col-sm-12 form.webform-client-form .webform-component label span.form-required {
+.node-webform div.col-sm-12 form.webform-client-form .webform-component .control-label span.form-required {
   color: #222222;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component div.description {
   display: block;
   margin: 0;
-  padding-bottom: 10px;
+  padding: 5px 0 10px;
   font-family: 'ProximaNovaRegular', sans-serif;
   font-size: 13px;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component input,
 .node-webform div.col-sm-12 form.webform-client-form .webform-component textarea {
-  padding: 0 10px;
+  padding: 5px 10px;
   height: auto;
   font-family: 'ProximaNovaLight';
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5em;
   text-align: left;
   color: #222222;
@@ -9619,20 +9569,8 @@ form#user-login {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #eeeeee;
+  border: 1px solid #e6e6e6;
   background-color: #eeeeee;
-}
-@media screen and (min-width: 480px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component input,
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component textarea {
-    font-size: 2.21354167vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component input,
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component textarea {
-    font-size: 17px;
-  }
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component input:focus,
 .node-webform div.col-sm-12 form.webform-client-form .webform-component textarea:focus {
@@ -9644,28 +9582,19 @@ form#user-login {
   display: none;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component select {
+  padding: 5px 10px;
   height: auto;
   font-family: 'ProximaNovaLight';
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.2em;
   text-align: left;
   color: #222222;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #eeeeee;
+  border: 1px solid #e6e6e6;
   background-color: #eeeeee;
   outline: none;
-}
-@media screen and (min-width: 480px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component select {
-    font-size: 2.21354167vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component select {
-    font-size: 17px;
-  }
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component select:focus,
 .node-webform div.col-sm-12 form.webform-client-form .webform-component select:active {
@@ -9676,7 +9605,7 @@ form#user-login {
   position: relative;
   overflow-x: auto;
   white-space: nowrap;
-  border: 1px solid #eeeeee;
+  border: 1px solid #e6e6e6;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -9693,34 +9622,26 @@ form#user-login {
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn {
   display: inline-block;
   margin: 0;
-  padding: 0.5em 1em;
+  padding: 0.3em 1em;
+  height: 100%;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #222222;
+  color: #ffffff;
   outline: none;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  border: none;
-  background-color: #eeeeee;
-}
-@media screen and (min-width: 480px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn {
-    font-size: 2.21354167vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn {
-    font-size: 17px;
-  }
+  border: 2px solid #ff5265;
+  background-color: #ff5265;
+  z-index: 10;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn:hover,
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn:focus {
-  color: #eeeeee;
-  background: #222222;
+  color: #ff5265;
+  background: #ffffff;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup {
   margin-bottom: 25px;
@@ -9729,23 +9650,13 @@ form#user-login {
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup h2 {
   font-family: 'ProximaNovaBold', sans-serif;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1em;
   text-align: left;
 }
-@media screen and (min-width: 480px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup h2 {
-    font-size: 2.21354167vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup h2 {
-    font-size: 17px;
-  }
-}
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup p {
   font-family: 'ProximaNovaLight';
-  font-size: 12px;
+  font-size: 13px;
   line-height: 22px;
   text-align: left;
   color: #222222;
@@ -9765,49 +9676,57 @@ form#user-login {
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-container-inline label,
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-container-inline input {
-  display: inline-block;
+  display: block;
+}
+@media screen and (min-width: 480px) {
+  .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-container-inline label,
+  .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-container-inline input {
+    display: inline-block;
+  }
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-container-inline input.form-text,
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-container-inline select {
-  position: absolute;
-  right: 0;
-  width: 58.333333%;
+  position: relative;
+  right: auto;
+  width: 100%;
+}
+@media screen and (min-width: 480px) {
+  .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-container-inline input.form-text,
+  .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-container-inline select {
+    position: absolute;
+    right: 0;
+    width: 58.333333%;
+  }
+}
+.node-webform div.col-sm-12 form.webform-client-form .webform-component-multiple-file label.control-label {
+  display: none;
 }
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions {
   padding-top: 0;
+  text-align: center;
 }
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit {
-  float: right;
   display: inline-block;
   margin: 0;
-  padding: 0.5em 1em;
+  padding: 0.3em 1em;
+  height: 100%;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #222222;
+  color: #ffffff;
   outline: none;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  border: none;
-  background-color: #eeeeee;
-}
-@media screen and (min-width: 480px) {
-  .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit {
-    font-size: 2.21354167vw;
-  }
-}
-@media screen and (min-width: 768px) {
-  .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit {
-    font-size: 17px;
-  }
+  border: 2px solid #ff5265;
+  background-color: #ff5265;
 }
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit:hover,
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit:focus {
-  color: #eeeeee;
-  background: #222222;
+  color: #ff5265;
+  background: #ffffff;
 }
 .webform-confirmation {
   text-align: center;
@@ -9824,12 +9743,12 @@ form#user-login {
   border-radius: 30px;
 }
 .webform-confirmation .fa.fa-check {
-  color: springgreen;
-  border: 2px solid springgreen;
+  color: #77bb77;
+  border: 2px solid #77bb77;
 }
 .webform-confirmation .fa.fa-times {
-  color: #d9534f;
-  border: 2px solid #d9534f;
+  color: #ff5265;
+  border: 2px solid #ff5265;
 }
 .webform-confirmation .fa.fa-exclamation {
   color: #f0ad4e;
@@ -9842,17 +9761,17 @@ form#user-login {
  *  Post grid view component
  * --------------------------------------------------*/
 .view-post-grid {
-  margin: 20px 0 0;
+  margin: 20px 0;
   width: 100%;
 }
 @media screen and (min-width: 768px) {
   .view-post-grid {
-    margin: 25px 0 0;
+    margin: 25px 0;
   }
 }
 @media screen and (min-width: 1024px) {
   .view-post-grid {
-    margin: 50px 0 0;
+    margin: 50px 0;
   }
 }
 .view-post-grid .view-content .pe-container .pe-item {
@@ -9871,12 +9790,12 @@ form#user-login {
 }
 @media screen and (min-width: 768px) {
   .view-post-grid .view-content .pe-container .pe-item {
-    width: 25%;
+    width: 33.3333333%;
   }
 }
 @media screen and (min-width: 1024px) {
   .view-post-grid .view-content .pe-container .pe-item {
-    width: 20%;
+    width: 33.3333333%;
   }
 }
 .view-post-grid .view-content .pe-container .pe-item .pe-item-inner {
@@ -9889,11 +9808,11 @@ form#user-login {
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
   border-radius: 7px;
-  background: #cccccc none;
+  background: #e6e6e6 none;
 }
 .view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn {
   display: block;
-  padding: 15px;
+  padding: 13.5%;
   outline: none;
 }
 .view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn.active,
@@ -9940,7 +9859,8 @@ form .views-exposed-form {
 form .views-exposed-form .views-exposed-widgets {
   position: relative;
   margin: 0 auto;
-  max-width: 280px;
+  max-width: 300px;
+  text-align: center;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget {
   float: none;
@@ -9978,18 +9898,18 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox {
   display: inline-block;
   margin: 10px;
-  width: 60px;
+  width: 70px;
   vertical-align: top;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item {
+  cursor: pointer;
   position: relative;
-  margin: 0 5%;
-  padding: 0 0 90%;
+  padding: 0 0 100%;
   height: 0;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  background-color: #cccccc;
+  background-color: #e6e6e6;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item input {
   display: none;
@@ -10009,22 +9929,30 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  margin: 0 5%;
-  width: 90%;
+  margin: 0 13.5%;
+  width: 73%;
   height: auto;
   border: 1px solid none;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item .control-label > .checkbox-title {
-  display: none;
+  display: block;
   position: absolute;
+  overflow: hidden;
   left: 50%;
-  bottom: -70%;
+  bottom: -14px;
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
+  width: 90px;
+  font-family: 'ProximaNovaBold', sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox.selected .form-item {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox.selected .form-item,
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox:hover .form-item {
   background-color: #ff5265;
   -webkit-box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
   box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
@@ -10034,15 +9962,14 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button,
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-reset-button {
-  display: block;
+  display: inline-block;
   text-align: center;
   margin: 0;
-  padding: 0;
+  padding: 20px 10px 0;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button button,
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-reset-button button {
   display: inline-block;
-  margin: 10px;
+  margin: 0;
   padding: 3px 0 3px 2px;
   width: 50px;
   height: 50px;
@@ -10059,13 +9986,36 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-rese
   border: none;
   background-color: #ff5265;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button button:hover,
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-reset-button button:hover {
   color: #ff5265;
-  border: 1px solid #ff5265;
+  border: 2px solid #ff5265;
   background: none;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button button {
+  display: inline-block;
+  margin: 0;
+  padding: 3px 0 3px 2px;
+  width: 50px;
+  height: 50px;
+  font-family: 'ProximaNovaBold', sans-serif;
+  font-size: 40px;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  color: #ffffff;
+  outline: none;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border: none;
+  background-color: #77bb77;
+}
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button button:hover {
+  color: #77bb77;
+  border: 2px solid #77bb77;
+  background: none;
+}
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget.views-submit-button button .ajax-progress {
   display: none;
 }
 /*
@@ -10098,10 +10048,23 @@ header#navbar .container .navbar-header {
   text-align: center;
 }
 header#navbar .container .navbar-header a.logo {
-  display: none;
+  display: block;
+  margin: 0;
+  width: 100%;
+}
+header#navbar .container .navbar-header a.logo img {
+  margin: 0 auto;
+  width: 192px;
+  height: 32px;
+}
+@media screen and (min-width: 480px) {
+  header#navbar .container .navbar-header a.logo img {
+    width: 252px;
+    height: 42px;
+  }
 }
 header#navbar .container .navbar-header a.navbar-brand {
-  display: inline-block;
+  display: none;
   float: none;
   margin: 0;
   padding: 0;
@@ -10207,6 +10170,25 @@ header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-give a.activ
  * --------------------------------------------------*/
 .container {
   background-color: #fff;
+  width: 100%;
+}
+@media screen and (min-width: 480px) {
+  .container {
+    min-width: 480px;
+    width: 90%;
+    max-width: 690px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    width: 90%;
+    max-width: 800px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .container {
+    width: 800px;
+  }
 }
 .container a {
   outline: none;
@@ -10221,8 +10203,8 @@ html {
 }
 body {
   position: relative;
-  height: 100%;
   min-height: 300px;
+  background: #4d4d4d;
 }
 body .main-container {
   padding: 0;
@@ -10300,15 +10282,21 @@ footer.footer {
   left: 0;
   right: 0;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0;
   border: none;
   background: rgba(255, 255, 255, 0);
 }
 footer.footer .footer-exposed-form {
   display: none;
-  margin-bottom: -70px;
-  padding-bottom: 70px;
+  margin-bottom: -60px;
+  padding-bottom: 60px;
   background: rgba(255, 255, 255, 0.9);
+}
+@media screen and (min-width: 768px) {
+  footer.footer .footer-exposed-form {
+    margin-bottom: -70px;
+    padding-bottom: 70px;
+  }
 }
 footer.footer .footer-content {
   padding: 0;
@@ -10320,11 +10308,11 @@ footer.footer .footer-content .region-footer .block-menu ul.menu {
   display: block;
   margin: 0 auto;
   padding: 5px;
-  width: 140px;
+  width: 120px;
   text-align: center;
-  -moz-border-radius: 35px;
-  -webkit-border-radius: 35px;
-  border-radius: 35px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   border-bottom-width: 0;
@@ -10336,8 +10324,8 @@ footer.footer .footer-content .region-footer .block-menu ul.menu {
 footer.footer .footer-content .region-footer .block-menu ul.menu li {
   display: inline-block;
   vertical-align: top;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
 }
 footer.footer .footer-content .region-footer .block-menu ul.menu li.menu-filter,
 footer.footer .footer-content .region-footer .block-menu ul.menu li.menu-location {
@@ -10365,4 +10353,18 @@ footer.footer .footer-content .region-footer .block-menu ul.menu li.menu-copyrig
   height: auto;
   font-size: 12px;
   color: #222222;
+}
+@media screen and (min-width: 768px) {
+  footer.footer .footer-content .region-footer .block-menu ul.menu {
+    width: 140px;
+    -moz-border-radius: 35px;
+    -webkit-border-radius: 35px;
+    border-radius: 35px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  footer.footer .footer-content .region-footer .block-menu ul.menu li {
+    width: 60px;
+    height: 60px;
+  }
 }

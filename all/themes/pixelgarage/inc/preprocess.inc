@@ -22,6 +22,22 @@ function pixelgarage_preprocess_page(&$vars) {
   // hide titles on login forms
   pg_login_preprocess_page($vars);
 
+  // replace logo with .svg
+  $vars['logo'] = str_replace('.jpg', '.svg', $vars['logo']);
+}
+
+/**
+ * Adapts the submit and reset button for the exposed form.
+ * @param $vars
+ */
+function pixelgarage_preprocess_views_exposed_form(&$vars) {
+  $button = $vars['button'];
+  $reset_button = $vars['reset_button'];
+  $len = strpos($button, '>') + 1;
+  $vars['button'] = substr($button, 0, $len) . "<span class=\"fa fa-check\"></span></button>\n";
+
+  $len = strpos($reset_button, '>') + 1;
+  $vars['reset_button'] = substr($reset_button, 0, $len) . "<span class=\"fa fa-times\"></span></button>\n";
 
 }
 

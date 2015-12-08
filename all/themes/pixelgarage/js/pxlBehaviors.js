@@ -28,20 +28,24 @@
    */
   Drupal.behaviors.checkFilters = {
     attach: function () {
-      var $checkboxes = $('#edit-term-node-tid-depth-wrapper .pxl-checkbox'),
-          strQuery = window.location.search;
+      var $checkboxes = $('#edit-term-node-tid-depth-wrapper').find('.pxl-checkbox');
 
-      // select/diselect checkboxes
+      // select/unselect checkboxes
       $checkboxes.once('checked', function() {
         $(this).on('click', function() {
           var $checkbox = $(this),
               $input = $checkbox.find('input');
 
-          if ($input.prop('checked')) {
-            $checkbox.addClass('selected');
-          } else {
+          if ($checkbox.hasClass('selected')) {
             $checkbox.removeClass('selected');
+            $input.prop('checked', false);
+          } else {
+            $checkbox.addClass('selected');
+            $input.prop('checked', true);
           }
+
+          // don't propagate click event (otherwise exposed form is closed)
+          return false;
         });
       });
     }
@@ -54,15 +58,29 @@
   Drupal.behaviors.activateFilterMenus = {
     attach: function() {
       var $exposedForm = $('footer .footer-exposed-form'),
+          $exposedFormSubmit = $exposedForm.find('.views-submit-button > button'),
+          $termFilters = $exposedForm.find('#edit-term-node-tid-depth-wrapper'),
+          $locationFilters = $exposedForm.find('#edit-field-address-locality-wrapper'),
           $footer = $('.footer-content'),
-          $menus = $footer.find('li.menu');
+          $menus = $footer.find('li.menu'),
+          $body = $('body');
 
+      var _hideExposedForm = function() {
+        // highlight filter menu, if at least one checkbox is selected
+        if ($termFilters.find('.pxl-checkbox').hasClass('selected')) {
+          $footer.find('li.menu-filter').addClass('selected');
+        }
+        $menus.removeClass('active');
+
+        // hide filter panel
+        $exposedForm.slideUp(400);
+      };
+
+      // filter menus click
       $menus.once('activated', function() {
         $(this).on('click', function() {
           var $menu = $(this),
-              $menuIsActive = $menu.hasClass('active'),
-              $termFilters = $exposedForm.find('#edit-term-node-tid-depth-wrapper'),
-              $locationFilters = $exposedForm.find('#edit-field-address-locality-wrapper');
+              $menuIsActive = $menu.hasClass('active');
 
           // reset active menu
           $menus.removeClass('active').removeClass('selected');
@@ -84,16 +102,34 @@
             // show filter panel
             $exposedForm.slideDown(400);
 
+            // prevent background scrolling
+            $body.css('overflow', 'hidden');
+
           } else {
-            // activate filter menu, if at least one checkbox is selected
-            if ($termFilters.find('.pxl-checkbox').hasClass('selected')) {
-              $footer.find('li.menu-filter').addClass('selected');
-            }
-            // hide filter panel
-            $exposedForm.slideUp(400);
+            // hide form
+            _hideExposedForm();
+
+            // enable background scrolling
+            $body.css('overflow', 'auto');
           }
         });
       });
+
+      // submit button click hides exposed form
+      $exposedFormSubmit.off('.submit');
+      $exposedFormSubmit.on('click.submit', function() {
+        // hide exposed form
+        _hideExposedForm();
+      });
+
+
+      // exposed form click hides itself
+      $exposedForm.off('.exposed');
+      $exposedForm.on('click.exposed', function() {
+        // hide exposed form
+        _hideExposedForm();
+      });
+
     }
   };
 

@@ -8,21 +8,18 @@
 
 // Mixins
 // -------------------------
-.checkbox-size(@pxl-check-gutter: 10%) {
-  margin: 0 @pxl-check-gutter/2;
-  padding: 0 0 100% - @pxl-check-gutter; // square
-  height: 0;
-}
 
-.pxl-checkbox(@icon-width: 60%; @icon-y-shift: 0; @img-border-color: @pxl-color-red) {
+.pxl-checkbox(@box-width: 70px; @icon-width: 60%; @icon-y-shift: 0; @img-border-color: @pxl-color-red) {
   display: inline-block;
   margin: 10px;
-  width: 60px;
+  width: @box-width;
   vertical-align: top;
 
   .form-item {
+    cursor: pointer;
     position: relative;
-    .checkbox-size;
+    padding: 0 0 100%; // square
+    height: 0;
     #pxl-mixins.border-radius(@border-radius-small);
     background-color: @pxl-color-icon-light;
 
@@ -49,16 +46,24 @@
       }
 
       > .checkbox-title {
-        display: none;
+        display: block;
         position: absolute;
+        overflow: hidden;
         left: 50%;
-        bottom: -70%;
+        bottom: -14px;
         #pxl-mixins.translateX(-50%);
+        width: (@box-width + 20px);
+        font-family: @pxl-text-font-bold;
+        font-size: 12px;
+        line-height: 1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
 
-  &.selected .form-item  {
+  &.selected .form-item,
+  &:hover .form-item {
     background-color: @pxl-color-red;
     .box-shadow(@pxl-box-shadow);
   }
@@ -66,7 +71,7 @@
 
 .submit-button(@color: #fff; @bg-color: @gray-light) {
   display: inline-block;
-  margin: 10px;
+  margin: 0;
   padding: 3px 0 3px 2px;
   width: 50px;
   height: 50px;
@@ -83,7 +88,7 @@
 
   &:hover {
     color: @bg-color;
-    border: 1px solid @bg-color;
+    border: 2px solid @bg-color;
     background: none;
   }
 }
@@ -98,7 +103,8 @@ form {
     .views-exposed-widgets {
       position: relative;
       margin: 0 auto;
-      max-width: 280px;
+      max-width: 300px;
+      text-align: center;
 
       .views-exposed-widget {
         float: none;
@@ -136,7 +142,7 @@ form {
               font-size: @font-size-small;
 
               .pxl-checkbox{
-                .pxl-checkbox(90%, 50%, none);
+                .pxl-checkbox(70px, 73%, 50%, none);
               }
             }
 
@@ -148,17 +154,24 @@ form {
 
         &.views-submit-button,
         &.views-reset-button {
-          display: block;
+          display: inline-block;
           text-align: center;
           margin: 0;
-          padding: 0;
-
+          padding: 20px 10px 0;
+        }
+        &.views-reset-button {
           button {
             .submit-button(#fff, @pxl-color-red);
           }
         }
         &.views-submit-button {
-          display: none;
+          button {
+            .submit-button(#fff, @pxl-color-green);
+
+            .ajax-progress {
+              display: none;
+            }
+          }
         }
 
       }

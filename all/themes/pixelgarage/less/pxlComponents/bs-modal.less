@@ -15,24 +15,31 @@
 // -------------------------
 .modal {
   .modal-backdrop {
-    background-color: #eee;
+    background-color: #aaa;
     &.in {
-      opacity: 0.8;
+      opacity: 0.7;
     }
   }
 
   .modal-dialog {
-    margin: 30px auto;
-    width: @modal-sm;
+    margin: 20px auto;
+    width: 100%;
+
+    .admin-menu & {
+      margin: 29px auto 0;
+    }
 
     @media @narrow {
-      width: @modal-xs;
+      min-width: 480px;
+      width: 90%;
+      max-width: 690px;
     }
     @media @tablet {
-      width: @modal-md;
+      width: 90%;
+      max-width: 800px;
     }
     @media @normal {
-      width: @modal-lg;
+      width: 800px;
     }
 
     .modal-content {
@@ -45,7 +52,7 @@
 
       .modal-header {
         padding: 0;
-        min-height: 0;
+        min-height: 60px;
         border: none;
 
         h2.modal-title {
@@ -72,8 +79,12 @@
 
       .modal-body {
         // content styled separately
-        padding: 0;
+        padding: 0 10px 40px;
         height: auto !important;
+
+        @media @narrow {
+          padding: 0 30px 40px;
+        }
       }
 
       .modal-footer {

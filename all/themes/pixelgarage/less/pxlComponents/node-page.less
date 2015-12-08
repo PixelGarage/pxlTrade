@@ -8,34 +8,67 @@
 
 // Mixins
 // -------------------------
+.wysiwyg-body() {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: @pxl-text-font;
+    font-size: @font-size-base;
+  }
+  h1, h2, h3 {
+    font-size: @font-size-large;
+  }
+
+  p, tbody td {
+    font-family: @pxl-text-font;
+    font-size: @font-size-base;
+    #pxl-mixins.hyphenate;
+  }
+
+  pre, address {
+    font-family: @pxl-text-font-light-italics;
+    font-size: @font-size-base;
+  }
+
+  hr {
+    border: 0;
+    border-bottom: 2px solid @text-color;
+    background: none;
+  }
+
+  img, embed, video, audio, iframe {
+    display: block;
+    overflow: hidden;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; // 16:9 ratio
+  }
+}
 
 
 
 // General settings
 // -------------------------
-.node-page {
+.node.node-page {
   div.col-sm-12 {
     width: 100%;
 
     .field-name-title {
       h2 {
         font-family: @pxl-text-font-bold;
-        font-size: @resp-font-size-large-min;
+        font-size: @font-size-large;
         letter-spacing: 1.2px;
         text-transform: uppercase;
         color: @text-color;
 
         @media @narrow {
-          font-size: @resp-font-size-large;
-        }
-        @media @tablet {
-          font-size: @resp-font-size-large-max;
+          font-size: @font-size-larger;
         }
       }
     }
 
     .field-name-body {
-      #pxl-mixins.wysiwyg-body;
+      .wysiwyg-body;
     }
 
   }
