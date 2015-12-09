@@ -24,9 +24,9 @@
   };
 
   /**
-   * Implements the checkbox state for all checkboxes.
+   * Handles the filter click behaviour and prevents the click propagation (close of exposed form).
    */
-  Drupal.behaviors.checkFilters = {
+  Drupal.behaviors.clickFilters = {
     attach: function () {
       var $checkboxes = $('#edit-term-node-tid-depth-wrapper').find('.pxl-checkbox'),
           $exposedWidgets = $('.views-exposed-widgets');
@@ -77,6 +77,9 @@
         // highlight filter menu, if at least one checkbox is selected
         if ($termFilters.find('.pxl-checkbox').hasClass('selected')) {
           $footer.find('li.menu-filter').addClass('selected');
+        }
+        if ($locationFilters.find('.form-text').val()) {
+          $footer.find('li.menu-location').addClass('selected');
         }
         $menus.removeClass('active');
 
