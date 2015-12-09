@@ -9151,6 +9151,16 @@ form#user-login {
     font-size: 24px;
   }
 }
+.node.node-page div.col-sm-12 .field-name-field-video .embedded-video {
+  width: 100%;
+}
+.node.node-page div.col-sm-12 .field-name-field-video .embedded-video iframe {
+  display: block;
+  margin: 0 auto;
+}
+.node.node-page div.col-sm-12 .field-name-body {
+  margin-top: 20px;
+}
 .node.node-page div.col-sm-12 .field-name-body h1,
 .node.node-page div.col-sm-12 .field-name-body h2,
 .node.node-page div.col-sm-12 .field-name-body h3,

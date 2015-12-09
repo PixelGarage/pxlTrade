@@ -28,7 +28,8 @@
    */
   Drupal.behaviors.checkFilters = {
     attach: function () {
-      var $checkboxes = $('#edit-term-node-tid-depth-wrapper').find('.pxl-checkbox');
+      var $checkboxes = $('#edit-term-node-tid-depth-wrapper').find('.pxl-checkbox'),
+          $exposedWidgets = $('.views-exposed-widgets');
 
       // select/unselect checkboxes
       $checkboxes.once('checked', function() {
@@ -46,6 +47,13 @@
 
           // don't propagate click event (otherwise exposed form is closed)
           return false;
+        });
+      });
+
+      $exposedWidgets.once('checked', function() {
+        $(this).on('click', function(ev) {
+          // prevent click on widget to close exposed form
+          ev.stopPropagation();
         });
       });
     }
