@@ -1060,7 +1060,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   font-size: 16px;
   line-height: 1.25;
   color: #222222;
@@ -5798,7 +5798,7 @@ button.close {
   z-index: 1070;
   display: block;
   visibility: visible;
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   font-size: 14px;
   font-weight: normal;
   line-height: 1.4;
@@ -5905,7 +5905,7 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   font-size: 16px;
   font-weight: normal;
   line-height: 1.25;
@@ -8934,7 +8934,7 @@ form#user-login {
  * --------------------------------------------------*/
 #block-locale-language {
   display: inline-block;
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   font-size: 16px;
 }
 #block-locale-language ul.language-switcher-locale-url {
@@ -9098,7 +9098,7 @@ form#user-login {
 }
 .modal .modal-dialog .modal-content .modal-header button.close span {
   padding: 0;
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   font-size: 60px;
   font-weight: normal;
   color: #ff5265;
@@ -9156,7 +9156,10 @@ form#user-login {
 }
 .node.node-page div.col-sm-12 .field-name-field-video .embedded-video iframe {
   display: block;
+  overflow: hidden;
   margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
 }
 .node.node-page div.col-sm-12 .field-name-body {
   margin-top: 20px;
@@ -9167,19 +9170,19 @@ form#user-login {
 .node.node-page div.col-sm-12 .field-name-body h4,
 .node.node-page div.col-sm-12 .field-name-body h5,
 .node.node-page div.col-sm-12 .field-name-body h6 {
-  font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 16px;
+  font-family: 'ProximaNovaBold', sans-serif;
+  font-size: 18px;
 }
 .node.node-page div.col-sm-12 .field-name-body h1,
 .node.node-page div.col-sm-12 .field-name-body h2,
 .node.node-page div.col-sm-12 .field-name-body h3 {
-  font-size: 20px;
+  font-size: 26px;
   color: #ff5265;
 }
 .node.node-page div.col-sm-12 .field-name-body p,
 .node.node-page div.col-sm-12 .field-name-body tbody td {
-  font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 16px;
+  font-family: 'ProximaNovaLight', sans-serif;
+  font-size: 18px;
   -ms-word-break: break-all;
   word-break: break-word;
   -webkit-hyphens: auto;
@@ -9188,17 +9191,45 @@ form#user-login {
   -o-hyphens: auto;
   hyphens: auto;
 }
+.node.node-page div.col-sm-12 .field-name-body p.button a {
+  display: inline-block;
+  margin: 0;
+  padding: 15px 20px;
+  font-family: 'ProximaNovaBold', sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #ff5265;
+  outline: none;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  border: 2px solid #ff5265;
+  background-color: #ffffff;
+}
+.node.node-page div.col-sm-12 .field-name-body p.button a:hover,
+.node.node-page div.col-sm-12 .field-name-body p.button a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  border: 2px solid #ffffff;
+  background: #ff5265;
+}
 .node.node-page div.col-sm-12 .field-name-body pre,
 .node.node-page div.col-sm-12 .field-name-body address {
   font-family: 'ProximaNovaBoldit', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   color: #ff5265;
   text-align: center;
 }
 .node.node-page div.col-sm-12 .field-name-body hr {
   border: 0;
-  border-bottom: 2px solid #ff5265;
+  border-bottom: 1px solid #e6e6e6;
   background: none;
+}
+.node.node-page div.col-sm-12 .field-name-body strong {
+  font-family: 'ProximaNovaRegular', sans-serif;
 }
 .node.node-page div.col-sm-12 .field-name-body img,
 .node.node-page div.col-sm-12 .field-name-body embed,
@@ -9271,7 +9302,7 @@ form#user-login {
 .node.node-offer > .row.row-first .col-right .field-label {
   width: 30%;
   min-width: 140px;
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   color: #888888;
   font-weight: normal;
 }
@@ -9284,7 +9315,7 @@ form#user-login {
 .node.node-offer > .row.row-first .col-right .field-name-body h4,
 .node.node-offer > .row.row-first .col-right .field-name-body h5,
 .node.node-offer > .row.row-first .col-right .field-name-body h6 {
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   font-size: 13px;
 }
 @media screen and (min-width: 480px) {
@@ -9328,7 +9359,7 @@ form#user-login {
 }
 .node.node-offer > .row.row-first .col-right .field-name-body p,
 .node.node-offer > .row.row-first .col-right .field-name-body tbody td {
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   font-size: 13px;
   -ms-word-break: break-all;
   word-break: break-word;
@@ -9416,7 +9447,7 @@ form#user-login {
 .node.node-offer > .row.row-second .col-sm-12 .collapse > .row .col-left .field-label {
   width: 30%;
   min-width: 100px;
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   color: #888888;
   font-weight: normal;
 }
@@ -9443,7 +9474,7 @@ form#user-login {
   font-family: 'ProximaNovaBold', sans-serif;
   color: #ff5265;
   text-align: center;
-  font-size: 20px;
+  font-size: 26px;
 }
 .node-webform div.col-sm-12 form.webform-client-form fieldset.panel .panel-body .help-block {
   display: none;
@@ -9457,11 +9488,11 @@ form#user-login {
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive {
   cursor: all-scroll;
-  max-width: 16%;
+  max-width: 236px;
 }
 @media screen and (min-width: 480px) {
   .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive {
-    max-width: 396px;
+    max-width: 356px;
   }
 }
 @media screen and (min-width: 768px) {
@@ -9473,7 +9504,7 @@ form#user-login {
   position: relative;
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td {
-  padding-right: 100px;
+  display: inline-block;
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button {
   position: absolute;
@@ -9485,9 +9516,8 @@ form#user-login {
   display: inline-block;
   margin: 0;
   padding: 0.3em 1em;
-  height: 100%;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -9496,12 +9526,14 @@ form#user-login {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  border: 2px solid #ff5265;
+  border: 2px solid #ffffff;
   background-color: #ff5265;
+  font-size: 14px;
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button:hover,
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .table-responsive table tbody tr.draggable td button:focus {
   color: #ff5265;
+  border: 2px solid #ff5265;
   background: #ffffff;
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .webform-component-multiple-file {
@@ -9522,9 +9554,8 @@ form#user-login {
   display: inline-block;
   margin: 0;
   padding: 0.3em 1em;
-  height: 100%;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -9533,13 +9564,15 @@ form#user-login {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  border: 2px solid #ff5265;
+  border: 2px solid #ffffff;
   background-color: #ff5265;
+  font-size: 16px;
   z-index: 10;
 }
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .webform-component-multiple-file .form-managed-file .input-group-btn button:hover,
 .node-webform div.col-sm-12 form.webform-client-form [id$=ajax-wrapper] .webform-component-multiple-file .form-managed-file .input-group-btn button:focus {
   color: #ff5265;
+  border: 2px solid #ff5265;
   background: #ffffff;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component {
@@ -9553,7 +9586,7 @@ form#user-login {
   padding: 0;
   width: auto;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: normal;
   line-height: 1.5em;
   text-align: left;
@@ -9566,15 +9599,15 @@ form#user-login {
   display: block;
   margin: 0;
   padding: 5px 0 10px;
-  font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 13px;
+  font-family: 'ProximaNovaLight', sans-serif;
+  font-size: 14px;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component input,
 .node-webform div.col-sm-12 form.webform-client-form .webform-component textarea {
   padding: 5px 10px;
   height: auto;
-  font-family: 'ProximaNovaLight';
-  font-size: 16px;
+  font-family: 'ProximaNovaLight', sans-serif;
+  font-size: 18px;
   line-height: 1.5em;
   text-align: left;
   color: #222222;
@@ -9597,8 +9630,8 @@ form#user-login {
 .node-webform div.col-sm-12 form.webform-client-form .webform-component select {
   padding: 5px 10px;
   height: auto;
-  font-family: 'ProximaNovaLight';
-  font-size: 16px;
+  font-family: 'ProximaNovaLight', sans-serif;
+  font-size: 18px;
   line-height: 1.2em;
   text-align: left;
   color: #222222;
@@ -9636,9 +9669,8 @@ form#user-login {
   display: inline-block;
   margin: 0;
   padding: 0.3em 1em;
-  height: 100%;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -9647,13 +9679,14 @@ form#user-login {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  border: 2px solid #ff5265;
+  border: 2px solid #ffffff;
   background-color: #ff5265;
   z-index: 10;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn:hover,
 .node-webform div.col-sm-12 form.webform-client-form .webform-component .form-managed-file button.btn:focus {
   color: #ff5265;
+  border: 2px solid #ff5265;
   background: #ffffff;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup {
@@ -9668,7 +9701,7 @@ form#user-login {
   text-align: left;
 }
 .node-webform div.col-sm-12 form.webform-client-form .webform-component.webform-component-markup p {
-  font-family: 'ProximaNovaLight';
+  font-family: 'ProximaNovaLight', sans-serif;
   font-size: 13px;
   line-height: 22px;
   text-align: left;
@@ -9719,27 +9752,29 @@ form#user-login {
   text-align: center;
 }
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit {
+  min-width: 30%;
   display: inline-block;
   margin: 0;
   padding: 0.3em 1em;
-  height: 100%;
   font-family: 'ProximaNovaBold', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #ff5265;
   outline: none;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
   border: 2px solid #ff5265;
-  background-color: #ff5265;
+  background-color: #ffffff;
+  padding: 15px 20px;
 }
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit:hover,
 .node-webform div.col-sm-12 form.webform-client-form div.form-actions button.webform-submit:focus {
-  color: #ff5265;
-  background: #ffffff;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  background: #ff5265;
 }
 .webform-confirmation {
   text-align: center;
@@ -9823,6 +9858,9 @@ form#user-login {
   border-radius: 7px;
   background: #e6e6e6 none;
 }
+.view-post-grid .view-content .pe-container .pe-item .pe-item-inner:hover {
+  background: rgba(255, 82, 104, 0.8) none;
+}
 .view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn {
   display: block;
   padding: 13.5%;
@@ -9843,25 +9881,41 @@ form#user-login {
 }
 .view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn .views-field-nid {
   position: absolute;
-  top: -7.5px;
-  right: -7.5px;
+  top: -5.5px;
+  right: -5.5px;
   width: auto;
-  height: 30px;
+  height: 22px;
   text-align: center;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  border-radius: 15px;
+  -moz-border-radius: 11px;
+  -webkit-border-radius: 11px;
+  border-radius: 11px;
   background: #ff5265 none;
 }
 .view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn .views-field-nid .field-content {
   display: block;
-  padding: 0 10px;
+  padding: 0 7px;
   width: auto;
-  min-width: 30px;
-  font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 16px;
+  min-width: 22px;
+  font-family: 'ProximaNovaLight', sans-serif;
+  font-size: 13px;
   color: #ffffff;
-  line-height: 30px;
+  line-height: 22px;
+}
+@media screen and (min-width: 480px) {
+  .view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn .views-field-nid {
+    top: -7.5px;
+    right: -7.5px;
+    height: 30px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+  }
+  .view-post-grid .view-content .pe-container .pe-item .pe-item-inner a.btn .views-field-nid .field-content {
+    min-width: 30px;
+    padding: 0 10px;
+    font-size: 16px;
+    line-height: 30px;
+  }
 }
 /*
  *  Exposed form
@@ -9942,8 +9996,8 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  margin: 0 13.5%;
-  width: 73%;
+  margin: 0 2.5%;
+  width: 95%;
   height: auto;
   border: 1px solid none;
 }
@@ -10130,7 +10184,7 @@ header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-about {
 header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-about a {
   margin: 0;
   padding: 7px 0;
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   font-size: 16px;
   line-height: 1;
   color: #222222;
@@ -10140,7 +10194,7 @@ header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-about a.acti
   color: #ff5265;
 }
 header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-give {
-  top: -54px;
+  top: -52px;
   right: -15px;
   -webkit-transform-origin: bottom right;
   -moz-transform-origin: bottom right;
@@ -10155,10 +10209,10 @@ header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-give {
 header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-give a {
   display: block;
   margin: 0;
-  padding: 52px 0 4px;
+  padding: 46px 0 4px;
   width: 101.82337649px;
-  font-family: 'ProximaNovaRegular', sans-serif;
-  font-size: 16px;
+  font-family: 'ProximaNovaLight', sans-serif;
+  font-size: 22px;
   text-align: center;
   line-height: 1;
   color: #ffffff;
@@ -10171,10 +10225,10 @@ header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-give a.activ
 }
 @media screen and (min-width: 480px) {
   header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-give {
-    top: -64px;
+    top: -62px;
   }
   header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-give a {
-    padding: 62px 0 4px;
+    padding: 56px 0 4px;
     width: 115.96551211px;
   }
 }
@@ -10218,7 +10272,12 @@ body {
   position: relative;
   height: 100%;
   min-height: 300px;
-  background: #4d4d4d;
+  background: #fff;
+}
+@media screen and (min-width: 480px) {
+  body {
+    background: #4d4d4d;
+  }
 }
 body .main-container {
   padding: 0;
@@ -10229,7 +10288,7 @@ body .main-container .container {
 }
 body .main-container .container #page-header .region-header h2.block-title {
   margin: 20px 0 10px;
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaLight', sans-serif;
   font-size: 24px;
   color: #222222;
 }

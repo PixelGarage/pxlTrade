@@ -13,8 +13,8 @@
 @header-img-height: 42px;
 
 
-@header-height-small: 2*@header-padding-tb + @header-font-size-small;
-@header-height: 2*@header-padding-tb + @header-font-size;
+@header-height-small: 2*@header-padding-tb + @header-img-height-small;
+@header-height: 2*@header-padding-tb + @header-img-height;
 
 // Mixins
 // -------------------------
@@ -134,7 +134,7 @@ header#navbar {
             }
 
             &.menu-give {
-              top: -(@header-padding-tb + @header-font-size-small + 2px);
+              top: -(@header-padding-tb + @header-img-height-small);
               right: -@grid-gutter-width/2;
               .transform-origin(bottom right);
               #pxl-mixins.transform(rotate(45deg));
@@ -142,10 +142,10 @@ header#navbar {
               a {
                 display: block;
                 margin: 0;
-                padding: (@header-padding-tb + @header-font-size-small) 0 4px;
+                padding: 46px 0 4px;
                 width: sqrt(2)*@header-height-small;
                 font-family: @pxl-text-font;
-                font-size: @font-size-base;
+                font-size: 22px;
                 text-align: center;
                 line-height: 1;
                 color: @text-color-light;
@@ -159,10 +159,10 @@ header#navbar {
               }
 
               @media @narrow {
-                top: -(@header-padding-tb + @header-font-size + 2px);
+                top: -(@header-padding-tb + @header-img-height);
 
                 a {
-                  padding: (@header-padding-tb + @header-font-size) 0 4px;
+                  padding: 56px 0 4px;
                   width: sqrt(2)*@header-height;
                 }
               }

@@ -28,7 +28,7 @@
   padding: 0;
   width: auto;
   font-family: @pxl-text-font-bold;
-  font-size: @font-size-base;
+  font-size: 18px;
   font-weight: normal;
   line-height: 1.5em;
   text-align: left;
@@ -39,24 +39,24 @@
   }
 }
 
-.resp-submit-button(@color: #fff; @bg-color: @gray-light) {
+.resp-submit-button(@color: #fff; @bg-color: @gray-light; @radius: @border-radius-small) {
   display: inline-block;
   margin: 0;
   padding: 0.3em 1em;
-  height: 100%;
   font-family: @pxl-text-font-bold;
-  font-size: @font-size-base;
+  font-size: 18px;
   line-height: 1;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: @color;
   outline: none;
-  #pxl-mixins.border-radius(@border-radius-small);
-  border: 2px solid @bg-color;
+  #pxl-mixins.border-radius(@radius);
+  border: 2px solid @color;
   background-color: @bg-color;
 
   &:hover, &:focus {
     color: @bg-color;
+    border: 2px solid @bg-color;
     background: @color;
   }
 }
@@ -85,7 +85,7 @@
             font-family: @pxl-text-font-bold;
             color: @pxl-color-red;
             text-align: center;
-            font-size: @font-size-large;
+            font-size: 26px;
           }
         }
 
@@ -107,10 +107,10 @@
 
         .table-responsive {
           cursor: all-scroll;
-          max-width: @modal-sm - 84px;
+          max-width: 236px;
 
           @media @narrow {
-            max-width: @modal-xs - 84px;
+            max-width: 356px;
           }
           @media @tablet {
             max-width: none;
@@ -122,10 +122,8 @@
                 position: relative;
 
                 td {
-                  padding-right: 100px;
-
+                  display: inline-block;
                   button {
-                    display: inline-block;
                     position: absolute;
                     top: 2px;
                     bottom: 2px;
@@ -133,6 +131,7 @@
                     width: auto;
                     height: auto;
                     .resp-submit-button(@pxl-color-bg, @pxl-color-red);
+                    font-size: 14px;
                   }
                 }
               }
@@ -157,6 +156,7 @@
 
               button {
                 .resp-submit-button(@pxl-color-bg, @pxl-color-red);
+                font-size: 16px;
                 z-index: 10; // goes over file description
               }
             }
@@ -180,14 +180,14 @@
           margin: 0;
           padding: 5px 0 10px;
           font-family: @pxl-text-font;
-          font-size: @resp-font-size-min;
+          font-size: 14px;
         }
 
         input, textarea {
           padding: 5px 10px;
           height: auto;
           font-family: @pxl-text-font-light;
-          font-size: @font-size-base;
+          font-size: 18px;
           line-height: 1.5em;
           text-align: left;
           color: @webform-color-text;
@@ -212,7 +212,7 @@
           padding: 5px 10px;
           height: auto;
           font-family: @pxl-text-font-light;
-          font-size: @font-size-base;
+          font-size: 18px;
           line-height: 1.2em;
           text-align: left;
           color: @webform-color-text;
@@ -311,7 +311,9 @@
         text-align: center;
 
         button.webform-submit {
-          .resp-submit-button(@pxl-color-bg, @pxl-color-red);
+          min-width: 30%;
+          .resp-submit-button(@pxl-color-red, @pxl-color-bg, 7px);
+          padding: 15px 20px;
         }
       }
     }

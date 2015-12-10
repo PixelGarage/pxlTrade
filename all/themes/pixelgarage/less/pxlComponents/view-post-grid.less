@@ -4,6 +4,7 @@
 
 // Variables
 // -------------------------
+@pxl-badge-dim-small: 22px;
 @pxl-badge-dim: 30px;
 @pxl-badge-border-color: rgba(255,255,255,0.0);
 @pxl-badge-bg-color: @pxl-color-red;
@@ -61,6 +62,10 @@
           #pxl-mixins.border-radius(@border-radius-large);
           background: @pxl-item-bg none;
 
+          &:hover {
+            background: rgba(255, 82, 104, 0.8) none;
+          }
+
           a.btn {
             display: block;
             padding: 13.5%;
@@ -83,23 +88,37 @@
             // badge
             .views-field-nid {
               position: absolute;
-              top: -@pxl-badge-dim/4;
-              right: -@pxl-badge-dim/4;
+              top: -@pxl-badge-dim-small/4;
+              right: -@pxl-badge-dim-small/4;
               width: auto;
-              height: @pxl-badge-dim;
+              height: @pxl-badge-dim-small;
               text-align: center;
-              #pxl-mixins.border-radius(@pxl-badge-dim/2);
+              #pxl-mixins.border-radius(@pxl-badge-dim-small/2);
               background: @pxl-badge-bg-color none;
 
               .field-content {
                 display: block;
-                padding: 0 10px;
+                padding: 0 7px;
                 width: auto;
-                min-width: @pxl-badge-dim;
+                min-width: @pxl-badge-dim-small;
                 font-family: @pxl-text-font;
-                font-size: @font-size-base;
+                font-size: 13px;
                 color: @text-color-light;
-                line-height: @pxl-badge-dim;
+                line-height: @pxl-badge-dim-small;
+              }
+
+              @media @narrow {
+                top: -@pxl-badge-dim/4;
+                right: -@pxl-badge-dim/4;
+                height: @pxl-badge-dim;
+                #pxl-mixins.border-radius(@pxl-badge-dim/2);
+
+                .field-content {
+                  min-width: @pxl-badge-dim;
+                  padding: 0 10px;
+                  font-size: @font-size-base;
+                  line-height: @pxl-badge-dim;
+                }
               }
             }
           }

@@ -8,33 +8,64 @@
 
 // Mixins
 // -------------------------
+
 .wysiwyg-body() {
   h1, h2, h3, h4, h5, h6 {
-    font-family: @pxl-text-font;
-    font-size: @font-size-base;
+    font-family: @pxl-title-font;
+    font-size: 18px;
   }
   h1, h2, h3 {
-    font-size: @font-size-large;
+    font-size: 26px;
     color: @pxl-color-red;
   }
 
   p, tbody td {
     font-family: @pxl-text-font;
-    font-size: @font-size-base;
+    font-size: 18px;
     #pxl-mixins.hyphenate;
+  }
+
+  p.button {
+    a {
+      display: inline-block;
+      margin: 0;
+      padding: 15px 20px;
+      font-family: @pxl-text-font-bold;
+      font-size: 18px;
+      line-height: 1;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: @pxl-color-red;
+      outline: none;
+      #pxl-mixins.border-radius(7px);
+      border: 2px solid @pxl-color-red;
+      background-color: @pxl-color-bg;
+
+      &:hover, &:focus {
+        color: @pxl-color-bg;
+        text-decoration: none;
+        border: 2px solid @pxl-color-bg;
+        background: @pxl-color-red;
+      }
+    }
   }
 
   pre, address {
     font-family: @pxl-text-font-bold-italics;
-    font-size: @font-size-base;
+    font-size: 18px;
     color: @pxl-color-red;
     text-align: center;
   }
 
   hr {
     border: 0;
-    border-bottom: 2px solid @pxl-color-red;
+    border-bottom: 1px solid @pxl-color-icon-light;
     background: none;
+  }
+
+  strong {
+    font-family: @pxl-text-font-medium;
   }
 
   img, embed, video, audio, iframe {
@@ -75,7 +106,10 @@
         width: 100%;
         iframe {
           display: block;
+          overflow: hidden;
           margin: 0 auto;
+          width: 100%;
+          max-width: 100%;
         }
       }
     }
