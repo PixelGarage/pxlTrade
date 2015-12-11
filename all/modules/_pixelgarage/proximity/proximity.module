@@ -210,7 +210,7 @@ function template_preprocess_views_view_proximity(&$vars) {
   // that all needed js files are loaded. This assumes, that all items are of the same kind in terms of rendering.
   // Subsequent ajax calls have then all js files already loaded (js settings are loaded inline in ajax call)
   global $page_callback_param, $page_callback_container;
-  $load_param = $page_callback_param ? $page_callback_param : array_keys($ajax_load_params)[0];
+  $load_param = $page_callback_param ? $page_callback_param : array_values($ajax_load_params)[0];
   $rendered_item = _proximity_item_render($pe_container_index, $load_param);
 
   // set rendered_item for output if the current container equals the one of the deep link and reset global parameter
@@ -284,6 +284,8 @@ function template_preprocess_views_view_proximity(&$vars) {
   if ($ajax_enabled) {
     drupal_add_js($path . '/js/modernizr-history.min.js');
     drupal_add_js($path . '/js/proximity.ajax.js');
+  } else {
+    drupal_add_js($path . '/js/proximity.non-ajax.js');
   }
   if ($use_modal_dlg) {
     drupal_add_js($path . '/js/proximity.container.js');

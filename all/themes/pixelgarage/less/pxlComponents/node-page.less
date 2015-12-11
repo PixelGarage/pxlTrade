@@ -14,8 +14,12 @@
     font-family: @pxl-title-font;
     font-size: 18px;
   }
-  h1, h2, h3 {
+  h1, h2 {
     font-size: 26px;
+    color: @pxl-color-red;
+  }
+  h3, h4 {
+    font-size: 22px;
     color: @pxl-color-red;
   }
 
@@ -65,7 +69,7 @@
   }
 
   strong {
-    font-family: @pxl-text-font-medium;
+    font-family: @pxl-text-font-bold;
   }
 
   img, embed, video, audio, iframe {
@@ -84,6 +88,16 @@
 // General settings
 // -------------------------
 .node.node-page {
+  padding: 0;
+
+  &.view-mode-full {
+    padding: 20px 10px 80px;
+
+    @media @narrow {
+      padding: 20px 30px 80px;
+    }
+  }
+
   div.col-sm-12 {
     width: 100%;
 

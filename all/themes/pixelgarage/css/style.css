@@ -9048,7 +9048,7 @@ form#user-login {
   opacity: 0.7;
 }
 .modal .modal-dialog {
-  margin: 20px auto;
+  margin: 0 auto;
   width: 100%;
 }
 .admin-menu .modal .modal-dialog {
@@ -9136,6 +9136,17 @@ form#user-login {
 /*
  *  Node page component
  * --------------------------------------------------*/
+.node.node-page {
+  padding: 0;
+}
+.node.node-page.view-mode-full {
+  padding: 20px 10px 80px;
+}
+@media screen and (min-width: 480px) {
+  .node.node-page.view-mode-full {
+    padding: 20px 30px 80px;
+  }
+}
 .node.node-page div.col-sm-12 {
   width: 100%;
 }
@@ -9174,9 +9185,13 @@ form#user-login {
   font-size: 18px;
 }
 .node.node-page div.col-sm-12 .field-name-body h1,
-.node.node-page div.col-sm-12 .field-name-body h2,
-.node.node-page div.col-sm-12 .field-name-body h3 {
+.node.node-page div.col-sm-12 .field-name-body h2 {
   font-size: 26px;
+  color: #ff5265;
+}
+.node.node-page div.col-sm-12 .field-name-body h3,
+.node.node-page div.col-sm-12 .field-name-body h4 {
+  font-size: 22px;
   color: #ff5265;
 }
 .node.node-page div.col-sm-12 .field-name-body p,
@@ -9229,7 +9244,7 @@ form#user-login {
   background: none;
 }
 .node.node-page div.col-sm-12 .field-name-body strong {
-  font-family: 'ProximaNovaRegular', sans-serif;
+  font-family: 'ProximaNovaBold', sans-serif;
 }
 .node.node-page div.col-sm-12 .field-name-body img,
 .node.node-page div.col-sm-12 .field-name-body embed,
@@ -9307,7 +9322,7 @@ form#user-login {
   font-weight: normal;
 }
 .node.node-offer > .row.row-first .col-right .field-name-body {
-  margin-top: 10px;
+  margin: 0 0 20px;
 }
 .node.node-offer > .row.row-first .col-right .field-name-body h1,
 .node.node-offer > .row.row-first .col-right .field-name-body h2,
@@ -9416,6 +9431,9 @@ form#user-login {
   height: 0;
   padding-bottom: 56.25%;
 }
+.node.node-offer > .row.row-first .col-right .field-name-body .field-label {
+  display: none;
+}
 .node.node-offer > .row.row-second .col-sm-12 .btn.accept-offer {
   display: block;
   margin: 0 auto;
@@ -9462,6 +9480,14 @@ form#user-login {
 /*
  *  Node / block webform component
  * --------------------------------------------------*/
+.node-webform {
+  padding: 20px 0 100px;
+}
+@media screen and (min-width: 480px) {
+  .node-webform {
+    padding: 20px 30px 100px;
+  }
+}
 .node-webform div.col-sm-12 {
   width: 100%;
 }
@@ -10188,6 +10214,7 @@ header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-about a {
   font-size: 16px;
   line-height: 1;
   color: #222222;
+  background: none;
 }
 header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-about a:hover,
 header#navbar .container .navbar-collapse nav ul.navbar-nav li.menu-about a.active {

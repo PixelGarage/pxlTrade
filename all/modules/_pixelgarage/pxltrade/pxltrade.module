@@ -38,9 +38,9 @@ function &pxltrade_session_data() {
  * Redirects all node pages to the defined proximity container.
  */
 function pxltrade_init() {
-  if (drupal_is_front_page()) return;
+  return;
 
-  // search for node/%nid routes
+  // search for node/%nid routes and send them to modal dialog
   $pattern = '/^node\/\d+$/';
   if (preg_match($pattern, $_GET['q'])) {
     $param = str_replace('/', '-', $_GET['q']);

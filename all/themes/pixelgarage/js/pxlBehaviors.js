@@ -145,22 +145,6 @@
   };
 
   /**
-   * Allows full size clickable items.
-   */
-   Drupal.behaviors.fullSizeClickableItems = {
-    attach: function () {
-      var $clickableItems = $('.pe-container .pe-item-inner');
-
-      $clickableItems.once('click', function () {
-        $(this).on('click', function () {
-          window.location = $(this).find("a:first").attr("href");
-          return false;
-        });
-      });
-    }
-  };
-
-  /**
    * Swaps images from black/white to colored on mouse hover.
    Drupal.behaviors.hoverImageSwap = {
     attach: function () {
