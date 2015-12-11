@@ -28,7 +28,9 @@
    */
   Drupal.behaviors.clickFilters = {
     attach: function () {
-      var $checkboxes = $('#edit-term-node-tid-depth-wrapper').find('.pxl-checkbox'),
+      var $exposedForm = $('footer .footer-exposed-form'),
+          $exposedFormSubmit = $exposedForm.find('.views-submit-button > button'),
+          $checkboxes = $('#edit-term-node-tid-depth-wrapper').find('.pxl-checkbox'),
           $exposedWidgets = $('.views-exposed-widgets');
 
       // select/unselect checkboxes
@@ -37,13 +39,19 @@
           var $checkbox = $(this),
               $input = $checkbox.find('input');
 
-          if ($checkbox.hasClass('selected')) {
+          // reset all checkboxes first
+          $checkboxes.each(function() {
+            var $checkbox = $(this),
+                $input = $checkbox.find('input');
+
             $checkbox.removeClass('selected');
             $input.prop('checked', false);
-          } else {
-            $checkbox.addClass('selected');
-            $input.prop('checked', true);
-          }
+          });
+
+          // select checkbox
+          $checkbox.addClass('selected');
+          $input.prop('checked', true);
+          $exposedFormSubmit.click();
 
           // don't propagate click event (otherwise exposed form is closed)
           return false;
@@ -66,7 +74,8 @@
   Drupal.behaviors.activateFilterMenus = {
     attach: function() {
       var $exposedForm = $('footer .footer-exposed-form'),
-          $exposedFormSubmit = $exposedForm.find('.views-submit-button > button'),
+          $exposedFormSubmit = $exposedForm.find('.views-submit-button'),
+          $exposedFormSubmitButton = $exposedFormSubmit.find('> button'),
           $termFilters = $exposedForm.find('#edit-term-node-tid-depth-wrapper'),
           $locationFilters = $exposedForm.find('#edit-field-address-locality-wrapper'),
           $footer = $('.footer-content'),
@@ -103,11 +112,12 @@
           if ($menu.hasClass('menu-filter')) {
             $locationFilters.hide();
             $termFilters.show();
+            $exposedFormSubmit.hide();
 
           } else if ($menu.hasClass('menu-location')) {
             $termFilters.hide();
             $locationFilters.show();
-
+            $exposedFormSubmit.show();
           }
 
           // show / hide filter section
@@ -127,8 +137,8 @@
       });
 
       // submit button click hides exposed form
-      $exposedFormSubmit.off('.submit');
-      $exposedFormSubmit.on('click.submit', function() {
+      $exposedFormSubmitButton.off('.submit');
+      $exposedFormSubmitButton.on('click.submit', function() {
         // hide exposed form
         _hideExposedForm();
       });
