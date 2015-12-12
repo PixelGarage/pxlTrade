@@ -35,6 +35,7 @@
           <?php if ($title): ?>
             <h2 class="modal-title" id="pe-modal-label"><?php print $title; ?></h2>
           <?php endif; ?>
+          <div class="body-fading body-fading-top"></div>
         </div>
         <!-- Body -->
         <div class="modal-body">
@@ -42,6 +43,7 @@
         </div>
         <!-- Footer -->
         <div class="modal-footer">
+          <div class="body-fading body-fading-bottom"></div>
           <button type="button" class="btn btn-default" data-dismiss="modal"><?php print $close_text; ?></button>
         </div>
 

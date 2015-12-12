@@ -76,9 +76,7 @@
     };
 
     var _setModalBackdropHeight = function () {
-      var hContent = $dialog.find('.modal-content').height(),
-          hDialog  = $dialog.find('.modal-dialog').height(),
-          hTotal   = $(window).height() + hContent - hDialog;
+      var hTotal   = $(window).height();
 
       // update backdrop height according to dialog content
       $dialog.find('.modal-backdrop').css('height', hTotal);

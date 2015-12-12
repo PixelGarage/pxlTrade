@@ -14,7 +14,50 @@
 // General settings
 // -------------------------
 .modal {
+  &.modal-fixed-height {
+    // full size modal on small screen, body is scrolling
+    height: 100%;
+    overflow-y: hidden;
+
+    .modal-dialog {
+      height: 100%;
+
+      .modal-content {
+        height: 100%;
+
+        .modal-header, .body-footer {
+          position: relative;
+
+          .body-fading {
+            display: block;
+            position: absolute;
+            top: auto;
+            left: 0;
+            right: 0;
+            height: 10px;
+            z-index: 10;
+
+            &.body-fading-top {
+              bottom: -10px;
+              #gradient.vertical(#aaa, rgba(0,0,0,0.0));
+            }
+
+            &.body-fading-bottom {
+              top: -10px;
+              #gradient.vertical(rgba(0,0,0,0.0), #aaa);
+            }
+          }
+        }
+
+        .modal-body {
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+
   .modal-backdrop {
+    bottom: 0;
     background-color: #aaa;
     &.in {
       opacity: 0.7;
@@ -46,7 +89,7 @@
       position: relative;
       padding: 0;
 
-      #pxl-mixins.border-radius(0);
+      #pxl-mixins.border-radius(7px);
       border: none;
       #pxl-mixins.box-shadow(none);
 
@@ -75,20 +118,24 @@
             color: @pxl-color-red;
           }
         }
+
+        .body-fading {
+          display: none;
+        }
       }
 
       .modal-body {
         // content styled separately
-        padding: 0 10px 40px;
-        height: auto !important;
+        padding: 20px 10px;
 
         @media @narrow {
-          padding: 0 30px 40px;
+          padding: 20px 30px;
         }
       }
 
       .modal-footer {
         display: none;
+        padding: 10px 0;
         border: none;
         text-align: center;
 
@@ -107,6 +154,10 @@
             background-color: @pxl-color-red;
           }
 
+        }
+
+        .body-fading {
+          display: none;
         }
       }
     }

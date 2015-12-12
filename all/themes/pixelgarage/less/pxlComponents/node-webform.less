@@ -66,10 +66,15 @@
 // Node settings
 // -------------------------
 .node-webform {
-  padding: 20px 0 100px;
+  padding-bottom: 30px;
 
-  @media @narrow {
-    padding: 20px 30px 100px;
+  body.node-type-webform & {
+    // full page webforms
+    padding: 20px 0 100px;
+
+    @media @narrow {
+      padding: 20px 30px 100px;
+    }
   }
 
   div.col-sm-12 {
