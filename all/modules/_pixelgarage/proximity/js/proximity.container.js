@@ -54,15 +54,23 @@
         }
 
         //
-        // when modal dialog is closed, make sure that all content is cleared (videos, audios etc.)
+        // set modal dialog scrolling behavior when modal is opened and make sure,
+        // all media is stopped on modal closing
         $modal.once('modal-hidden', function () {
           $(this).on('shown.bs.modal', function() {
+            // set modal scrolling mode
             _modalScrolling();
+
+            // disable body scrolling
+            $('body').css('overflow', 'hidden');
           });
 
           $(this).on('hidden.bs.modal', function () {
             // empty the modal body stopping all media etc.
             $(this).find('.modal-body').empty();
+
+            // enable background scrolling
+            $('body').css('overflow', 'auto');
 
             // redirect to home page to update view
             window.location = '/';
