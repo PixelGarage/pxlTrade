@@ -62,8 +62,14 @@
           #pxl-mixins.border-radius(@border-radius-large);
           background: @pxl-item-bg none;
 
-          &:hover {
-            background: rgba(255, 82, 104, 0.8) none;
+          &:active {
+            background: rgba(255, 82, 104, 0.6) none;
+          }
+
+          @media @narrow {
+            &:hover {
+              background: rgba(255, 82, 104, 0.6) none;
+            }
           }
 
           a.btn {

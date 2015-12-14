@@ -4,7 +4,7 @@
 
 // Variables
 // -------------------------
-
+@pxl-fading-height: 1px;
 
 // Mixins
 // -------------------------
@@ -34,16 +34,16 @@
             top: auto;
             left: 0;
             right: 0;
-            height: 10px;
+            height: @pxl-fading-height;
             z-index: 10;
 
             &.body-fading-top {
-              bottom: -10px;
+              bottom: -@pxl-fading-height;
               #gradient.vertical(#aaa, rgba(0,0,0,0.0));
             }
 
             &.body-fading-bottom {
-              top: -10px;
+              top: -@pxl-fading-height;
               #gradient.vertical(rgba(0,0,0,0.0), #aaa);
             }
           }
@@ -89,7 +89,7 @@
       position: relative;
       padding: 0;
 
-      #pxl-mixins.border-radius(7px);
+      #pxl-mixins.border-radius(0);
       border: none;
       #pxl-mixins.box-shadow(none);
 

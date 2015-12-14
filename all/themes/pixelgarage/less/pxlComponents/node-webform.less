@@ -224,8 +224,6 @@ form.webform-client-form {
               display: inline-block;
               button {
                 position: absolute;
-                top: 2px;
-                bottom: 2px;
                 right: 2px;
                 width: auto;
                 height: auto;
@@ -406,11 +404,12 @@ form.webform-client-form {
   }
 
   div.form-actions {
+    margin: 50px 0;
     padding-top: 0;
     text-align: center;
 
     button.webform-submit {
-      min-width: 30%;
+      min-width: 50%;
       .resp-submit-button(@pxl-color-red, @pxl-color-bg, 7px);
       padding: 15px 20px;
     }

@@ -58,11 +58,11 @@
         // all media is stopped on modal closing
         $modal.once('modal-hidden', function () {
           $(this).on('shown.bs.modal', function() {
-            // set modal scrolling mode
-            _modalScrolling();
-
             // disable body scrolling
             $('body').css('overflow', 'hidden');
+
+            // set modal scrolling mode
+            window.setTimeout(_modalScrolling, 200);
           });
 
           $(this).on('hidden.bs.modal', function () {
