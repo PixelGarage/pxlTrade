@@ -116,12 +116,12 @@ function pxltrade_form_alter(&$form, &$form_state, $form_id) {
   // Check for client webforms (no other forms are altered here)
   if (strpos($form_id, 'webform_client_form') !== 0) return;
 
-  $node = $form['#node'];
-  $is_delivery_form = !empty($node->field_delivery_type) && $node->field_delivery_type[LANGUAGE_NONE][0]['tid'];
-  $is_trading_form = !empty($node->field_content_type) && $node->field_content_type[LANGUAGE_NONE][0]['value'];
+  $master = pxltrade_webform_master_form($form['#node']);
+  $is_offer_form = !empty($master->field_content_type) && $master->field_content_type[LANGUAGE_NONE][0]['value'];
+  $is_delivery_form = !empty($master->field_delivery_type) && $master->field_delivery_type[LANGUAGE_NONE][0]['tid'];
 
-  // Alter only delivery and trading webforms
-  if (!$is_delivery_form && !$is_trading_form) return;
+  // Alter only delivery and offer webforms
+  if (!$is_delivery_form && !$is_offer_form) return;
 
   //
   // set hidden fields in delivery form when rendering_node_id is set (during offer rendering)
@@ -142,7 +142,7 @@ function pxltrade_form_alter(&$form, &$form_state, $form_id) {
   //
   // AJAXify delivery and trading forms once (confirmation message replaces form)
   ctools_form_include($form_state, 'webform.ajax', 'pxltrade');
-  $id = $rendering_node_id ? $rendering_node_id : $form['#node']->nid;
+  $id = $rendering_node_id ? $rendering_node_id : $master->nid;
   $unique_wrapper_id = drupal_html_id('webform-ajax-wrapper-' . $id);
 
   // Now we can add a wrapper to our entire form, that will be used as our ajax wrapper:
@@ -152,7 +152,7 @@ function pxltrade_form_alter(&$form, &$form_state, $form_id) {
   // And finally we will ajaxify our submit button (with unique id)
   $form['actions']['submit']['#ajax'] = array(
     'wrapper' => $unique_wrapper_id,
-    'callback' => 'webform_ajax_callback',
+    'callback' => 'pxltrade_webform_ajax_callback',
     'event' => 'click',
     'progress' => array(
       'message' => '',

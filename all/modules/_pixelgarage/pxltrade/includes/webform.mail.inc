@@ -14,42 +14,6 @@
  * Webform email adaptation
  * --------------------------------------------------*/
 /**
- * Dummy email address.
- */
-$dummy_address = null;
-
-/**
- * Called for each webform submission before it is saved
- *
- * Make sure that all email form fields have a an email-address added. Otherwise fill with a dummy address which
- * is used as trigger to send the message on another channel (WhatsApp etc.).
- * Remark: Email field in delivery form is not required, only phone.
- */
-function pxltrade_webform_submission_presave($node, &$submission) {
-  // find the email component in the webform
-  global $dummy_address;
-
-  // get orig node in translation set
-  $tnid = $node->tnid ? $node->tnid : $node->nid;
-  $orig_form = node_load($tnid);
-
-  // set a dummy email address if no receiver address is given
-  foreach ($orig_form->webform['components'] as $key => $data) {
-    if ($data['type'] == 'email') {
-      if (empty($submission->data[$key][0])) {
-        // email address is empty for this submission, set a dummy address
-        $submission->data[$key][0] = $dummy_address = 'test@test.tld';
-      }
-      break;
-    }
-  }
-
-  // reset 'no_contact' session data
-  $session_data = &pxltrade_session_data();
-  unset($session_data['no_contact']);
-}
-
-/**
  * Alter the emails for the supplier and the customer before sending.
  * @param $message
  */
@@ -59,36 +23,33 @@ function pxltrade_mail_alter(&$message) {
 
   //
   // check if webform type has to alter mail message
+  // get the master form
   $node = $message['params']['node'];
-  if (!empty($node->field_content_type) && $node->field_content_type[LANGUAGE_NONE][0]['value'] == 'offer') {
-    // it is an offer webform. There's no offer available so nothing to alter
-    return;
-  }
-  else if (empty($node->field_delivery_type)) {
-    // not a delivery form, do nothing here
-    return;
-  }
+  $master = pxltrade_webform_master_form($node);
+  $is_delivery_form = !empty($master->field_delivery_type) && $master->field_delivery_type[LANGUAGE_NONE][0]['tid'];
+
+  // Alter only delivery webform mails
+  if (!$is_delivery_form) return;
 
   //
   // DELIVERY WEBFORM
   // Alter the mail message accordingly
   //
-  // send message only, if customer mail or WhatsUp message could be sent
-  // Mail order important:
-  // 1) customer
-  // 2) supplier
+  // 1) send any mail only, if offer was still available (not just taken by other customer)
+  // 2) send supplier message only, if customer could be contacted
+  //    Therefore the mail order is important (see order in webform email configuration form):
+  //    First:  customer mail (sets session data, if not deliverable)
+  //    Second: supplier mail, only if customer could be contacted
   $session_data = &pxltrade_session_data();
-  if (isset($session_data['no_contact'])) {
+  if (isset($session_data['no_contact']) || isset($session_data['just_taken'])) {
     $message['send'] = false;
     return;
   }
 
-  $tnid = $node->tnid ? $node->tnid : $node->nid;
-  $orig_form = node_load($tnid);
   $submission = $message['params']['submission'];
   $eid = $message['params']['email']['eid'];
   $template = variable_get('webform_mail_template_' . $node->nid . '_' . $eid, 'default');
-  $offer_nid = _webform_submission_value($orig_form, 'offer_nid', $submission);
+  $offer_nid = pxltrade_webform_submission_value($master, 'offer_nid', $submission);
 
   if(!($offer = node_load($offer_nid)) || !$offer->status) {
     //
@@ -108,7 +69,7 @@ function pxltrade_mail_alter(&$message) {
   // Resolve tokens and adapt mails accordingly
   // Todo: make submission field search generic (form independant)
   global $dummy_address;
-  switch ($orig_form->nid) {
+  switch ($master->nid) {
     case 14:
       $customer_phone = $submission->data[6][0];
       $customer_email = (!empty($submission->data[5]) && ($dummy_address != $submission->data[5][0])) ? $submission->data[5][0] : '';
@@ -143,7 +104,7 @@ function pxltrade_mail_alter(&$message) {
   else if ($template == 'supplier') {
     //
     // fill customer tokens for the supplier email
-    if ($orig_form->nid == 14) {
+    if ($master->nid == 14) {
       // tokens for home delivery
       $to_search += array(
         '%full_name%' => $submission->data[1][0],
@@ -155,7 +116,7 @@ function pxltrade_mail_alter(&$message) {
         '%location%' => $submission->data[4][0],
       );
     }
-    else if ($orig_form->nid == 15) {
+    else if ($master->nid == 15) {
       // tokens for pick-up delivery
       $to_search += array(
         '%full_name%' => $submission->data[4][0],
@@ -176,7 +137,7 @@ function pxltrade_mail_alter(&$message) {
   // WHATSAPP DELIVERY:
   // No email address is given
   // --> send a WhatsApp message instead and disable this email delivery
-  if ($message['to'] == $dummy_address) {
+  if ($message['to'] == PXLTRADE_DUMMY_EMAIL_RECIPIENT) {
     //
     // don't send email
     $message['send'] = false;

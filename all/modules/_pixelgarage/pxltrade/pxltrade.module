@@ -4,12 +4,35 @@
 * A description of what your module does.
 */
 
-define('PXLTRADE_MENU_PATH', 'admin/pxltrade');
+/**
+ * Defines the pxltrade platform admin menu path.
+ */
+define('PXLTRADE_ADMIN_MENU_PATH', 'admin/pxltrade');
+
+/**
+ * Dummy email recipient address.
+ */
+define('PXLTRADE_DUMMY_EMAIL_RECIPIENT', 'test@test.tld');
 
 
-require_once 'includes/webform.inc';  // specific webform enhancements for trading plattform
-require_once 'includes/webform.mail.inc'; // webform mail adaptations
-require_once 'includes/proximity.action.inc'; // implements proximity item click action
+
+//
+// Adds webform helper functions and pre-built select lists
+require_once 'includes/webform.inc';
+//
+// Replace BEF select control theming (checkboxes)
+require_once 'includes/bef.checkbox.theme';
+
+//
+// Step 1: implements proximity item click action and AJAXify webforms (delivery and offer webforms)
+require_once 'includes/proximity.action.inc';
+//
+// Step 2: implements webform submissions hooks (anonymous access rights)
+require_once 'includes/webform.submission.inc';
+//
+// Step 3: alter webform submission mails (token replacements, WhatsApp)
+require_once 'includes/webform.mail.inc';
+
 
 
 /* --------------------------------------------------
@@ -29,7 +52,7 @@ function &pxltrade_session_data() {
 
 
 /* --------------------------------------------------
- * PxlTrade hook implementation
+ * PxlTrade hook implementations
  * --------------------------------------------------*/
 
 /**
@@ -38,7 +61,7 @@ function &pxltrade_session_data() {
  * Redirects all node pages to the defined proximity container.
  */
 function pxltrade_init() {
-  return;
+  return; // no redirection
 
   // search for node/%nid routes and send them to modal dialog
   $pattern = '/^node\/\d+$/';
@@ -54,7 +77,7 @@ function pxltrade_init() {
  * @return mixed
  */
 function pxltrade_menu() {
-  $items[PXLTRADE_MENU_PATH] = array(
+  $items[PXLTRADE_ADMIN_MENU_PATH] = array(
     'title' => 'PixelTrade',
     'description' => 'PxlTrade - a social and ecological trading plattform.',
     'page callback' => 'system_admin_menu_block_page',
@@ -63,19 +86,85 @@ function pxltrade_menu() {
     'file' => 'system.admin.inc',
     'weight' => -7,
   );
+  //
+  // view / edit / delete webform submission by anonymous user (submission token needed)
+  $items['pxltrade-form/%pxlform/submission/%pxlform_submission/anonym_view'] = array(
+    'title' => 'View',
+    'load arguments' => array(1),
+    'page callback' => 'webform_submission_page',
+    'page arguments' => array(1, 3, 'html'),
+    'access callback' => 'pxltrade_anonym_submission_access',
+    'access arguments' => array(1, 3, 'anonym_view'),
+    'weight' => 0,
+    'file path' => drupal_get_path('module', 'webform'),
+    'file' => 'includes/webform.submissions.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['pxltrade-form/%pxlform/submission/%pxlform_submission/anonym_edit'] = array(
+    'title' => 'Edit',
+    'load arguments' => array(1),
+    'page callback' => 'webform_submission_page',
+    'page arguments' => array(1, 3, 'form'),
+    'access callback' => 'pxltrade_anonym_submission_access',
+    'access arguments' => array(1, 3, 'anonym_edit'),
+    'weight' => 1,
+    'file path' => drupal_get_path('module', 'webform'),
+    'file' => 'includes/webform.submissions.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['pxltrade-form/%pxlform/submission/%pxlform_submission/anonym_remove'] = array(
+    'title' => 'Remove',
+    'load arguments' => array(1),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('pxltrade_webform_submission_remove_form', 1, 3),
+    'access callback' => 'pxltrade_anonym_submission_access',
+    'access arguments' => array(1, 3, 'anonym_delete'),
+    'weight' => 2,
+    'file' => 'includes/webform.submission.inc',
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
 }
 
+/**
+ * Menu loader callback. Load a webform node if the given nid is a webform.
+ */
+function pxlform_load($nid) {
+  if (!is_numeric($nid)) {
+    return FALSE;
+  }
+  $node = node_load($nid);
+  if (!isset($node->type) || !variable_get('webform_node_' . $node->type, FALSE)) {
+    return FALSE;
+  }
+  return pxltrade_webform_master_form($node);
+}
 
 /**
- * Implements hook_theme_registry_alter().
+ * Menu loader callback. Load a webform submission if the given sid is a valid.
  */
-function pxltrade_theme_registry_alter(&$theme_registry) {
-  $path = drupal_get_path('module', 'pxltrade');
-  if (isset($theme_registry['select_as_checkboxes'])) {
-    $theme_registry['select_as_checkboxes']['includes'][] = $path . '/includes/bef.checkbox.theme';
-    $theme_registry['select_as_checkboxes']['function'] = 'theme_filter_as_checkboxes';
+function pxlform_submission_load($sid, $nid) {
+  module_load_include('inc', 'webform', 'includes/webform.submissions');
+  $node = node_load($nid);
+  $master = pxltrade_webform_master_form($node);
+  $submission = webform_get_submission($master->nid, $sid);
+  return empty($submission) ? FALSE : $submission;
+}
+
+/**
+ * Allows to view, edit or delete submissions, if anonymous user token is correct.
+ */
+function pxltrade_anonym_submission_access($node, $submission, $op = 'anonym_view', $account = NULL) {
+  $anonymous_access = $submission && isset($_GET['token']) && $_GET['token'] == webform_get_submission_access_token($submission);
+  switch ($op) {
+    case 'anonym_view':
+    case 'anonym_edit':
+    case 'anonym_delete':
+      return $anonymous_access;
   }
+
+  return false;
 }
 
 

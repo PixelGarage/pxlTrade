@@ -7,12 +7,12 @@
  */
 
 /**
- * The ajax callback function of the ajaxified webform submission (action of the submit button).
+ * The ajax callback function of the AJAXified webform (action of the submit button).
  *
  * @param $form
  * @param $form_state
  */
-function webform_ajax_callback($form, &$form_state) {
+function pxltrade_webform_ajax_callback($form, &$form_state) {
   if (!empty($form_state['webform_completed']) && empty($form_state['save_draft'])) {
     // If user completed his submission, determine what to do.
     $output = _webform_ajax_callback_completed($form, $form_state);

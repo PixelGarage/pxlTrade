@@ -1,33 +1,26 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ralph
+ * Creates pre-built select option lists.
+ *
  * Date: 10.11.15
  * Time: 12:09
  */
 
 /* --------------------------------------------------
- * Webform helper functions
+ * Webform helpers
  * --------------------------------------------------*/
 /**
- * Gets a specific component value from a webform submission.
+ * Gets the master webform of a webform. Used for translated webforms to access all webform related data,
+ * e.g. submissions, components etc. which are only available on the master.
  *
- * @param object $node
- *    The webform node containing the component to be read.
- * @param string $form_key
- *    The defined form key of the component.
- * @param object $submission
- *    The form submission with the entered values.
- * @return string The value of the webform component or an empty string, if not set.
- *    The value of the webform component or an empty string, if not set.
+ * @param $node   object    The webform (translated)
+ * @return bool|mixed       Returns the master webform or false, if not found.
  */
-function _webform_submission_value($node, $form_key, $submission) {
-  foreach ($node->webform['components'] as $key => $data) {
-    if ($data['form_key'] == $form_key) {
-      return !empty($submission->data[$key]) ? $submission->data[$key][0] : '';
-    }
-  }
+function pxltrade_webform_master_form($node) {
+  $tnid = $node->tnid ? $node->tnid : $node->nid;
+  return node_load($tnid);
 }
+
 
 
 /* --------------------------------------------------
