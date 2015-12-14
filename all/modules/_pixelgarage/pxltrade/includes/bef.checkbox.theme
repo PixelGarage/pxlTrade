@@ -7,6 +7,18 @@
  */
 
 /**
+ * Implements hook_theme_registry_alter().
+ */
+function pxltrade_theme_registry_alter(&$theme_registry) {
+  $path = drupal_get_path('module', 'pxltrade');
+  if (isset($theme_registry['select_as_checkboxes'])) {
+    $theme_registry['select_as_checkboxes']['includes'][] = $path . '/includes/bef.checkbox.theme';
+    $theme_registry['select_as_checkboxes']['function'] = 'theme_filter_as_checkboxes';
+  }
+}
+
+
+/**
  * Themes a select filter element as a set of checkboxes.
  *
  * @see http://api.drupal.org/api/function/theme_select/7
