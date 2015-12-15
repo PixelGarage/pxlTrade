@@ -15,11 +15,11 @@
     attach: function () {
       // Iterate through all proximity container instances
       $.each(Drupal.settings.proximity, function (container, settings) {
-
+        // set selectors and variables
         var $container    = $('#' + container),
             $modal        = $container.find('.modal'),
             transDuration = parseInt(settings.trans_duration);
-
+        // backdrop height calculation
         var _backdropHeight = function() {
           var $dialog       = $modal.find('> .modal-dialog'),
               hWindow       = $(window).height(),
@@ -28,7 +28,7 @@
           // adjust backdrop height
           $modal.find('.modal-backdrop').css('height', hBackdrop);
         };
-
+        // scroll behavior of modal dialog
         var _modalScrollBehavior = function() {
           var $modalBody    = $modal.find('.modal-body'),
               hWindow       = $(window).height();
@@ -72,7 +72,7 @@
           // show modal dialog
           $(this).on('shown.bs.modal', function() {
             // disable body scrolling
-            $('body').css('overflow', 'hidden');
+            $('body').css({'position': 'fixed', 'overflow': 'hidden'});
 
             // set modal scrolling mode
             window.setTimeout(_modalScrollBehavior, 200);
@@ -84,18 +84,28 @@
             $(this).find('.modal-body').empty();
 
             // enable background scrolling
-            $('body').css('overflow', 'auto');
+            $('body').css({'position': 'relative', 'overflow': 'auto'});
 
             // redirect to home page to update view
             window.location = '/';
           });
 
-          // scroll modal dialog
+          // modal dialog scrolling adapts backdrop height
           $(this).on('scroll', function(){
             if ($(this).is(':visible')) {
+              // set backdrop height
               _backdropHeight();
             }
           });
+
+          // prevent iOS overscrolling in the back of modal
+          if (isMobile.any) {
+            $(this).on('touchmove', function(ev){
+              if ($(this).is(':visible')) {
+                ev.stopPropagation();
+              }
+            });
+          }
 
         });
 
@@ -116,5 +126,6 @@
       }); // proximity container instances
     }
   };
+
 
 })(jQuery);
