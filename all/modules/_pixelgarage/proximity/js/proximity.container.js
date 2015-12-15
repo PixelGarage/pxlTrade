@@ -72,7 +72,7 @@
           // show modal dialog
           $(this).on('shown.bs.modal', function() {
             // disable body scrolling
-            $('body').css({'position': 'fixed', 'overflow': 'hidden'});
+            $('body').css('overflow', 'hidden');
 
             // set modal scrolling mode
             window.setTimeout(_modalScrollBehavior, 200);
@@ -84,7 +84,7 @@
             $(this).find('.modal-body').empty();
 
             // enable background scrolling
-            $('body').css({'position': 'relative', 'overflow': 'auto'});
+            $('body').css('overflow', 'auto');
 
             // redirect to home page to update view
             window.location = '/';
