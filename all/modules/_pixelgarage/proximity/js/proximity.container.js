@@ -20,27 +20,39 @@
             $modal        = $container.find('.modal'),
             transDuration = parseInt(settings.trans_duration);
 
-        var _modalScrolling = function() {
-          var hBody,
-              $modalBody    = $modal.find('.modal-body'),
-              $dialog       = $modal.find('> .modal-dialog'),
+        var _backdropHeight = function() {
+          var $dialog       = $modal.find('> .modal-dialog'),
               hWindow       = $(window).height(),
               hBackdrop     = Math.max(hWindow, $dialog.height());
 
+          // adjust backdrop height
+          $modal.find('.modal-backdrop').css('height', hBackdrop);
+        };
+
+        var _modalScrollBehavior = function() {
+          var $modalBody    = $modal.find('.modal-body'),
+              hWindow       = $(window).height();
+
           // add modal fixed height class and calculate body height
           if ($(window).width() < 640) {
-            hBody = hWindow - $modal.find('.modal-header').height() - $modal.find('.modal-footer').height();
+            var $modalHeader  = $modal.find('.modal-header'),
+                $modalFooter  = $modal.find('.modal-footer'),
+                hHeader = $modalHeader.is(':visible') ? $modalHeader.height() : 0,
+                hFooter = $modalFooter.is(':visible') ? $modalFooter.height() : 0;
+
+            // set fixed modal body height and specific class
             $modal.addClass('modal-fixed-height');
-            $modalBody.css('height', hBody);
+            $modalBody.css('height', (hWindow - hHeader - hFooter));
 
           } else {
+            // set modal body height to auto
             $modal.removeClass('modal-fixed-height');
             $modalBody.css('height', 'auto');
 
           }
 
-          // adjust backdrop height
-          $modal.find('.modal-backdrop').css('height', hBackdrop);
+          // set backdrop height
+          _backdropHeight();
         };
 
 
@@ -57,14 +69,16 @@
         // set modal dialog scrolling behavior when modal is opened and make sure,
         // all media is stopped on modal closing
         $modal.once('modal-hidden', function () {
+          // show modal dialog
           $(this).on('shown.bs.modal', function() {
             // disable body scrolling
             $('body').css('overflow', 'hidden');
 
             // set modal scrolling mode
-            window.setTimeout(_modalScrolling, 200);
+            window.setTimeout(_modalScrollBehavior, 200);
           });
 
+          // hide modal dialog
           $(this).on('hidden.bs.modal', function () {
             // empty the modal body stopping all media etc.
             $(this).find('.modal-body').empty();
@@ -75,15 +89,24 @@
             // redirect to home page to update view
             window.location = '/';
           });
+
+          // scroll modal dialog
+          $(this).on('scroll', function(){
+            if ($(this).is(':visible')) {
+              _backdropHeight();
+            }
+          });
+
         });
 
         //
-        // Modal scrolling: for windows smaller than 480px fix modal height (100%) and scroll modal body,
+        // Modal scroll behavior:
+        // for windows smaller than 480px fix modal height (100%) and scroll modal body,
         // above this width scroll modal as a whole
         $(window).off('.modal-resize');
-        $(window).on('resize.modal-resize', function(){
+        $(window).on('resize.modal-resize ', function(){
           if ($modal.is(':visible')) {
-            _modalScrolling();
+            _modalScrollBehavior();
           }
         });
 

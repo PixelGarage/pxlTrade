@@ -25,19 +25,27 @@ footer.footer {
   padding: 0;
   border: none;
   background: rgba(255,255,255, 0.0);
+  z-index: @zindex-modal;
 
   .footer-exposed-form {
     display: none;
     margin-bottom: -(@pxl-footer-item-size-small + 2*@pxl-footer-item-padding);
-    padding-bottom: (@pxl-footer-item-size-small + 2*@pxl-footer-item-padding);
-    background: rgba(255,255,255, 0.9);
+    background: rgba(255,255,255, 0.95);
 
     @media @tablet {
       margin-bottom: -(@pxl-footer-item-size + 2*@pxl-footer-item-padding);
-      padding-bottom: (@pxl-footer-item-size + 2*@pxl-footer-item-padding);
     }
 
-    // see view-exposed-form for styling
+    .region-navigation {
+      display: block;
+      margin-bottom: (@pxl-footer-item-size-small + 2*@pxl-footer-item-padding);
+      width: 100%;
+
+      @media @tablet {
+        margin-bottom: (@pxl-footer-item-size + 2*@pxl-footer-item-padding);
+      }
+      // see view-exposed-form for styling
+    }
   }
 
   .footer-content {

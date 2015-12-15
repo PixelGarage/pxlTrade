@@ -82,6 +82,15 @@
           $menus = $footer.find('li.menu'),
           $body = $('body');
 
+      var _showExposedForm = function() {
+        // set actual window height and show panel
+        $exposedForm.css({'height': $(window).height(), 'overflow-y': 'auto'});
+        $exposedForm.slideDown(400);
+
+        // prevent background scrolling
+        $body.css('overflow', 'hidden');
+      };
+
       var _hideExposedForm = function() {
         // highlight filter menu, if at least one checkbox is selected
         if ($termFilters.find('.pxl-checkbox').hasClass('selected')) {
@@ -123,11 +132,7 @@
           // show / hide filter section
           if(!$menuIsActive) {
             $menu.addClass('active');
-            // show filter panel
-            $exposedForm.slideDown(400);
-
-            // prevent background scrolling
-            $body.css('overflow', 'hidden');
+            _showExposedForm();
 
           } else {
             // hide form
@@ -151,8 +156,16 @@
         _hideExposedForm();
       });
 
+      // resize exposed form on window resize
+      $(window).off('.filter-panel');
+      $(window).on('resize.filter-panel', function(){
+        if ($exposedForm.is(':visible')) {
+          $exposedForm.css('height', $(window).height());
+        }
+      });
     }
   };
+
 
   /**
    * Swaps images from black/white to colored on mouse hover.
