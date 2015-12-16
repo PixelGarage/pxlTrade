@@ -169,7 +169,7 @@ function _get_children_of_term($tree, $parent, &$list) {
   foreach ($tree as $term) {
     foreach ($term->parents as $index => $tid) {
       if ($tid == $parent) {
-        $list[$term->tid] = '---' . $term->name;
+        $list[$term->tid] = '--  ' . $term->name;
       }
     }
   }
