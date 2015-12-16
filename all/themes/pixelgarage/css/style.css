@@ -10530,7 +10530,34 @@ body .main-container .container .row section h1.page-header {
   color: #222222;
 }
 body .main-container .container .row section .messages {
-  margin-top: 20px;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 1060;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+@media screen and (min-width: 480px) {
+  body .main-container .container .row section .messages {
+    min-width: 480px;
+    width: 90%;
+    max-width: 692px;
+  }
+}
+@media screen and (min-width: 768px) {
+  body .main-container .container .row section .messages {
+    width: 90%;
+    max-width: 800px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  body .main-container .container .row section .messages {
+    width: 800px;
+  }
 }
 body .main-container .container .row section ul.nav-tabs {
   margin: 20px 0 5px;
