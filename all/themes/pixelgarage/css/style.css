@@ -10165,7 +10165,7 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget {
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget > label {
   display: block;
-  margin: 10px auto;
+  margin: 30px auto 10px;
   width: 100%;
   font-family: 'ProximaNovaBold', sans-serif;
   font-size: 20px;
@@ -10206,6 +10206,7 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
+  border: 2px solid #e6e6e6;
   background-color: #e6e6e6;
 }
 form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox .form-item input {
@@ -10248,9 +10249,14 @@ form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-wid
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox.selected .form-item,
-form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox:hover .form-item {
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox.selected .form-item {
+  border: 2px solid #ff5265;
   background-color: #ff5265;
+  -webkit-box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
+  box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
+}
+form .views-exposed-form .views-exposed-widgets .views-exposed-widget .views-widget .form-item .pxl-checkboxes .pxl-checkbox:hover .form-item {
+  border: 2px solid #ff5265;
   -webkit-box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
   box-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
 }

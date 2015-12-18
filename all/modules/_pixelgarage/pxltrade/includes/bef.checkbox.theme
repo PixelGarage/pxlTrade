@@ -47,9 +47,15 @@ function theme_filter_as_checkboxes($vars) {
 
   $output = '<div class="pxl-checkboxes">';
   foreach ($element['#options'] as $index => $term) {
-    // option structure: array(list-index => array(tid => name))
-    $label = reset($term->option);
-    $tid = key($term->option);
+    if (is_object($term)) {
+      // options tree structure: array('vocabulary list-index' => array(tid => name))
+      $label = reset($term->option);
+      $tid = key($term->option);
+    } else {
+      // options structure: array(tid => name)
+      $label = $term;
+      $tid = $index;
+    }
     $isSelected = array_search($tid, $selected_options) !== FALSE;
 
     $output .= '<div class="pxl-checkbox' . ($isSelected ? ' selected">' : '">');

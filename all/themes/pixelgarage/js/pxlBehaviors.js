@@ -30,17 +30,19 @@
     attach: function () {
       var $exposedForm = $('footer .footer-exposed-form'),
           $exposedFormSubmit = $exposedForm.find('.views-submit-button > button'),
-          $checkboxes = $('#edit-term-node-tid-depth-wrapper').find('.pxl-checkbox'),
+          $categoryCheckboxes = $('#edit-term-node-tid-depth-wrapper').find('.pxl-checkbox'),
+          $genderCheckboxes = $('#edit-field-sex-tid-wrapper').find('.pxl-checkbox'),
           $exposedWidgets = $('.views-exposed-widgets');
 
-      // select/unselect checkboxes
-      $checkboxes.once('checked', function() {
+      // select/unselect category checkboxes
+      $categoryCheckboxes.once('checked', function() {
         $(this).on('click', function() {
           var $checkbox = $(this),
+              $isSelected = $checkbox.hasClass('selected'),
               $input = $checkbox.find('input');
 
           // reset all checkboxes first
-          $checkboxes.each(function() {
+          $categoryCheckboxes.each(function() {
             var $checkbox = $(this),
                 $input = $checkbox.find('input');
 
@@ -48,10 +50,40 @@
             $input.prop('checked', false);
           });
 
-          // select checkbox
-          $checkbox.addClass('selected');
-          $input.prop('checked', true);
-          $exposedFormSubmit.click();
+          // de-/select checkbox
+          if (!$isSelected) {
+            $checkbox.addClass('selected');
+            $input.prop('checked', true);
+            //$exposedFormSubmit.click();
+          }
+
+          // don't propagate click event (otherwise exposed form is closed)
+          return false;
+        });
+      });
+
+      // select/unselect gender checkboxes
+      $genderCheckboxes.once('checked', function() {
+        $(this).on('click', function() {
+          var $checkbox = $(this),
+              $isSelected = $checkbox.hasClass('selected'),
+              $input = $checkbox.find('input');
+
+          // reset all checkboxes first
+          $genderCheckboxes.each(function() {
+            var $checkbox = $(this),
+                $input = $checkbox.find('input');
+
+            $checkbox.removeClass('selected');
+            $input.prop('checked', false);
+          });
+
+          // de-/select checkbox
+          if (!$isSelected) {
+            $checkbox.addClass('selected');
+            $input.prop('checked', true);
+            //$exposedFormSubmit.click();
+          }
 
           // don't propagate click event (otherwise exposed form is closed)
           return false;
@@ -76,7 +108,8 @@
       var $exposedForm = $('footer .footer-exposed-form'),
           $exposedFormSubmit = $exposedForm.find('.views-submit-button'),
           $exposedFormSubmitButton = $exposedFormSubmit.find('> button'),
-          $termFilters = $exposedForm.find('#edit-term-node-tid-depth-wrapper'),
+          $categoryFilters = $exposedForm.find('#edit-term-node-tid-depth-wrapper'),
+          $genderFilters = $exposedForm.find('#edit-field-sex-tid-wrapper'),
           $locationFilters = $exposedForm.find('#edit-field-address-locality-wrapper'),
           $footer = $('.footer-content'),
           $menus = $footer.find('li.menu'),
@@ -93,7 +126,7 @@
 
       var _hideExposedForm = function() {
         // highlight filter menu, if at least one checkbox is selected
-        if ($termFilters.find('.pxl-checkbox').hasClass('selected')) {
+        if ($categoryFilters.find('.pxl-checkbox').hasClass('selected')) {
           $footer.find('li.menu-filter').addClass('selected');
         }
         if ($locationFilters.find('.form-text').val()) {
@@ -120,11 +153,13 @@
           // menu specific
           if ($menu.hasClass('menu-filter')) {
             $locationFilters.hide();
-            $termFilters.show();
-            $exposedFormSubmit.hide();
+            $categoryFilters.show();
+            $genderFilters.show();
+            $exposedFormSubmit.show();
 
           } else if ($menu.hasClass('menu-location')) {
-            $termFilters.hide();
+            $categoryFilters.hide();
+            $genderFilters.hide();
             $locationFilters.show();
             $exposedFormSubmit.show();
           }

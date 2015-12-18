@@ -21,9 +21,11 @@
     padding: 0 0 100%; // square
     height: 0;
     #pxl-mixins.border-radius(@border-radius-small);
+    border: 2px solid @pxl-color-icon-light;
     background-color: @pxl-color-icon-light;
 
     input {
+      // hide radio-buttons and checkboxes
       display: none;
     }
 
@@ -62,9 +64,13 @@
     }
   }
 
-  &.selected .form-item,
-  &:hover .form-item {
+  &.selected .form-item {
+    border: 2px solid @pxl-color-red;
     background-color: @pxl-color-red;
+    .box-shadow(@pxl-box-shadow);
+  }
+  &:hover .form-item {
+    border: 2px solid @pxl-color-red;
     .box-shadow(@pxl-box-shadow);
   }
 }
@@ -113,7 +119,7 @@ form {
         // term filter
         > label {
           display: block;
-          margin: 10px auto;
+          margin: 30px auto 10px;
           width: 100%;
           font-family: @pxl-text-font-bold;
           font-size: @font-size-large;
