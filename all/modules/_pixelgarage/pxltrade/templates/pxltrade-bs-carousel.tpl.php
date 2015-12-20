@@ -3,7 +3,7 @@
     <!-- Carousel indicators -->
     <ol class="carousel-indicators">
       <?php foreach ($items as $key => $item): ?>
-        <li data-target="#pxltrade-bs-carousel--<?php print $id ?>" data-slide-to="<?php print $key ?>" class="<?php if ($key === 0) print 'active' ?>"></li>
+        <li data-target="#pxltrade-bs-carousel-<?php print $id ?>" data-slide-to="<?php print $key ?>" class="<?php if ($key === 0) print 'active' ?>"></li>
       <?php endforeach ?>
     </ol>
   <?php endif ?>

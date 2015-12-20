@@ -33,6 +33,24 @@
     }
   }
 
+  > .carousel-indicators {
+    position: fixed;
+    top: 20px;
+    bottom: auto;
+
+    li {
+      margin: 0 5px;
+      width: 14px;
+      height: 14px;
+      border-color: #aaa;
+
+      &.active {
+        width: 17px;
+        height: 17px;
+      }
+    }
+  }
+
   > a.carousel-control {
     display: block;
     position: absolute;

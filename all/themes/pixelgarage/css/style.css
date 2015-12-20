@@ -8985,6 +8985,21 @@ form#user-login {
 .pxltrade-bs-carousel.carousel > .carousel-inner {
   margin-top: 0;
 }
+.pxltrade-bs-carousel.carousel > .carousel-indicators {
+  position: fixed;
+  top: 20px;
+  bottom: auto;
+}
+.pxltrade-bs-carousel.carousel > .carousel-indicators li {
+  margin: 0 5px;
+  width: 14px;
+  height: 14px;
+  border-color: #aaa;
+}
+.pxltrade-bs-carousel.carousel > .carousel-indicators li.active {
+  width: 17px;
+  height: 17px;
+}
 .pxltrade-bs-carousel.carousel > a.carousel-control {
   display: block;
   position: absolute;

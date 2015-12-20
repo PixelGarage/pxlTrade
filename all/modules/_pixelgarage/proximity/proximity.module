@@ -202,7 +202,7 @@ function template_preprocess_views_view_proximity(&$vars) {
   }
 
   // allow others to alter the load-params
-  drupal_alter('proximity_load_params', $pe_container_index, $view->result, $ajax_load_params);
+  drupal_alter('proximity_load_params', $pe_container_index, $view, $ajax_load_params);
   $vars['ajax_load_params'] = $ajax_load_params;
 
   //

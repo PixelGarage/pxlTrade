@@ -20,16 +20,24 @@ $rendering_node_id = null;
  * the server (see next api function).
  *
  * @param $container_index      int     Index of proximity container (if more than one container exists in one page).
- * @param $view_result          array   The result array of the view.
+ * @param $view                 object  The view creating the proximity items.
  * @param $ajax_load_params     array   Array of ajax load parameters to be altered, one for each proximity item (row)
  *                                      retrieved by the view. Default is the views row index.
  */
-function pxltrade_proximity_load_params_alter($container_index, $view_result, &$ajax_load_params) {
+function pxltrade_proximity_load_params_alter($container_index, $view, &$ajax_load_params) {
   //
   // Return the term id as the load parameter for each item.
-  foreach ($view_result as $id => $item) {
+  foreach ($view->result as $id => $item) {
     $ajax_load_params[$id] = $item->tid;
   }
+
+  // store the exposed filters set in the view
+  $session_data = &pxltrade_session_data();
+  $session_data['exposed_filters'] = array();
+  foreach ($view->exposed_input as $key => $value) {
+    $session_data['exposed_filters'][$key] = $value;
+  }
+
 }
 
 /**
@@ -60,14 +68,28 @@ function pxltrade_proximity_render_item_alter($container_index, $param, &$render
 
   //
   // The $param contains a term id.
-  // Returns a bootstrap slider containing all offer nodes with the given taxonomy term set.
+  // Returns a bootstrap slider containing all offer nodes with the given taxonomy term set filtered
+  // by the exposed filters.
+  $session_data = &pxltrade_session_data();
+  $filters = $session_data['exposed_filters'];
+
   //
-  // get all offer nodes with term set
+  // get all offer nodes with the given category and fulfilling all set filters
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'offer')
     ->fieldCondition('field_category', 'tid', $param)
     ->propertyCondition('status', 1);
+
+  // set exposed filters
+  if (array_key_exists('field_address_locality', $filters) && !empty($filters['field_address_locality'])) {
+    // locality filter set
+    $query->fieldCondition('field_address', 'locality', $filters['field_address_locality']);
+  }
+  if (array_key_exists('field_sex_tid', $filters)) {
+    // gender filter set
+    $query->fieldCondition('field_sex', 'tid', is_array($filters['field_sex_tid']) ? $filters['field_sex_tid'][0]: $filters['field_sex_tid']);
+  }
   $result = $query->execute();
 
   if (!isset($result['node'])) return;
@@ -86,7 +108,7 @@ function pxltrade_proximity_render_item_alter($container_index, $param, &$render
       'pause' => 0,
       'wrap' => 1,
       'keyboard' => 1,
-      'indicators' => 0,
+      'indicators' => 1,
       'navigation' => 1,
       'id' => drupal_clean_css_identifier($param),
       'items' => $rendered_nodes,
@@ -98,7 +120,6 @@ function pxltrade_proximity_render_item_alter($container_index, $param, &$render
  * Adds additional js/css files for AJAX mode of proximity items.
  */
 function pxltrade_preprocess_views_view_proximity(&$vars) {
-  $path = drupal_get_path('module', 'pxltrade');
   drupal_add_js(drupal_get_path('module', 'webform') . '/js/webform.js');
 }
 
