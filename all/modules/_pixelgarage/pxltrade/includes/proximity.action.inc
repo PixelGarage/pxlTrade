@@ -82,11 +82,11 @@ function pxltrade_proximity_render_item_alter($container_index, $param, &$render
     ->propertyCondition('status', 1);
 
   // set exposed filters
-  if (array_key_exists('field_address_locality', $filters) && !empty($filters['field_address_locality'])) {
+  if (!empty($filters) && array_key_exists('field_address_locality', $filters) && !empty($filters['field_address_locality'])) {
     // locality filter set
     $query->fieldCondition('field_address', 'locality', $filters['field_address_locality']);
   }
-  if (array_key_exists('field_sex_tid', $filters)) {
+  if (!empty($filters) && array_key_exists('field_sex_tid', $filters)) {
     // gender filter set
     $query->fieldCondition('field_sex', 'tid', is_array($filters['field_sex_tid']) ? $filters['field_sex_tid'][0]: $filters['field_sex_tid']);
   }
