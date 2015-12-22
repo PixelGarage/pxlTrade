@@ -36,24 +36,21 @@ function pxltrade_mail_alter(&$message) {
   // Alter the mail message accordingly
   //
   // 1) send any mail only, if offer was still available (not just taken by other customer)
-  // 2) send supplier message only, if customer could be contacted
-  //    Therefore the mail order is important (see order in webform email configuration form):
-  //    First:  customer mail (sets session data, if not deliverable)
-  //    Second: supplier mail, only if customer could be contacted
+  $submission = $message['params']['submission'];
   $session_data = &pxltrade_session_data();
-  if (isset($session_data['no_contact']) || isset($session_data['just_taken'])) {
+  $just_taken = pxltrade_webform_submission_value($master, 'offer_state', $submission) == 'just taken';
+  if (isset($session_data['just_taken']) || $just_taken) {
     $message['send'] = false;
     return;
   }
 
-  $submission = $message['params']['submission'];
   $eid = $message['params']['email']['eid'];
   $template = variable_get('webform_mail_template_' . $node->nid . '_' . $eid, 'default');
   $offer_nid = pxltrade_webform_submission_value($master, 'offer_nid', $submission);
 
   if(!$offer = node_load($offer_nid)) {
     //
-    // don't send email, offer not available anymore (has just now been taken)
+    // don't send email, offer not available in db
     $message['send'] = false;
 
     // set error message, if no offer was found
@@ -66,15 +63,14 @@ function pxltrade_mail_alter(&$message) {
   //
   // Resolve tokens and adapt mails accordingly
   // Todo: make submission field search generic (form independant)
-  global $dummy_address;
   switch ($master->nid) {
     case 14:
       $customer_phone = $submission->data[6][0];
-      $customer_email = (!empty($submission->data[5]) && ($dummy_address != $submission->data[5][0])) ? $submission->data[5][0] : '';
+      $customer_email = (!empty($submission->data[5]) && (PXLTRADE_DUMMY_EMAIL_RECIPIENT != $submission->data[5][0])) ? $submission->data[5][0] : '';
       break;
     case 15:
       $customer_phone = $submission->data[1][0];
-      $customer_email = (!empty($submission->data[2]) && ($dummy_address != $submission->data[2][0])) ? $submission->data[2][0] : '';
+      $customer_email = (!empty($submission->data[2]) && (PXLTRADE_DUMMY_EMAIL_RECIPIENT != $submission->data[2][0])) ? $submission->data[2][0] : '';
       break;
     default:
       $customer_phone = '';
@@ -130,6 +126,11 @@ function pxltrade_mail_alter(&$message) {
   $message['subject'] = str_replace(array_keys($to_search), array_values($to_search), $message['subject']);
   $message['body'][0] = str_replace(array_keys($to_search), array_values($to_search), $message['body'][0]);
 
+  //
+  // add a remark to the supplier mail, if customer could not be contacted (see below)
+  if (isset($session_data['no_contact'])) {
+    $message['body'][0] .= t("\n\nPS: The customer could not be contacted by email or WhatsApp message. Please contact him with the given phone number!");
+  }
 
   //
   // WHATSAPP DELIVERY:

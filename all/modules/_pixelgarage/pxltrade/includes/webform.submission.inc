@@ -154,6 +154,15 @@ function _pxltrade_manage_submission_related_offer($master, &$submission) {
         // set just taken flag
         $session_data = &pxltrade_session_data();
         $session_data['just_taken'] = true;
+
+        //
+        // set 'just taken' also in submission (due to resending mails)
+        foreach ($master->webform['components'] as $key => $data) {
+          if ($data['form_key'] == 'offer_state') {
+            $submission->data[$key][0] = 'just taken';
+            break;
+          }
+        }
       }
     }
   }
@@ -192,6 +201,9 @@ function _pxltrade_update_offer_with_submission_data($submission, &$offer) {
   $offer->field_phone[$offer->language][0]['value'] = (!empty($submission->data[11])) ? $submission->data[11][0] : ''; // phone
   $offer->field_email[$offer->language][0]['email'] = $submission->data[12][0]; // email
   $offer->field_delivery_form[$offer->language][0]['target_id'] = _pxltrade_convert_delivery_term_to_form($submission->data[14][0]); // delivery type/form
+  if ($term = taxonomy_term_load($submission->data[14][0])) {
+    $offer->field_delivery_text[$offer->language][0]['value'] = $term->name;
+  }
 }
 
 function _pxltrade_convert_delivery_term_to_form($tid) {

@@ -155,6 +155,7 @@ function pxltrade_form_alter(&$form, &$form_state, $form_id) {
       $form['submitted']['offer_nid']['#value'] = $rendering_node_id;
     }
     if (isset($form['submitted']['offer_email'])) {
+      // needed on submission to send email to supplier
       $offer = node_load($rendering_node_id);
       $form['submitted']['offer_email']['#value'] = $offer->field_email[LANGUAGE_NONE][0]['email'];
     }
