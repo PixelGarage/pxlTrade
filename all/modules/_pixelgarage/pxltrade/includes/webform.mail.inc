@@ -166,6 +166,10 @@ function pxltrade_mail_alter(&$message) {
       // add email message replaced with html line-breaks
       $session_data['no_contact'] .= str_replace(PHP_EOL, '<br>', $message['body'][0]);
     }
+    else {
+      // all OK, reset 'no contact' due to resending emails
+      unset($session_data['no_contact']);
+    }
 
     return;
   }
