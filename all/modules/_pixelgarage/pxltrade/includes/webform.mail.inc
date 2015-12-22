@@ -51,17 +51,15 @@ function pxltrade_mail_alter(&$message) {
   $template = variable_get('webform_mail_template_' . $node->nid . '_' . $eid, 'default');
   $offer_nid = pxltrade_webform_submission_value($master, 'offer_nid', $submission);
 
-  if(!($offer = node_load($offer_nid)) || !$offer->status) {
+  if(!$offer = node_load($offer_nid)) {
     //
     // don't send email, offer not available anymore (has just now been taken)
     $message['send'] = false;
 
     // set error message, if no offer was found
-    if (!$offer) {
-      $error_msg = t('The offer data could not be found. Please contact an administrator.');
-      drupal_set_message($error_msg, 'error');
-      watchdog('pxlTrade', $error_msg, array(), WATCHDOG_ERROR);
-    }
+    $error_msg = t('The offer data could not be found. Please contact an administrator.');
+    drupal_set_message($error_msg, 'error');
+    watchdog('pxlTrade', $error_msg, array(), WATCHDOG_ERROR);
     return;
   }
 
