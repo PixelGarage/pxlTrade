@@ -71,7 +71,7 @@ function pxltrade_proximity_render_item_alter($container_index, $param, &$render
   // Returns a bootstrap slider containing all offer nodes with the given taxonomy term set filtered
   // by the exposed filters.
   $session_data = &pxltrade_session_data();
-  $filters = $session_data['exposed_filters'];
+  $filters = isset($session_data['exposed_filters']) ? $session_data['exposed_filters'] : null;
 
   //
   // get all offer nodes with the given category and fulfilling all set filters
