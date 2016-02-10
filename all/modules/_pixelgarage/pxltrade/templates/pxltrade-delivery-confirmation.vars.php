@@ -28,8 +28,20 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
   }
   if ($is_offer_form) {
     // set standard offer form confirmation message
-    $vars['confirmation_message'] =
-      t('<strong>Thank you very much!</strong><br> Your offer has been successfully published. Shortly you get an email with further details.');
+    $vars['confirmation_message'] =  t('<strong>Thank you very much!</strong><br> Your offer has been successfully published. ');
+
+    // work-around for SPAM problem,
+    if ($vars['status'] == 'failed_email') {
+      $sid = $vars['sid'];
+      $submission = webform_get_submission($master->nid, $sid);
+      $token = webform_get_submission_access_token($submission);
+      $vars['access_token_url'] = url("node/{$master->nid}/submission/{$sid}", array('query' => array('token' => $token), 'absolute' => TRUE));
+      $vars['confirmation_message'] .= t('<strong>Please bookmark the following link</strong>, if you want to be able to manage your offer in the future:<br>');
+      $vars['status'] = 'success';
+    }
+    else {
+      $vars['confirmation_message'] .= t('Shortly you get an email with further details.');
+    }
   }
   else if ($is_delivery_form) {
     // set standard delivery form confirmation message

@@ -34,5 +34,10 @@
     <?php else: ?>
       <p><?php print t('Thank you, your submission has been received.'); ?></p>
     <?php endif; ?>
+    <?php if ($access_token_url): ?>
+      <div class="access-token" >
+        <a href="<?php print $access_token_url; ?>" title="<?php print t('Manage your offer'); ?>"><?php print $access_token_url; ?></a>
+      </div>
+    <?php endif; ?>
   </div>
 </div>

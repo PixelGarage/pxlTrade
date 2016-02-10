@@ -55,8 +55,18 @@ function _webform_ajax_callback_completed($form, $form_state) {
 
     //
     // AJAX: Display webform confirmation always at the webform place (overrule confirmation settings).
+    $error_messages = drupal_get_messages('error', TRUE);
+    $failed_email_send = false;
+    foreach ($error_messages['error'] as $index => $error) {
+      // "unable to send email" is not treated as error (SPAM problem work-around)
+      if (strpos($error, 'Unable to send e-mail') === FALSE) {
+        drupal_set_message($error, 'error');
+      } else {
+        $failed_email_send = true;
+      }
+    }
     $error_messages = drupal_get_messages('error', FALSE);
-    $status = empty($error_messages) ? 'success' : 'error';
+    $status = empty($error_messages) ? ($failed_email_send ? 'failed_email' : 'success') : 'error';
     $output = array(
       '#type' => 'markup',
       '#markup' => theme('pxltrade_delivery_confirmation', array('node' => $form['#node'], 'sid' => $sid, 'status' => $status)),

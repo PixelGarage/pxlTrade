@@ -164,8 +164,16 @@ ul.webform-submission-actions {
   }
 
   .confirmation-message {
-    p {
-      margin-top: 20px;
+    margin-top: 20px;
+
+    .access-token {
+      a {
+        color: @pxl-color-red;
+
+        &:hover {
+          color: darken(@pxl-color-red, 20%);
+        }
+      }
     }
   }
 }

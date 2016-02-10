@@ -9736,8 +9736,14 @@ ul.webform-submission-actions li a:active {
   color: #f0ad4e;
   border: 2px solid #f0ad4e;
 }
-.webform-confirmation .confirmation-message p {
+.webform-confirmation .confirmation-message {
   margin-top: 20px;
+}
+.webform-confirmation .confirmation-message .access-token a {
+  color: #ff5265;
+}
+.webform-confirmation .confirmation-message .access-token a:hover {
+  color: #eb001a;
 }
 form.webform-client-form fieldset.panel .panel-heading {
   background: none;
