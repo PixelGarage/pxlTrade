@@ -79,7 +79,8 @@ function pxltrade_proximity_render_item_alter($container_index, $param, &$render
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'offer')
     ->fieldCondition('field_category', 'tid', $param)
-    ->propertyCondition('status', 1);
+    ->propertyCondition('status', 1)
+    ->propertyOrderBy('created', 'DESC'); // newest first
 
   // set exposed filters
   if (!empty($filters) && array_key_exists('field_address_locality', $filters) && !empty($filters['field_address_locality'])) {

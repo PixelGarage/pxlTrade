@@ -87,7 +87,7 @@
             $('body').css('overflow', 'auto');
 
             // redirect to home page to update view
-            window.location = '/';
+            //window.location = '/';
           });
 
           // modal dialog scrolling adapts backdrop height
