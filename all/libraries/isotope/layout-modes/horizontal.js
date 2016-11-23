@@ -1,6 +1,7 @@
 /*!
  * horizontal layout mode for Isotope
- * http://isotope.metafizzy.co
+ * v1.1.2
+ * http://isotope.metafizzy.co/layout-modes/horizontal.html
  */
 
 ( function( window ) {
@@ -44,6 +45,11 @@ if ( typeof define === 'function' && define.amd ) {
       'isotope/js/layout-mode'
     ],
     horizontalDefinition );
+} else if ( typeof exports === 'object' ) {
+  // CommonJS
+  module.exports = horizontalDefinition(
+    require('isotope-layout/js/layout-mode')
+  );
 } else {
   // browser global
   horizontalDefinition(

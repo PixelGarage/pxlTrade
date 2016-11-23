@@ -14,11 +14,14 @@ class views_plugin_style_proximity extends views_plugin_style {
 
     // define default options
     $default_options = array(
-      'proximity_position_randomly' => 0,
+      // layout options
+      'proximity_layout_mode' => 'none',
       'proximity_random_grid_cell_size' => 40,
+      // ajax options
       'proximity_ajax_enabled' => 1,
       'proximity_action_container' => 'modal_fix',
       'proximity_mobile_behavior' => 'touch_two',
+      // proximity options
       'proximity_effect_enabled' => 1,
       'proximity_item_selector' => '',
       'proximity_desc_selector' => '',
@@ -55,7 +58,7 @@ class views_plugin_style_proximity extends views_plugin_style {
       '#markup' => t('<br><br><strong>Proximity items view style</strong><br>' .
         'This view style allows to define any kind of Proximity items (view rows) with a lot of amazing features: <br>' .
         '<ul>' .
-        '<li><strong>Item placement: </strong>The items can be placed randomly (with or without overlap) or via CSS inside the proximity container</li>' .
+        '<li><strong>Item placement: </strong>The items can be placed randomly (with or without overlap), in an isotope grid or via CSS inside the proximity container</li>' .
         '<li><strong>Proximity effect: </strong>The items or parts of it can be animated when the mouse pointer approaches them (proximity).</li>' .
         '<li>Proximity effects can be overridden in code (event handler). Implemented effects are opacity and scaling.</li>' .
         '<li>An item description can be displayed, when the pointer is hovering the item.</li>' .
@@ -94,11 +97,30 @@ class views_plugin_style_proximity extends views_plugin_style {
     );
 
     // define positioning
-    $form['proximity_position_randomly'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Position items randomly'),
-      '#description' => t('Defines, if the proximity items are distributed randomly in the container. Deselecting this property means, that the items have to be positioned with css.'),
-      '#default_value' => $default_values['proximity_position_randomly'],
+    $layout_options = array(
+      'none' => t('None (CSS)'),
+      'random' => t('Random'),
+    );
+    if (proximity_isotope_installed()) {
+      $layout_options += array(
+        'masonry' => t('Masonry'),
+        'packery' => t('Packery'),
+        'masonryHorizontal' => t('Masonry horizontal'),
+        'fitRows' => t('Fit rows'),
+        'fitColumns' => t('Fit columns'),
+        'cellsByRow' => t('Cells by row'),
+        'cellsByColumn' => t('Cells by column'),
+        'horizontal' => t('Horizontal'),
+        'vertical' => t('Vertical'),
+      );
+    }
+    $form['proximity_layout_mode'] = array(
+      '#type' => 'select',
+      '#title' => t('Layout mode'),
+      '#description' => t("Defines the layout mode for the items. 'None' means no specific layout, 'Random' means a random distribtion in the container, all other are specific Isotope grid layouts."),
+      '#default_value' => $default_values['proximity_layout_mode'],
+      '#options' => $layout_options,
+      '#required' => TRUE,
       '#weight' => 1,
       '#fieldset' => 'positioning',
     );

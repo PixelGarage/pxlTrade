@@ -1,0 +1,35 @@
+<?php
+/**
+ * Install fiel for proximity module.
+ *
+ * Date: 27.01.16
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function proximity_requirements($phase) {
+  $requirements = array();
+  $t = get_t(); // no access to the full Drupal API possible during Drupal install
+
+  if ($phase == 'runtime') {
+    // only runtime check
+    $library = libraries_detect('isotope');
+
+    $requirements['isotope'] = array(
+      'title' => $t('Isotope magical layouts available.'),
+    );
+    if ($library['installed']) {
+      $requirements['isotope']['value'] = $library['version'];
+      $requirements['isotope']['severity'] = REQUIREMENT_OK;
+    }
+    else {
+      $requirements['isotope']['value'] = $library['error'];
+      $requirements['isotope']['description'] = $library['error message'];
+      $requirements['isotope']['severity'] = REQUIREMENT_ERROR;
+    }
+  }
+
+  return $requirements;
+}
+

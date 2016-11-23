@@ -15,7 +15,7 @@
  * the server (see next api function).
  *
  * @param $container_index      int     Index of proximity container (if more than one container exists in one page).
- * @param $view                 object  The view creating the proximity items.
+ * @param $view                 array   The view.
  * @param $ajax_load_params     array   Array of ajax load parameters to be altered, one for each proximity item (row)
  *                                      retrieved by the view. Default is the views row index.
  */

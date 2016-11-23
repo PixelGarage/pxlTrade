@@ -1,0 +1,243 @@
+/**
+ * Variable Overrides.
+ *
+ * Modify this file to override the Bootstrap Framework variables. You can copy
+ * these variables directly from ../bootstrap/less/variables.less to this file.
+ */
+
+//== Colors
+//
+@pxl-color-red: #FF5265;
+@pxl-color-green: #77bb77;
+@pxl-color-yellow: #f0ad4e;
+@pxl-color-bg: #fff;
+@pxl-color-icon-footer: @gray-darker;
+@pxl-color-icon-light: #e6e6e6;
+@pxl-color-black: #000000;
+@pxl-color-gray: #808080;
+
+@pxl-color-main: @pxl-color-red;
+@pxl-color-body-bg: #fff;
+@pxl-color-active: @pxl-color-red;
+
+@pxl-color-border: #5f5e5e;
+@pxl-color-border-active: @pxl-color-main;
+
+@pxl-color-box-bg: @pxl-color-red;
+
+
+@gray-base:              #000;
+@gray-darker:            lighten(@gray-base, 13.5%); // #222
+@gray-dark:              lighten(@gray-base, 20%);   // #333
+@gray:                   lighten(@gray-base, 33.5%); // #555
+@gray-light:             lighten(@gray-base, 46.7%); // #777
+@gray-lighter:           lighten(@gray-base, 93.5%); // #eee
+
+@brand-primary:         darken(#428bca, 6.5%); // #337ab7
+@brand-success:         springgreen;
+@brand-info:            #5bc0de;
+@brand-warning:         #f0ad4e;
+@brand-danger:          #d9534f;
+
+//== Scaffolding
+//
+//** Background color for `<body>`.
+@body-bg:               #4d4d4d;
+
+@link-color:            @pxl-color-black;
+//** Link hover color set via `darken()` function.
+@link-hover-color:      @pxl-color-active;
+//** Link hover decoration.
+@link-hover-decoration: underline;
+
+@pxl-box-shadow: 0 0 4px rgba(100,100,100, 0.4);
+@pxl-box-shadow-left: 2px 0 2px rgba(100,100,100, 0.4);
+@pxl-box-shadow-right: -2px 0 2px rgba(100,100,100, 0.4);
+
+
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+@text-color:            @gray-darker;
+@text-color-light:      @pxl-color-bg;
+@text-color-disabled:   @gray;
+@text-color-field:      @pxl-color-black;
+@text-color-placeholder: @pxl-color-red;
+
+@font-size-base:          16px;
+@font-size-large:         ceil((@font-size-base * 1.25));
+@font-size-larger:        ceil((@font-size-base * 1.5));
+@font-size-small:         ceil((@font-size-base * 0.85));
+@font-size-smaller:       ceil((@font-size-base * 0.7));
+@font-size-min:          14px;
+
+@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
+@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
+@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5:            @font-size-base;
+@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+
+//
+// responsive font sizes
+@resp-font-size:          2vw;
+@resp-font-size-min:      12px;
+@resp-font-size-max:      17px;
+
+@resp-subtitle-size:      2.6vw;
+@resp-subtitle-size-min:  18px;
+@resp-subtitle-size-max:  24px;
+
+@resp-title-size:         3.125vw;
+@resp-title-size-min:     22px;
+@resp-title-size-max:     30px;
+
+//
+// selected element font size
+@font-size-button-small:  20px;
+@font-size-button:        24px;
+@font-size-pane-title:    32px;
+@font-size-pane-subtitle: 20px;
+
+
+
+//== Iconography
+//
+//** Load icon font from this directory.
+@pxl-bs-path: '../bootstrap';
+@icon-font-path: "@{pxl-bs-path}/fonts/";
+
+
+//== Media queries breakpoints
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+// Extra small screen / phone
+//** Deprecated `@screen-xs-min` as of v3.2.0
+@screen-xs-min:              30em; // 480px
+// Small screen / tablet
+@screen-sm-min:              48em; // 768px
+// Medium screen / desktop
+@screen-md-min:              64em; // 1024px
+// Large screen / wide desktop
+@screen-lg-min:              80em; // 1280px
+// So media queries don't overlap when required, provide a maximum
+@screen-xss-max:  (@screen-xs-min - 0.0625em);
+@screen-xs-max:   (@screen-sm-min - 0.0625em);
+@screen-sm-max:   (@screen-md-min - 0.0625em);
+@screen-md-max:   (@screen-lg-min - 0.0625em);
+
+
+//== Media queries
+//
+//## Define your custom media queries.
+@mobile:  ~"screen and (max-width: @{screen-xss-max})";
+@narrow:  ~"screen and (min-width: @{screen-xs-min})";
+@tablet:  ~"screen and (min-width: @{screen-sm-min})";
+@normal:  ~"screen and (min-width: @{screen-md-min})";
+@wide:    ~"screen and (min-width: @{screen-lg-min})";
+
+// special break for menu items
+@special-break: ~"screen and (min-width: 600px)";
+
+// Media queries stacked
+@tablet-only:  ~"screen and (min-width: @{screen-sm-min}) and (max-width: @{screen-sm-max})";
+@normal-only:  ~"screen and (min-width: @{screen-md-min}) and (max-width: @{screen-md-max})";
+
+
+//== Grid system
+//
+//## Define your custom responsive grid.
+
+//** Number of columns in the grid.
+@grid-columns:              12;
+//** Padding between columns. Gets divided in half for the left and right.
+@grid-gutter-width:         30px;
+@grid-gutter-width-tablet:  110px;
+// Navbar collapse
+//** Point at which the navbar becomes uncollapsed.
+@grid-float-breakpoint:     @screen-sm-min;
+//** Point at which the navbar begins collapsing.
+@grid-float-breakpoint-max: (@grid-float-breakpoint - 1);
+
+
+//== Container sizes
+//
+//## Define the maximum width of `.container` for different screen sizes.
+
+// Small screen / tablet
+@container-tablet:             (700px + @grid-gutter-width);
+//** For `@screen-sm-min` and up.
+@container-sm:                 @container-tablet;
+
+// Medium screen / desktop
+@container-desktop:            (770px + @grid-gutter-width);
+//** For `@screen-md-min` and up.
+@container-md:                 @container-desktop;
+
+// Large screen / wide desktop
+@container-large-desktop:      (770px + @grid-gutter-width);
+//** For `@screen-lg-min` and up.
+@container-lg:                 @container-large-desktop;
+
+
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+
+//== Carousel
+//
+//##
+
+@carousel-text-shadow:                        0 1px 2px rgba(0,0,0,.6);
+
+@carousel-control-color:                      #fff;
+@carousel-control-width:                      30px;
+@carousel-control-opacity:                    .5;
+@carousel-control-font-size:                  20px;
+
+@carousel-indicator-active-bg:                #fff;
+@carousel-indicator-border-color:             #fff;
+
+@carousel-caption-color:                      #fff;
+
+
+//== Pagination
+//
+//##
+
+@pagination-color:                     @link-color;
+@pagination-bg:                        #fff;
+@pagination-border:                    #ddd;
+
+@pagination-hover-color:               @link-hover-color;
+@pagination-hover-bg:                  @gray-lighter;
+@pagination-hover-border:              #ddd;
+
+@pagination-active-color:              #fff;
+@pagination-active-bg:                 @brand-primary;
+@pagination-active-border:             @brand-primary;
+
+@pagination-disabled-color:            @gray-light;
+@pagination-disabled-bg:               #fff;
+@pagination-disabled-border:           #ddd;
+
+
+//== Form
+//
+//##
+@pxl-form-control-height: 36px;
+
+//** Border color for inputs on focus
+@input-border-focus:             @pxl-color-red;
+
+//** Placeholder text color
+@input-color-placeholder:        #999;
+
+
+//== Tabs
+@nav-tabs-active-link-hover-color:          @pxl-color-red;
+

@@ -1,7 +1,10 @@
 /*!
  * cellsByColumn layout mode for Isotope
- * http://isotope.metafizzy.co
+ * v1.1.2
+ * http://isotope.metafizzy.co/layout-modes/cellsbycolumn.html
  */
+
+/*jshint browser: true, devel: false, strict: true, undef: true, unused: true */
 
 ( function( window ) {
 
@@ -53,6 +56,11 @@ if ( typeof define === 'function' && define.amd ) {
       'isotope/js/layout-mode'
     ],
     cellsByColumnDefinition );
+} else if ( typeof exports === 'object' ) {
+  // CommonJS
+  module.exports = cellsByColumnDefinition(
+    require('isotope-layout/js/layout-mode')
+  );
 } else {
   // browser global
   cellsByColumnDefinition(

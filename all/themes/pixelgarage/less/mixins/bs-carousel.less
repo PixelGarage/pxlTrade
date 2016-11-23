@@ -1,0 +1,125 @@
+/*
+ *  pxltrade bs-carousel component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+@carousel-control-top-small: 110px;
+@carousel-control-top: 160px;
+@carousel-control-shift-small: -10px;
+@carousel-control-shift: -30px;
+
+@carousel-control-shadow-left: 2px 0 2px rgba(100,100,100, 0.4);
+@carousel-control-shadow-right: -2px 0 2px rgba(100,100,100, 0.4);
+
+// Mixins
+// -------------------------
+#pxl-mixins {
+  //
+  // Bootstrap carousel
+  .carousel() {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: auto;
+
+    // fading carousel
+    &.carousel-fade {
+      > .carousel-inner {
+        .item {
+          opacity: 0;
+          #pxl-mixins.transition(opacity 1.5s);
+
+          &.active {
+            opacity: 1.0;
+
+            &.left, &.right {
+              left: 0;
+              opacity: 0;
+              z-index: 1;
+            }
+          }
+          &.left.next, &.right.prev {
+            opacity: 1.0;
+          }
+        }
+      }
+    }
+
+    > .carousel-inner {
+      margin-top: 0;
+
+      .item {
+
+        &.active {
+
+        }
+      }
+    }
+
+    > .carousel-indicators {
+      position: fixed;
+      top: 20px;
+      bottom: auto;
+      margin-left: -40%;
+      width: 80%;
+      overflow-x: auto;
+      white-space: nowrap;
+
+      li {
+        margin: 0 5px;
+        width: 14px;
+        height: 14px;
+        border-color: #aaa;
+
+        &.active {
+          width: 17px;
+          height: 17px;
+        }
+      }
+    }
+
+    > a.carousel-control {
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      padding: 0;
+      width: 50%;
+      #pxl-mixins.font-size-responsive(80px, 50px);
+      text-shadow: 0 0 2px #222;
+      text-align: unset;
+      color: #fff;
+      #pxl-mixins.border-radius(0);
+      border: none;
+      background: none;
+
+      &.left {
+        left: 0;
+        .border-left-radius(0);
+        border-left-width: 0;
+
+        .fa {
+          display: inline-block;
+          #pxl-mixins.center-vertically(absolute);
+          left: 5%;
+        }
+      }
+
+      &.right {
+        right: 0;
+        .border-right-radius(0);
+        border-right-width: 0;
+
+        .fa {
+          display: inline-block;
+          #pxl-mixins.center-vertically(absolute);
+          right: 5%;
+        }
+      }
+    }
+  }
+
+}
+
+

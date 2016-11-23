@@ -27,12 +27,6 @@ define('PROXIMITY_ITEM_URL_BASE_PATH', 'proximity-container-item/');
 define('PROXIMITY_ITEM_AJAX_PATH', 'ajax/pe-container-item/');
 
 
-/**
- * Holds global parameters of page callback
- */
-$page_callback_param = false;
-$page_callback_container = false;
-
 
 /* -----------------------------------------------------------------
  *  Proximity page / ajax callbacks
@@ -54,37 +48,39 @@ function proximity_menu() {
     'page arguments' => array(2,3),
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
-    'delivery callback' => 'proximity_ajax_delivery_callback',
+    //'delivery callback' => 'proximity_ajax_delivery_callback',
   );
   return $items;
 }
 
 /**
- * Page callback function for page request.
+ * Page callback function for proximity item page request.
  */
 function proximity_page_callback($container_index, $param) {
-  global $page_callback_param, $page_callback_container;
+  // get destination
+  $session_data = &proximity_session_data();
+  $session_data['page_callback_cont_id'] = $container_index;
+  $session_data['page_callback_load_param'] = $param;
 
-  // set page callback parameters globally
-  $page_callback_param = $param;
-  $page_callback_container = $container_index;
-
-  // return empty main content (item is rendered in proximity view)
-  return '';
+  // redirect to current destination (item is rendered in proximity view)
+  drupal_goto($session_data['current_destination'], array(), 307);
 }
 
 /**
  * Page callback function for AJAX request.
  */
 function proximity_ajax_callback($container_index, $param) {
-  // render the item and get the newly created Drupal settings to be returned
+  //
+  // find all Drupal settings that has been created during item rendering
+  // and return it together with the rendered item
   $js_settings_before = array('data' => drupal_add_js()['settings']['data']); // remove all keys in settings except data (to be added again in diff array)
   $rendered_item = _proximity_item_render($container_index, $param);
   $js_settings_after = drupal_add_js()['settings'];
   $js_settings = array(
     'settings' => _recursiveArrayDiff($js_settings_before, $js_settings_after),
-    'dummy.js' => 0,  // no rendering without js files
+    'dummy.js' => 0,  // no js rendering without a js files
   );
+  // render the js settings
   $rendered_js = drupal_get_js('header', $js_settings, true);
 
   // Output rendered item or error message and the new Drupal settings (inline)
@@ -171,6 +167,18 @@ function proximity_views_api() {
 }
 
 /**
+ * Session wide data container.
+ *
+ * @return array Returns the session data array.
+ */
+function &proximity_session_data() {
+  if (!isset($_SESSION['proximity'])) {
+    $_SESSION['proximity'] = array();
+  }
+  return $_SESSION['proximity'];
+}
+
+/**
  * Pre-process function for theme hook views_view_proximity (implemented as views_view_proximity.tpl.php).
  * This function prepares all necessary variables to create the markup for the proximity layout.
  *
@@ -179,6 +187,10 @@ function proximity_views_api() {
 function template_preprocess_views_view_proximity(&$vars) {
 
   static $pe_container_index = 0;
+
+  // store current url
+  $session_data = &proximity_session_data();
+  $session_data['current_destination'] = $_GET['q'];
 
   // Run preprocess function for unformatted style
   template_preprocess_views_view_unformatted($vars);
@@ -206,17 +218,24 @@ function template_preprocess_views_view_proximity(&$vars) {
   $vars['ajax_load_params'] = $ajax_load_params;
 
   //
-  // Render the requested proximity item (full page request) or the first item in the current container to guarantee
-  // that all needed js files are loaded. This assumes, that all items are of the same kind in terms of rendering.
+  // Render the requested proximity item (full page request).
+  // Otherwise render the first item in the current container to guarantee that all js files
+  // for the rendered item are loaded. This assumes, that all items are of the same kind in terms of rendering.
   // Subsequent ajax calls have then all js files already loaded (js settings are loaded inline in ajax call)
-  global $page_callback_param, $page_callback_container;
+  $page_callback_container = isset($session_data['page_callback_cont_id']) ? $session_data['page_callback_cont_id'] : false;
+  $page_callback_param = isset($session_data['page_callback_load_param']) ? $session_data['page_callback_load_param'] : false;
+
   $load_param = $page_callback_param ? $page_callback_param : array_values($ajax_load_params)[0];
   $rendered_item = _proximity_item_render($pe_container_index, $load_param);
+  $vars['rendered_item'] = false;
 
-  // set rendered_item for output if the current container equals the one of the deep link and reset global parameter
-  $vars['rendered_item'] = ($page_callback_param && $pe_container_index == $page_callback_container) ? $rendered_item : false;
-  $page_callback_param = false;
-  $page_callback_container = false;
+  if ($page_callback_param && $pe_container_index == $page_callback_container) {
+    $vars['rendered_item'] = $rendered_item;
+
+    // reset session data
+    $session_data['page_callback_cont_id'] = false;
+    $session_data['page_callback_load_param'] = false;
+  }
 
   //
   // add toggle item attributes depending on modal and ajax settings
@@ -242,7 +261,11 @@ function template_preprocess_views_view_proximity(&$vars) {
     'proximity' => array(
       $pe_container_id => array(
         // item positioning parameters
-        'position_randomly' => $options['proximity_position_randomly'],
+        'layout_mode' => $options['proximity_layout_mode'],
+        'grid_sizer' => '.grid-sizer',
+        'gutter_sizer' => '.gutter-sizer',
+        'stamp_elements' => '.stamp',
+        'position_randomly' => $options['proximity_layout_mode'] == 'random',
         'random_grid_cell_size' => $options['proximity_random_grid_cell_size'],
 
         // proximity parameters
@@ -277,6 +300,7 @@ function template_preprocess_views_view_proximity(&$vars) {
   $path = drupal_get_path('module', 'proximity');
   drupal_add_js($js_settings, 'setting');
   drupal_add_js($path . '/js/isMobile.min.js');
+
   if ($options['proximity_effect_enabled']) {
     drupal_add_js($path . '/js/proximity.jquery-event.js');
     drupal_add_js($path . '/js/proximity.js');
@@ -291,4 +315,115 @@ function template_preprocess_views_view_proximity(&$vars) {
     drupal_add_js($path . '/js/proximity.container.js');
   }
   //drupal_add_css($path . '/css/proximity.css');
+
+  // apply specific isotope layout scripts
+  $layout_mode = $options['proximity_layout_mode'];
+  if ($layout_mode != 'none' && $layout_mode != 'random' && proximity_isotope_loaded()) {
+    //
+    // add isotope script
+    drupal_add_js($path . '/js/proximity.isotope.js');
+
+    //
+    // add specific layout script
+    switch ($layout_mode) {
+      case 'masonry':
+        $layout_file = 'masonry.js';
+        break;
+      case 'masonryHorizontal':
+        $layout_file = 'masonry-horizontal.js';
+        break;
+      case 'packery':
+        $layout_file = 'packery.pkgd.min.js';
+        break;
+      case 'fitColumns':
+        $layout_file = 'fit-columns.js';
+        break;
+      case 'fitRows':
+        $layout_file = 'fit-rows.js';
+        break;
+      case 'cellsByRow':
+        $layout_file = 'cells-by-row.js';
+        break;
+      case 'cellsByColumn':
+        $layout_file = 'cells-by-column.js';
+        break;
+      case 'horizontal':
+        $layout_file = 'horizontal.js';
+        break;
+      case 'vertical':
+        $layout_file = 'vertical.js';
+        break;
+      default:
+        $layout_file = '';
+    }
+
+    if (!empty($layout_file)) {
+      $layout_file = libraries_get_path('isotope') . '/layout-modes/' . $layout_file;
+      drupal_add_js($layout_file);
+    }
+  }
+
 }
+
+
+/* -----------------------------------------------------------------
+ *  Isotope library definition and checking functions
+ * ----------------------------------------------------------------- */
+
+/**
+ * Implements hook_libraries_info().
+ */
+function proximity_libraries_info() {
+  $libraries['isotope'] = array(
+    'name' => 'Isotope magical layout',
+    'vendor url' => 'http://isotope.desandro.com/',
+    'download url' => 'http://desandro.com/#isotope',
+    'version arguments' => array(
+      'file' => 'isotope.pkgd.min.js',
+      // 2.x: Isotope PACKAGED v2.0.0
+      'pattern' => '/Isotope\s+PACKAGED\s+v?([0-9\.]+)/',
+      'lines' => 2,
+      'cols' => 50,
+    ),
+    'files' => array(
+      'js' => array(
+        'isotope.pkgd.min.js',
+        'imagesloaded.pkgd.min.js',
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Check if the Isotope library has been loaded.
+ *
+ * @return
+ *   A boolean indicating the loaded status.
+ */
+function proximity_isotope_loaded() {
+  $library = libraries_load('isotope');
+  if (($library) && !empty($library['loaded'])) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Check if the Isotope library is installed.
+ *
+ * @return
+ *   A boolean indicating the installed status.
+ */
+function proximity_isotope_installed() {
+  if (($library = libraries_detect('isotope')) && !empty($library['installed'])) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
+

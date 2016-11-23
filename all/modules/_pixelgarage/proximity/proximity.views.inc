@@ -14,7 +14,7 @@ function proximity_views_plugins() {
         'title' => t('Proximity layouts'),
         'handler' => 'views_plugin_style_proximity',
         'uses options' => TRUE,
-        'help' => t("Display regularly or irregularly distributed items that animate on mouse approach."),
+        'help' => t("Display view items in a definable layout and animates it on mouse approach. A click on an item opens it in a definable container (modal dialog)."),
         'theme' => 'views_view_proximity', // theme hook
         'type' => 'normal',
         'uses row plugin' => TRUE,

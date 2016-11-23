@@ -1,4 +1,4 @@
-name = Proximity views style plugin
+name = Proximity Views
 description = "Provides a views style plugin creating regularly or irregularly distributed items animating on mouse approach."
 core = 7.x
 package = Pixelgarage

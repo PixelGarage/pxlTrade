@@ -1,0 +1,6 @@
+name = Proximity Views Infinite Scroll
+description = Provides an Infinite Scrolling pager for Proximity Views
+package = Pixelgarage
+core = 7.x
+dependencies[] = views
+files[] = proximity_plugin_pager_infinite_scroll.inc
