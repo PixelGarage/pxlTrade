@@ -10092,7 +10092,7 @@ form#user-login {
   min-height: 350px;
 }
 .node.node-spenden .row .col-sm-12 .field-name-field-spenden {
-  padding: 0 10px;
+  padding: 0;
 }
 /*
  *  Node / block webform component
