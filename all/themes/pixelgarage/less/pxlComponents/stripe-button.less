@@ -1,0 +1,213 @@
+/*
+ *  Stripe button component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+@stripe-button-font-size: 22px;
+@stripe-button-color: #fff;
+@stripe-button-bg-color: @pxl-color-box-bg;
+@stripe-button-radius: 4px;
+
+@form-control-height: 36px;
+
+
+// Mixins
+// -------------------------
+.stripe-button(@size: @stripe-button-font-size) {
+  display: inline-block;
+  padding: 6px 15px;
+  height: @form-control-height;
+  font-family: @pxl-text-font-bold;
+  font-size: @size;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: capitalize;
+  color: @stripe-button-color;
+  outline: none;
+  opacity: 1.0;
+  #pxl-mixins.border-radius(@stripe-button-radius);
+  border: none;
+  background-color: @stripe-button-bg-color;
+
+  &:hover, &:focus {
+    opacity: 0.7;
+  }
+}
+
+.stripe-button-form () {
+  form {
+    width: 100%;
+    margin: 0 auto;
+
+    //
+    // text field with currency predecessor
+    .input-group {
+      display: inline-block;
+      vertical-align: top;
+      margin: 0 -2px;
+      padding: 0;
+      width: auto;
+      height: @form-control-height;
+      letter-spacing: 0;
+
+      .input-group-addon {
+        display: inline-block;
+        vertical-align: top;
+        padding: 6px 5px;
+        width: 60px;
+        font-family: @pxl-text-font-bold;
+        font-size: @stripe-button-font-size;
+        color: @text-color;
+        line-height: 1;
+        border: 1px solid @pxl-color-border;
+        background-color: #fff;
+      }
+
+      .form-item {
+        display: inline-block;
+        vertical-align: top;
+        padding: 0;
+        width: 70px;
+        color: @text-color;
+        text-align: right;
+
+        label {
+          display: none;
+        }
+
+        input.form-text {
+          padding: 8px 5px 6px;
+          font-family: @pxl-text-font;
+          font-size: @stripe-button-font-size;
+          text-align: right;
+          #pxl-mixins.border-radius(0);
+          border: 1px solid @pxl-color-border;
+
+          &:focus {
+            border: 1px solid @pxl-color-main;
+            box-shadow: 1px 1px 1px #aaa inset;
+          }
+        }
+      }
+    }
+
+    button.form-submit {
+      display: inline-block;
+      vertical-align: top;
+      .stripe-button(@stripe-button-font-size);
+      margin: 0 0 0 -4px;
+      .border-left-radius(0);
+    }
+  }
+}
+
+
+// General settings
+// -------------------------
+.field-type-number-decimal {
+  // stripe buttons
+  position: relative;
+  width: 100%;
+  z-index: 10;
+
+  .field-items {
+    text-align: center;
+
+    .field-item {
+      display: inline-block;
+      vertical-align: top;
+      width: 100%;
+      margin: 0 -2px 20px;
+      padding: 0;
+
+      @media @narrow {
+        width: 100%;
+      }
+
+      @media @tablet {
+        width: 100%;
+      }
+
+      .stripe-button-container {
+        padding: 0;
+
+        .stripe-button-title {
+          display: none;
+          font-family: @pxl-text-font-bold;
+          font-size: 22px;
+          color: @pxl-color-main;
+        }
+
+        .stripe-button-text {
+          display: none;
+          margin-bottom: @font-size-base;
+          font-family: @pxl-text-font;
+          font-size: @font-size-base;
+          color: @text-color;
+        }
+
+        //
+        // fixed stripe button
+        .stripe-button {
+          // the stripe button with the given amount
+          .stripe-button(@font-size-button);
+
+          &.btn-warning {
+            background-color: @brand-warning;
+          }
+
+          &[disabled] {
+            opacity: 0.7;
+          }
+        }
+
+        //
+        // stripe button custom form
+        .stripe-button-custom-form {
+          .stripe-button-form ();
+        }
+      }
+
+      //
+      // error items
+      .label.stripe-message {
+        // stripe message
+        display: block;
+        white-space: normal;
+        max-width: 150px;
+
+        &.label-warning {
+          background-color: @brand-warning;
+        }
+      }
+
+      .popover {
+        // stripe popover
+        font-family: @pxl-text-font;
+        letter-spacing: 1.2px;
+        text-align: left;
+        color: #fff;
+        border: none;
+        background: none;
+
+        .arrow {
+        }
+
+        .popover-title {
+          padding: 4px 14px;
+          font-family: @pxl-title-font;
+          font-size: 80%;
+          border:none;
+        }
+
+        .popover-content {
+          padding: 4px 14px;
+          font-size: 80%;
+          #pxl-mixins.border-radius(0 0 5px 5px);
+          background-color: @brand-warning;
+        }
+      }
+    }
+  }
+}

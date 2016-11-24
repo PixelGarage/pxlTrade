@@ -28,6 +28,13 @@ function stripe_button_menu() {
     'access callback' => TRUE,
     'page callback' => 'stripe_button_custom_form_callback',
   );
+
+  // handles AJAX stripe button fees
+  $items['stripe/ajax/fee'] = array(
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'page callback' => 'stripe_button_fee_callback',
+  );
   return $items;
 }
 
@@ -35,18 +42,7 @@ function stripe_button_menu() {
  * AJAX callback function of the stripe token creation.
  */
 function stripe_button_token_callback() {
-  // load stripe php library
-  $library = libraries_load('stripe');
-  if (!$library['loaded']) {
-    drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
-    print '<div class="stripe-message">' . t("NO charge!\nStripe API missing") . '</div>';
-    drupal_exit();
-  }
-
-  // set the private API key
-  \Stripe\Stripe::setApiKey(_stripe_api_secret_key());
-
-  // get the credit card details
+  // get/set charge details
   $token = $_POST['stripeToken'];
   $button_id = $_POST['btnID'];
   $amount = $_POST['amount'];
@@ -60,6 +56,26 @@ function stripe_button_token_callback() {
     '@curr' => $currency,
     '@date' => $date,
   ));
+
+  // load stripe php library
+  $library = libraries_load('stripe');
+  if (!$library['loaded']) {
+    //
+    // return error button with message
+    $button = theme('stripe_button_fix_value', array(
+        'id' => $button_id,
+        'amount' => -1,
+        'currency' => $currency,
+        'message' => t("NO charge!\nStripe API is missing"),
+      )
+    );
+    drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
+    print $button;
+    drupal_exit();
+  }
+
+  // set the private API key
+  \Stripe\Stripe::setApiKey(_stripe_api_secret_key());
 
   // Create the charge - this will charge the user's card
   $msg = false;
@@ -83,24 +99,39 @@ function stripe_button_token_callback() {
     $error = $e_json['error'];
     $msg = t($error['message']);
   }
+  finally {
+    if (!$msg) {
+      // get application fee if available
+      $app_fee = 0;
+      $session_data = &stripe_button_session_data();
+      if (isset($session_data['selected_fee'])) {
+        $app_fee = $amount * $session_data['selected_fee'];
+      }
+      $stripe_fee = round($amount * 0.029) + 30;
 
-  // create button (amount > 0 means normal button, amount == 0 means success button, amount < 0 means failure button)
+      //
+      // invoke hook for all modules, if charge was successful
+      module_invoke_all('charge_completed', ($amount / 100), ($stripe_fee / 100), ($app_fee / 100), $currency);
+    }
+  }
+
+  // create success button (amount == 0 means success button, amount < 0 means failure button)
   $success = !$msg ? 0 : -1;
+  $title = !$msg ? t('Thank you,') : t('Whoops,');
+  $text = !$msg ? t('for your contribution') : t('something went wrong');
   $button = theme('stripe_button_fix_value', array(
       'id' => $button_id,
       'amount' => $success,
       'currency' => $currency,
       'message' => $msg,
+      'label_title' => $title,
+      'label_text' => $text,
     )
   );
-
-  // create error message
-  //$errorMsg  = $msg ? '<div class="label label-warning stripe-message">' . t("Error: @msg", array('@msg'=>$msg)) . '</div>' : '';
 
   // send answer to client
   drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
   print $button;
-  //print $errorMsg;
   drupal_exit();
 }
 
@@ -118,12 +149,49 @@ function stripe_button_custom_form_callback () {
       'id' => $button_id,
       'amount' => $new_amount,
       'currency' => $currency,
+      'label_title' => t('Custom amount'),
+      'label_text' => t('Press button to complete donation'),
     )
   );
 
   // send answer to client
   drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
   print $button;
+  drupal_exit();
+}
+
+/**
+ * AJAX callback on click of fee radios. Used to set user selected fee percentage.
+ */
+function stripe_button_fee_callback() {
+  $selected_fee = floatval($_POST['selectedFee']);
+  $session_data = &stripe_button_session_data();
+  $session_data['selected_fee'] = $selected_fee;
+
+  // create answer depending on selected fee
+  switch($selected_fee) {
+    case 0.0:
+      $answer = t('<strong>Too bad!</strong> We are entirely financed by voluntary comission. Your contribution would make a difference.');
+      break;
+    case 0.05:
+      $answer = t('<strong>Thank you!</strong> Your contribution shows us that you appreciate our work.');
+      break;
+    case 0.1:
+    default:
+      $answer = t('<strong>Wow!</strong> Your contribution allows us to keep this platform up and running.');
+      break;
+    case 0.2:
+      $answer = t('<strong>Amazing!</strong> Your contribution enables us to enhance the functionality of this platform.');
+      break;
+    case 0.3:
+      $answer = t('<strong>Absolutely awesome!</strong> We are very grateful that you honor our work so generously.');
+      break;
+
+  }
+
+  // send answer to client
+  drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
+  print $answer;
   drupal_exit();
 }
 
@@ -151,6 +219,8 @@ function stripe_button_theme($existing, $type, $theme, $path) {
       'function' => 'theme_stripe_button_fix_value',
       'variables' => array(
         'id' => NULL,
+        'label_title' => NULL,
+        'label_text' => NULL,
         'amount' => NULL,
         'currency' => NULL,
         'csp' => FALSE,
@@ -161,10 +231,19 @@ function stripe_button_theme($existing, $type, $theme, $path) {
       'function' => 'theme_stripe_button_custom_value',
       'variables' => array(
         'id' => NULL,
+        'label_title' => NULL,
+        'label_text' => NULL,
         'amount' => NULL,
         'currency' => NULL,
         'csp' => FALSE,
       ),
+    ),
+    'stripe_button_fee_block' => array(
+      'variables' => array(
+        'container_id' => 'stripe-button-fee-block',
+      ),
+      'file' => 'templates/stripe_button_fee_block.vars.php',
+      'template' => 'templates/stripe_button_fee_block',
     ),
   );
 }
@@ -186,29 +265,37 @@ function theme_stripe_button_fix_value($variables) {
     $currency = strtoupper($variables['currency']);
     $amount = $variables['amount'] * 100 / 100; // no decimal value if not needed
     $label = t('@amount @currency', array('@amount' => $amount, '@currency' => $currency));
-    $output = '<button id="' . $variables['id'] . '" type="button"' .
-      ' class="btn btn-normal stripe-button">' .
+    $output = '<div class="stripe-button-container">' .
+      '<div class="stripe-button-title">' . t($variables['label_title']) . '</div>' .
+      '<div class="stripe-button-text">' . t($variables['label_text']) . '</div>' .
+      '<button id="' . $variables['id'] . '" type="button" class="btn btn-normal stripe-button">' .
       $label .
-      '</button>';
+      '</button></div>';
   }
   else if ($variables['amount'] == 0) {
     //
     // successful payment, create success button (disabled)
-    $label = t("Yes");
-    $output = '<button id="' . $variables['id'] . '" type="button"' .
+    $label = t("Done");
+    $output = '<div class="stripe-button-container">' .
+      '<div class="stripe-button-title">' . t($variables['label_title']) . '</div>' .
+      '<div class="stripe-button-text">' . t($variables['label_text']) . '</div>' .
+      '<button id="' . $variables['id'] . '" type="button"' .
       ' class="btn btn-success stripe-button" disabled>' .
       '<span class="fa fa-check"></span>' . $label .
-      '</button>';
+      '</button></div>';
   }
   else {
     //
     // failed payment, create fail button (disabled)
-    $label = t("No");
-    $output = '<button id="' . $variables['id'] . '" type="button"' .
+    $label = t("Nope");
+    $output = '<div class="stripe-button-container">' .
+      '<div class="stripe-button-title">' . t($variables['label_title']) . '</div>' .
+      '<div class="stripe-button-text">' . t($variables['label_text']) . '</div>' .
+      '<button id="' . $variables['id'] . '" type="button"' .
       ' class="btn btn-warning stripe-button" data-toggle="popover" data-trigger="hover" data-placement="auto bottom"'.
-      ' title="Stripe Error" data-content="' . $variables['message']. '">' .
+      ' title="Stripe Error" data-content="' . t($variables['message']) . '">' .
       '<span class="fa fa-times"></span>' . $label .
-      '</button>';
+      '</button></div>';
   }
 
   return $output;
@@ -222,7 +309,7 @@ function theme_stripe_button_fix_value($variables) {
  * The custom button is an AJAX form collecting a user defined amount. The process:
  * 1) The form submission sends the collected amount to the server
  * 2) a predefined Stripe button with the given value is created and sent back to the client browser
- * 3) The button is clicked programmatically in the AJAX response.
+ * 3) The button is clicked programmaticaly in the AJAX response.
  * 4) The predefined button process starts.
  */
 function theme_stripe_button_custom_value($variables) {
@@ -234,7 +321,11 @@ function theme_stripe_button_custom_value($variables) {
 
   // create custom amount form
   $render_form = drupal_get_form('stripe_button_custom_form');
-  $output = drupal_render($render_form);
+  $output = '<div class="stripe-button-container">' .
+    '<div class="stripe-button-title">' . t($variables['label_title']) . '</div>' .
+    '<div class="stripe-button-text">' . t($variables['label_text']) . '</div>' .
+    drupal_render($render_form) .
+    '</div>';
 
   return $output;
 }
@@ -253,7 +344,7 @@ function stripe_button_custom_form($form, &$form_state) {
   unset($session_data['currency']);
 
   // add wrapper to entire form
-  $form['#prefix'] = '<div id="form-' . $form_id . '">';
+  $form['#prefix'] = '<div id="form-' . $form_id . '" class="stripe-button-custom-form">';
   $form['#suffix'] = '</div>';
   $form['stripe_button_custom_amount'] = array(
     '#type' => 'textfield',
@@ -267,7 +358,7 @@ function stripe_button_custom_form($form, &$form_state) {
   );
   $form['stripe_button_custom_submit'] = array(
     '#type' => 'button',
-    '#value' => t('Pay'),
+    '#value' => t('OK'),
     '#weight' => 1,
   );
 
@@ -293,6 +384,10 @@ function stripe_button_field_formatter_info() {
       'field types' => array('number_decimal'),
       'settings'  => array(
         // Array of the settings to be defined
+        // button specific
+        'stripe_button_label_title' => '',
+        'stripe_button_label_text' => '',
+        // stripe dialog
         'stripe_button_name' => '',
         'stripe_button_description' => '',
         'stripe_button_currency' => 'CHF',
@@ -307,6 +402,10 @@ function stripe_button_field_formatter_info() {
       'field types' => array('number_decimal'),
       'settings'  => array(
         // Array of the settings to be defined
+        // button specific
+        'stripe_button_label_title' => '',
+        'stripe_button_label_text' => '',
+        // stripe dialog
         'stripe_button_name' => '',
         'stripe_button_description' => '',
         'stripe_button_currency' => 'CHF',
@@ -339,6 +438,18 @@ function stripe_button_field_formatter_settings_form($field, $instance, $view_mo
       'AUD' => t('AUD'),
       'CAD' => t('CAD'),
     );
+    $element['stripe_button_label_title'] = array(
+      '#type'          => 'textfield',
+      '#title'         => t('Label title'),
+      '#default_value' => $settings['stripe_button_label_title'],
+      '#description'   => t('Define the title of the button label. Default: Donate'),
+    );
+    $element['stripe_button_label_text'] = array(
+      '#type'          => 'textfield',
+      '#title'         => t('Label text'),
+      '#default_value' => $settings['stripe_button_label_text'],
+      '#description'   => t('Define the text of the button label. Default: none'),
+    );
     $element['stripe_button_currency'] = array(
       '#type' => 'select',
       '#title' => t('Currency'),
@@ -359,9 +470,9 @@ function stripe_button_field_formatter_settings_form($field, $instance, $view_mo
     );
     $element['stripe_button_label'] = array(
       '#type'          => 'textfield',
-      '#title'         => t('Button label'),
+      '#title'         => t('Button label prefix'),
       '#default_value' => $settings['stripe_button_label'],
-      '#description'   => t("Define the button label of the Stripe dialog submit button. Default: none"),
+      '#description'   => t("Define the prefix of the Stripe dialog submit button label. Default: none"),
     );
     $element['stripe_button_billing'] = array(
       '#type' => 'checkbox',
@@ -401,7 +512,7 @@ function stripe_button_field_formatter_settings_summary($field, $instance, $view
     $summary[] = t('Billing address:      @desc', array('@desc' => ($settings['stripe_button_billing'] == 1) ? 'yes' : 'no'));
     $summary[] = t('Shipping address:     @desc', array('@desc' => ($settings['stripe_button_shipping'] == 1) ? 'yes' : 'no'));
     $summary[] = t('Remember user:        @desc', array('@desc' => ($settings['stripe_button_remember'] == 1) ? 'yes' : 'no'));
-    $summary[] = t('Button label:         @curr', array('@curr' => $settings['stripe_button_label']));
+    $summary[] = t('Button label prefix:  @curr', array('@curr' => $settings['stripe_button_label']));
   }
 
   return implode('<br />', $summary);
@@ -420,7 +531,8 @@ function stripe_button_field_formatter_view($entity_type, $entity, $field, $inst
   $field_name = $instance['field_name'];
 
   // create drupal settings array
-  $logo_path = theme_get_setting('logo_path', 'pixelgarage');
+  $path = drupal_get_path('module', 'stripe_button');
+  $logo_path = $path . '/images/stripe_logo.png';
   $site_name = variable_get('site_name');
   $js_settings = array (
     'stripe_button' => array(
@@ -442,6 +554,9 @@ function stripe_button_field_formatter_view($entity_type, $entity, $field, $inst
     'shippingAddress' => $settings['stripe_button_shipping'],
     'allowRememberMe' => $settings['stripe_button_remember'],
   );
+  $label_title = t($settings['stripe_button_label_title']);
+  $label_text = t($settings['stripe_button_label_text']);
+
   switch ($display['type']) {
     // This formatter outputs a button with the number as label.
     case 'stripe_button_fixed':
@@ -458,6 +573,8 @@ function stripe_button_field_formatter_view($entity_type, $entity, $field, $inst
         $element[$delta] = array(
           '#theme' => 'stripe_button_fix_value',
           '#id' => $button_id,
+          '#label_title' =>  $label_title,
+          '#label_text' =>  $label_text,
           '#amount' => $amount,
           '#currency' => $button_settings['currency'],
           '#csp' => false,
@@ -482,6 +599,8 @@ function stripe_button_field_formatter_view($entity_type, $entity, $field, $inst
         $element[$delta] = array(
           '#theme' => 'stripe_button_custom_value',
           '#id' => $button_id,
+          '#label_title' =>  $label_title,
+          '#label_text' =>  $label_text,
           '#amount' => $amount,
           '#currency' => $button_settings['currency'],
           '#csp' => false,
@@ -491,7 +610,6 @@ function stripe_button_field_formatter_view($entity_type, $entity, $field, $inst
   }
 
   // add Checkout javascript
-  $path = drupal_get_path('module', 'stripe_button');
   drupal_add_js(STRIPE_CHECKOUT_JS_PATH, 'external');
   drupal_add_js($path . '/js/stripe_button.js');
 
@@ -502,3 +620,39 @@ function stripe_button_field_formatter_view($entity_type, $entity, $field, $inst
 
   return $element;
 }
+
+
+/* =============================================================================
+ *   Donation fee block 
+ * ========================================================================== */
+
+/**
+ * Implements hook_block_info().
+ */
+function stripe_button_block_info() {
+  $blocks['stripe_button_fee'] = array(
+    'info' => t('Fee selection block'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ * Displays the fee selection block.
+ */
+function stripe_button_block_view($delta = 0) {
+  $block = array();
+
+  switch ($delta) {
+    case 'stripe_button_fee':
+      $block['subject'] = null;
+      $block['content'] = theme('stripe_button_fee_block');
+      break;
+  }
+  return $block;
+}
+
+
+

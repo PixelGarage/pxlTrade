@@ -1,0 +1,56 @@
+/*
+ *  Node spenden component
+ * --------------------------------------------------*/
+
+// Variables
+// -------------------------
+
+
+
+// Mixins
+// -------------------------
+
+
+// General settings
+// -------------------------
+.node.node-spenden {
+  .row {
+    .col-sm-12 {
+      width: 100%;
+      height: auto;
+      margin-top: 30px;
+
+      @media @narrow {
+        margin-top: 0;
+      }
+
+      .field-name-title {
+        overflow: hidden;
+
+        h2 {
+          margin: 20px 10px;
+          font-family: @pxl-title-font;
+          font-size: 24px;
+          text-align: center;
+          color: @text-color;
+        }
+
+      }
+
+      .field-name-body {
+        margin: 0 auto 20px;
+        width: 80%;
+        #pxl-mixins.wysiwyg-body();
+        text-align: center;
+      }
+
+      .field-name-field-spenden {
+        padding: 0 10px;
+
+        // see stripe-button.less
+      }
+
+    }
+  }
+}
+

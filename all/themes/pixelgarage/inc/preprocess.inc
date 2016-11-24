@@ -41,4 +41,35 @@ function pixelgarage_preprocess_views_exposed_form(&$vars) {
 
 }
 
+/* =============================================================================
+ *      Front Masonry
+ * ========================================================================== */
+/**
+ * Adapts the proximity view, so that always two randomly chosen testimonials are visible
+ * in the masonry.
+ */
+function pixelgarage_preprocess_views_view_proximity (&$vars) {
+  if ($node = _get_donation_node()) {
+    $vars['donate_node'] = $node;
+  }
+}
+
+function _get_donation_node() {
+  static $donate_node = null;
+  if (empty($donate_node)) {
+    // get the published testimonials
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'spenden')
+      ->propertyCondition('status', NODE_PUBLISHED)
+      ->range(0, 1);
+    $result = $query->execute();
+    if ($result && !empty($result['node'])) {
+      $donate_node = node_load(key($result['node']));
+      return node_view($donate_node, 'teaser');
+    }
+  }
+  return false;
+}
+
 

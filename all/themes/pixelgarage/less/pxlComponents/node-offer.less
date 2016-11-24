@@ -14,53 +14,6 @@
 // Mixins
 // -------------------------
 
-.wysiwyg-body() {
-  h1, h2, h3, h4, h5, h6 {
-    font-family: @pxl-title-font;
-    font-size: 18px;
-  }
-  h1, h2 {
-    font-size: 26px;
-    color: @pxl-color-red;
-  }
-  h3, h4 {
-    font-size: 22px;
-    color: @pxl-color-red;
-  }
-
-  p, tbody td {
-    font-family: @pxl-text-font;
-    font-size: 18px;
-    #pxl-mixins.hyphenate;
-  }
-
-  pre, address {
-    font-family: @pxl-text-font-bold-italics;
-    font-size: 18px;
-    color: @pxl-color-red;
-    text-align: center;
-  }
-
-  hr {
-    border: 0;
-    border-bottom: 1px solid @pxl-color-icon-light;
-    background: none;
-  }
-
-  strong {
-    font-family: @pxl-text-font-bold;
-  }
-
-  img, embed, video, audio, iframe {
-    display: block;
-    overflow: hidden;
-    margin: 20px auto;
-    width: 100%;
-    max-width: 100%;
-    height: 0;
-    padding-bottom: 56.25%; // 16:9 ratio
-  }
-}
 
 
 // General settings
