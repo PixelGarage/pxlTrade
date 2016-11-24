@@ -144,15 +144,39 @@ function stripe_button_custom_form_callback () {
   $new_amount = $_POST['newAmount'];
   $currency = $_POST['currency'];
 
+  // check user input
+  $input_error = false;
+  if (!empty($new_amount) && is_numeric($new_amount)) {
+    if (floatval($new_amount) < 1.0) {
+      $input_error = true;
+    }
+  }
+  else {
+    $input_error = true;
+  }
+
   // create predefined stripe button with the new user amount
-  $button = theme('stripe_button_fix_value', array(
-      'id' => $button_id,
-      'amount' => $new_amount,
-      'currency' => $currency,
-      'label_title' => t('Custom amount'),
-      'label_text' => t('Press button to complete donation'),
-    )
-  );
+  if ($input_error) {
+    // incorrect user input, return custom button again with error message
+    $button = theme('stripe_button_custom_value', array(
+        'id' => $button_id,
+        'amount' => '10.00',
+        'currency' => $currency,
+        'message' => t('Number must be greater equals 1.00'),
+      )
+    );
+  }
+  else {
+    // correct user input, return button with fixed value
+    $button = theme('stripe_button_fix_value', array(
+        'id' => $button_id,
+        'amount' => $new_amount,
+        'currency' => $currency,
+        'label_title' => t('Custom amount'),
+        'label_text' => t('Press button to complete donation'),
+      )
+    );
+  }
 
   // send answer to client
   drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
@@ -236,6 +260,7 @@ function stripe_button_theme($existing, $type, $theme, $path) {
         'amount' => NULL,
         'currency' => NULL,
         'csp' => FALSE,
+        'message' => NULL,
       ),
     ),
     'stripe_button_fee_block' => array(
@@ -324,8 +349,8 @@ function theme_stripe_button_custom_value($variables) {
   $output = '<div class="stripe-button-container">' .
     '<div class="stripe-button-title">' . t($variables['label_title']) . '</div>' .
     '<div class="stripe-button-text">' . t($variables['label_text']) . '</div>' .
-    drupal_render($render_form) .
-    '</div>';
+    drupal_render($render_form);
+  $output .= !empty($variables['message']) ? '<div class="stripe-button-input-error">' . t($variables['message']) . '</div></div>' : '</div>';
 
   return $output;
 }

@@ -9325,6 +9325,11 @@ form#user-login {
 .field-type-number-decimal .field-items .field-item .stripe-button-container .stripe-button-custom-form form button.form-submit:focus {
   opacity: 0.7;
 }
+.field-type-number-decimal .field-items .field-item .stripe-button-container .stripe-button-input-error {
+  font-family: 'ProximaNovaLight', sans-serif;
+  font-size: 12px;
+  color: #FF5265;
+}
 .field-type-number-decimal .field-items .field-item .label.stripe-message {
   display: block;
   white-space: normal;
