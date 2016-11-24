@@ -9192,7 +9192,7 @@ form#user-login {
   display: inline-block;
   vertical-align: top;
   width: 100%;
-  margin: 0 -2px 20px;
+  margin: 0 -2px;
   padding: 0;
 }
 @media screen and (min-width: 30em) {
