@@ -9345,7 +9345,7 @@ form#user-login {
   padding: 4px 14px;
   font-family: 'ProximaNovaBold', sans-serif;
   font-size: 80%;
-  border: none;
+  background-color: #f0ad4e;
 }
 .field-type-number-decimal .field-items .field-item .popover .popover-content {
   padding: 4px 14px;
