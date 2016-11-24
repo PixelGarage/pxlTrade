@@ -15,20 +15,20 @@
   Drupal.behaviors.stripeCheckoutPredefinedButton = {
     attach: function () {
       var currentSettings,
-          $currentButton,
+          $clickedButton,
           checkoutHandler = StripeCheckout.configure({
             key: Drupal.settings.stripe_button.stripe_public_key,
             image: Drupal.settings.stripe_button.icon,
             locale: 'auto',
             token: function (token) {
               // get button container for responses
-              var $fieldItemDiv = $currentButton.parents('.field-item');
+              var $fieldItemDiv = $clickedButton.parents('.field-item');
 
               // Use the token to create the charge with a server-side script.
               if ((typeof token != 'undefined') && token.id) {
                 //
                 // prepare transaction data (PCI compliant)
-                var id     = $currentButton.attr('id'),
+                var id     = $clickedButton.attr('id'),
                     params = {
                       stripeToken: token.id,
                       btnID: id,  // used to recreate button in ajax response
@@ -39,7 +39,7 @@
 
                 //
                 // charge the customer with the token and display response
-                $fieldItemDiv.load('stripe/ajax/token', params, function (response, status, xhr) {
+                $fieldItemDiv.load('/stripe/ajax/token', params, function (response, status, xhr) {
                   if (status == "error") {
                     var msg = "Server error " + xhr.status + ": " + xhr.statusText;
                     $fieldItemDiv.html('<div class="label label-warning stripe-message">' + msg + '</div>');
@@ -70,7 +70,7 @@
         $button.on('click', function (e) {
           // set current settings
           currentSettings = settings;
-          $currentButton  = $(this);
+          $clickedButton  = $(this);
 
           // Open Checkout with further options
           checkoutHandler.open({
@@ -127,7 +127,7 @@
 
           //
           // get the stripe button with the user set value
-          $fieldItemDiv.load('stripe/ajax/button', params, function (response, status, xhr) {
+          $fieldItemDiv.load('/stripe/ajax/button', params, function (response, status, xhr) {
             if (status == "error") {
               var msg = "Server error " + xhr.status + ": " + xhr.statusText;
               $fieldItemDiv.html('<div class="label label-warning stripe-message">' + msg + '</div>');
