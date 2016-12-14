@@ -10458,6 +10458,7 @@ form.webform-client-form .webform-component.webform-container-inline select {
   form.webform-client-form .webform-component.webform-container-inline input.form-text,
   form.webform-client-form .webform-component.webform-container-inline select {
     position: absolute;
+    top: 0;
     right: 0;
     width: 58.333333%;
   }
