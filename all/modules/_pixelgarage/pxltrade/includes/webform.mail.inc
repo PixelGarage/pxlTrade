@@ -129,7 +129,7 @@ function pxltrade_mail_alter(&$message) {
   //
   // add a remark to the supplier mail, if customer could not be contacted (see below)
   if (isset($session_data['no_contact'])) {
-    $message['body'][0] .= t("\n\nPS: The customer could not be contacted by email or WhatsApp message. Please contact him with the given phone number!");
+    $message['body'][0] .= t("\n\nPS: The customer could not be contacted by email. Please contact him with the given phone number!");
   }
 
   //

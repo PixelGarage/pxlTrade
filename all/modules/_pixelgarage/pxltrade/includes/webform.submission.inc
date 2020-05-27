@@ -39,11 +39,10 @@ function pxltrade_webform_submission_value($master, $form_key, $submission) {
  *
  * 1) Create or update the submission's related offer node.
  * Offer webform: add a new offer, if not existing yet.
- * Delivery webform: update the related offer (status,
+ * Delivery webform: update the related offer (status, remaining offers)
  *
  * 2) Make sure that all email form fields have a an email-address added.
- * If not, fill with a dummy address which is used as trigger to send the message on another channel (WhatsApp etc.).
- * Remark: Email field in delivery form is not required, only phone.
+ * Remark: Email field in delivery form is required, not phone.
  */
 function pxltrade_webform_submission_presave($node, &$submission) {
   // get the master form

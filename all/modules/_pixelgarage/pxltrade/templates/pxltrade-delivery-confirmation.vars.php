@@ -46,7 +46,7 @@ function template_preprocess_pxltrade_delivery_confirmation(&$vars) {
   else if ($is_delivery_form) {
     // set standard delivery form confirmation message
     $vars['confirmation_message'] =
-      t('<strong>Gratulation!</strong><br> You have successfully requested the offer. Shortly you get an email or WhatsApp SMS with further details.');
+      t('<strong>Gratulation!</strong><br> You have successfully requested the offer. Shortly you get an email with further details.');
   }
 
   //

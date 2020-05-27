@@ -71,6 +71,9 @@ function pxltrade_init() {
   }
 }
 
+/* --------------------------------------------------
+ * Menu
+ * --------------------------------------------------*/
 /**
  * Define the pxltrade menu as top node of the admin menu.
  * All administration of the PxlTrade latform is added below this menu.
@@ -123,6 +126,14 @@ function pxltrade_menu() {
     'file' => 'includes/webform.submission.inc',
     'type' => MENU_CALLBACK,
   );
+  // remove all unpublished offers
+  $items['pxltrade/offer/remove-all'] = array(
+    'title' => 'Remove all unpublished offers',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('pxltrade_offer_remove_form'),
+    'access arguments' => array('View published content'),
+    'type' => MENU_LOCAL_ACTION,
+  );
 
   return $items;
 }
@@ -167,7 +178,81 @@ function pxltrade_anonym_submission_access($node, $submission, $op = 'anonym_vie
   return false;
 }
 
+/**
+ * Add local action on search offer view.
+ *
+ * @param $data
+ * @param $router_item
+ * @param $root_path
+ */
+function pxltrade_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  switch($root_path){
+    case 'admin/content/search-offer':
+      $item = menu_get_item('pxltrade/offer/remove-all');
+      if ($item['access']) {
+        $data['actions']['output'][] = array(
+          '#theme' => 'menu_local_action',
+          '#link' => $item,
+        );
+      }
+      break;
+  }
+}
 
+/* ---------------------------------------------------------------------
+ * Form to remove all unpublished offers older than a given date.
+ * ---------------------------------------------------------------------*/
+/**
+ * Confirmation form to delete all unpublished offers.
+ *
+ * @param $form
+ * @param $form_state
+ *
+ * @return mixed
+ */
+function pxltrade_offer_remove_form($form, $form_state) {
+  $question = t('Are you sure you want to remove all unpublished offers older than the date below?');
+
+  // add date field to select offer
+  $form['pxltrade_date'] = array(
+    '#type' => 'date_popup',
+    '#date_timezone' => date_default_timezone(),
+    '#date_format' => 'd.m.Y',
+    '#date_year_range' => '-3:0',
+    '#default_value' => date('Y-m-d H:i:s', strtotime('-1 year')),
+    '#required' => TRUE,
+  );
+
+  return confirm_form($form, $question, '/', NULL, t('Remove All'), t('Cancel'));
+}
+
+function pxltrade_offer_remove_form_submit($form, $form_state) {
+  $timestamp = strtotime($form_state['values']['pxltrade_date']);
+  //
+  // get all offer nodes with the given category and fulfilling all set filters
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'offer')
+    ->propertyCondition('status', 0)
+    ->propertyCondition('created', $timestamp, '<');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    // get nodes and delete it
+    try {
+      node_delete_multiple(array_keys($result['node']));
+    }
+    catch (Exception $e) {
+      $error_msg = t('The offers could not be deleted due to a server error: @err', array('@err' => $e->getMessage()));
+      drupal_set_message($error_msg, 'error');
+      watchdog('pxlTrade', $error_msg, array(), WATCHDOG_ERROR);
+    }
+  }
+}
+
+/* --------------------------------------------------
+ * Themes
+ * --------------------------------------------------*/
 /**
  * Implements hook_theme().
  */

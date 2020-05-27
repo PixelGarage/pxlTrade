@@ -1,0 +1,8 @@
+name = Stripe checkout
+description = "Provides Stripe button fields allowing to process credit card transaction via the Stripe Checkout service."
+core = 7.x
+package = Pixelgarage
+
+dependencies[] = stripe_api
+
+version = "7.x-1.0"
