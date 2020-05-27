@@ -82,15 +82,21 @@ $output .= '&nbsp;' . t('Click the help icon.');
 
 <p>Dette produserer et klikkbart hjelpe-ikon lik det som vises under:</p>
 
-<div class="ta-center">
-<img class="help-img-center" alt="klikkbart ikon" src="&trans_path&click_icon.png" width="180" height="90" border="0" />
+<div class="help-imgpos-center">
+<img class="help-img" alt="klikkbart ikon" src="&trans_path&click_icon.png" width="180" height="90" border="0" />
 </div>
 
 <p>Inne i en hjelpe-fil kan du lenke til andre hjelpe-emner ved å
 bruke dette formatet:</p>
 <pre>
-&lt;a href="&amp;topic:module/topic&amp;"&gt;topic&lt;/a&gt;
+&lt;a href="&amp;topic:moduleshortname/moduletopic&amp;"&gt;anchortext&lt;/a&gt;
+&lt;a href="&amp;topic:help_example/lorem&amp;"&gt;Lorem ipsum&lt;/a&gt;
 </pre>
+
+<p>Den andre linja viser hvordan du lenker til en hjelpeside
+tilhørende modulen med det korte navnet <code>help_example</code>, der
+hjelpe-emne er <code>lorem</code>.</p>
+
 <p>Ved å bruke dette formatet i stedet for standard-lenker vil sprettopp-status være konsistent når man trykker på lenker.</p>
 
 <p>For å referere til andre elementer som befinner seg i
@@ -163,3 +169,9 @@ og skrur på nye prosjekter og ønsker å indeksere deres
 hjelpetekster umiddelbart kan du navigere til <em>Administrasjon →
 Rapporter → Status</em> og klikke på lenken for å “kjøre cron
 manuelt.”.</p>
+
+<h2 id="note">Notis</h2>
+
+<p>Det neste emnet (“Avansert hjelp .ini-filformat”) er ikke
+oversatt. Da vil <strong>Avansert hjelp</strong> falle tilbake på den
+uoversatte engelske fila.</p>

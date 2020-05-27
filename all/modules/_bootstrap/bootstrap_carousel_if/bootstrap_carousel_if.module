@@ -60,7 +60,7 @@ function theme_bootstrap_carousel_if($vars) {
   $files = array();
   foreach ($vars['items'] as $file) {
     if ($vars['background']) {
-      $files[] = '<div style="width: ' . check_plain($vars['width']) . '; height: ' . $vars['height'] . '; background-position: ' . $vars['background_pos'] . '; background-size: cover; background-image: url(' . file_create_url($file['uri']) . ');"></div>';
+      $files[] = '<div style="width: ' . check_plain($vars['width']) . '; height: ' . $vars['height'] . '; background-position: ' . $vars['background_pos'] . '; background-size: cover; background-image: url(' . ($vars['image_style'] ? image_style_url($vars['image_style'], $file['uri']) : file_create_url($file['uri'])) . ');"></div>';
     } else {
       $type = ($vars['image_style']) ? 'image_style' : 'image';
       $file['style_name'] = ($vars['image_style']) ? $vars['image_style'] : '';
@@ -83,7 +83,7 @@ function theme_bootstrap_carousel_if($vars) {
         }
         $output .= '</ol>';
   }
-  
+
   $output .= '<div class="carousel-inner" role="listbox">';
   // Files/slides
   for ($i = 0; $i < $filecount; $i++) {
@@ -112,6 +112,7 @@ function theme_bootstrap_carousel_if($vars) {
  * Implements hook_field_formatter_view().
  */
 function bootstrap_carousel_if_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+	$ids = entity_extract_ids($entity_type, $entity);
   $element[0] = array(
     '#markup' => theme('bootstrap_carousel_if',
       array(
@@ -125,7 +126,7 @@ function bootstrap_carousel_if_field_formatter_view($entity_type, $entity, $fiel
         'background_pos' => $display['settings']['background_pos'],
         'width' => $display['settings']['width'],
         'height' => $display['settings']['height'],
-        'id' => drupal_clean_css_identifier($entity->title . ' ' . $instance['field_name']),
+        'id' => drupal_clean_css_identifier(implode('-', $ids) . '-' . $instance['field_name']),
         'items' => $items,
       )
     ),
@@ -181,7 +182,7 @@ function bootstrap_carousel_if_field_formatter_settings_form($field, $instance, 
     '#options' => array(0 => 'no', 1 => 'yes'),
     '#default_value' => $settings['indicators'],
   );
-  
+
   // Get image styles
   $styles = image_styles();
   $options = array(
@@ -248,6 +249,6 @@ function bootstrap_carousel_if_field_formatter_settings_form($field, $instance, 
       ),
     ),
   );
-  
+
   return $element;
 }
