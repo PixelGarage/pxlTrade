@@ -128,7 +128,7 @@ function pxltrade_menu() {
   );
   // remove all unpublished offers
   $items['pxltrade/offer/remove-all'] = array(
-    'title' => 'Remove all unpublished offers',
+    'title' => 'Remove selected offers',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('pxltrade_offer_remove_form'),
     'access arguments' => array('View published content'),
@@ -211,7 +211,7 @@ function pxltrade_menu_local_tasks_alter(&$data, $router_item, $root_path) {
  * @return mixed
  */
 function pxltrade_offer_remove_form($form, $form_state) {
-  $question = t('Are you sure you want to remove all unpublished offers older than the date below?');
+  $question = t('Are you sure you want to remove all offers older than the given date?');
 
   // add date field to select offer
   $form['pxltrade_date'] = array(
@@ -222,19 +222,35 @@ function pxltrade_offer_remove_form($form, $form_state) {
     '#default_value' => date('Y-m-d H:i:s', strtotime('-1 year')),
     '#required' => TRUE,
   );
+  $form['pxltrade_status'] = array(
+    '#type' => 'radios',
+    '#title' => t('Offers to be deleted'),
+    '#default_value' => 'all',
+    '#options' => array(
+      'all' => t('All'),
+      'published' => t('Published offers'),
+      'unpublished' => t('Unpublished offers'),
+    ),
+  );
 
   return confirm_form($form, $question, '/', NULL, t('Remove All'), t('Cancel'));
 }
 
 function pxltrade_offer_remove_form_submit($form, $form_state) {
   $timestamp = strtotime($form_state['values']['pxltrade_date']);
+  $status = $form_state['values']['pxltrade_status'];
   //
   // get all offer nodes with the given category and fulfilling all set filters
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'offer')
-    ->propertyCondition('status', 0)
     ->propertyCondition('created', $timestamp, '<');
+  if ($status === 'published') {
+    $query->propertyCondition('status', 1);
+  }
+  else if ($status === 'unpublished') {
+    $query->propertyCondition('status', 0);
+  }
   $result = $query->execute();
 
   if (isset($result['node'])) {
