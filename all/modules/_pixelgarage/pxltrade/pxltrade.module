@@ -131,7 +131,7 @@ function pxltrade_menu() {
     'title' => 'Remove selected offers',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('pxltrade_offer_remove_form'),
-    'access arguments' => array('View published content'),
+    'access arguments' => array('access content overview'),
     'type' => MENU_LOCAL_ACTION,
   );
 
